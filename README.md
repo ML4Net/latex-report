@@ -28,6 +28,14 @@ The repository is organized as follows:
 
 To compile the report or clean the output directory, you can use the provided `compile.sh` script.
 
+### First Time Setup
+
+Before using the `compile.sh` script for the first time, make sure it has the necessary execute permissions. Run the following command to grant execute permissions to the script:
+
+```bash
+chmod +x compile.sh
+```
+
 ### Compile the Report
 
 Run the following command to compile the report:
