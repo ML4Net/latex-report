@@ -26,15 +26,27 @@ The repository is organized as follows:
 
 ## Compilation Instructions
 
-To compile the report, run the following command:
+To compile the report or clean the output directory, you can use the provided `compile.sh` script.
+
+### Compile the Report
+
+Run the following command to compile the report:
 
 ```bash
 ./compile.sh
 ```
 
-This script will generate the final PDF document from the \LaTeX source files.
-Ensure all dependencies, including \LaTeX and bibliography tools, are installed
-on your system before running the command.
+This command will generate the final PDF document from the \LaTeX source files and store it in the `out` directory. Ensure all dependencies, including \LaTeX and bibliography tools, are installed on your system before running the command.
+
+### Clean the Output Directory
+
+To remove all files from the output directory (`out`), you can use the `clean` option:
+
+```bash
+./compile.sh clean
+```
+
+This command deletes all files in the output directory if it exists, ensuring a fresh build environment for the next compilation.
 
 For any issues, please refer to the main project repository or contact the authors.
 
