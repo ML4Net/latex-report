@@ -1,8 +1,6 @@
 # Project Report
 
-<!-- TODO: update LaTeX logo and the project link -->
-
-This repository contains the LaTeX source files for the project report associated with
+This repository contains the \LaTeX source files for the project report associated with
 [Project Repository](https://github.com/ML4Net/), which holds the main code and related materials.
 The report repository will be included as a submodule in the main project repository to facilitate
 a seamless integration of documentation alongside the project.
@@ -11,7 +9,7 @@ a seamless integration of documentation alongside the project.
 
 The repository is organized as follows:
 
-- `sections/`: contains separate LaTeX files for each section of the report.
+- `sections/`: contains separate \LaTeX files for each section of the report.
 - `images/`: stores all images and diagrams included in the report.
 - `bibliography/`: holds references and bibliography files.
 - `main.tex`: the main LaTeX file that compiles the entire report.
@@ -34,8 +32,8 @@ To compile the report, run the following command:
 ./compile.sh
 ```
 
-This script will generate the final PDF document from the LaTeX source files.
-Ensure all dependencies, including LaTeX and bibliography tools, are installed
+This script will generate the final PDF document from the \LaTeX source files.
+Ensure all dependencies, including \LaTeX and bibliography tools, are installed
 on your system before running the command.
 
 For any issues, please refer to the main project repository or contact the authors.
