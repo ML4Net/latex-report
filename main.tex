@@ -16,23 +16,43 @@
 % the commands and values with those provided to you when you
 % complete the rights form.
 \setcopyright{acmlicensed}
-\copyrightyear{2018}
-\acmYear{2018}
+\copyrightyear{2024}
+\acmYear{2024}
 \acmDOI{XXXXXXX.XXXXXXX}
 
 % TODO: check
 % Set up any additional package imports here
-\usepackage{graphicx}
+\usepackage{graphicx}     %
+\usepackage{amsmath}      % For advanced math formatting
+\usepackage{algorithm}    % For algorithm pseudocode
+\usepackage{algorithmic}  % For algorithm pseudocode
+\usepackage{booktabs}     % For professional tables
+\usepackage{listings}     % For code listings
+\usepackage{subcaption}   % For subfigures
+\usepackage{url}          % For URLs in bibliography
 
 % TODO: check
 % Define paths for graphics and bibliography
 % \graphicspath{{template/column-format-template/}}
 % \bibliographystyle{template/column-format-template/ACM-Reference-Format}
 
+% \graphicspath{{figures/}}       % Single directory
+% \graphicspath{{fig1/}{fig2/}}   % Multiple directories
+
+% \bibliographystyle{ACM-Reference-Format}  % Standard ACM format
+% \bibliographystyle{plain}                 % Basic format
+% \bibliographystyle{ieeetr}               % IEEE format
+
+% \keywords{keyword1, keyword2, keyword3}
+% \begin{teaserfigure}
+%   \includegraphics[width=\textwidth]{teaser}
+%   \caption{A teaser figure.}
+% \end{teaserfigure}
+
 \begin{document}
 
 % Title
-\title{Your Title Here}
+\title{SSH Shell Attacks}
 
 % Define authors and their affiliations
 
@@ -76,12 +96,26 @@
 \renewcommand{\shortauthors}{Botticella, Innocenti, Mignone, and Romano}
 
 \begin{abstract}
-Your abstract here.
+
+% Guidelines for abstract:
+% - Usually 150-250 words
+% - Can include formatting:
+
+This paper presents \textit{novel approach} to...
+We achieve an improvement of \textbf{20\%} over...
+Our main contributions are:
+\begin{itemize}
+    \item First contribution
+    \item Second contribution
+\end{itemize}
+
 \end{abstract}
 
 \maketitle
 
 % TODO: do we have to include the Table of Contents?
+% \tableofcontents                    % Basic TOC
+% \tableofcontents[numberdepth=3]     % Control depth
 
 % Include the sections you have in your sections directory
 \input{sections/01-introduction}
@@ -90,5 +124,9 @@ Your abstract here.
 % TODO: check
 % Include the bibliography file
 \bibliography{../template/column-format-template/sample-base}
+
+% At end of document
+% \bibliography{references}           % Single .bib file
+% \bibliography{ref1,ref2,ref3}       % Multiple .bib files
 
 \end{document}
