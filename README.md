@@ -1,5 +1,7 @@
 # Project Report
 
+![polito](resources/logo_polito.jpg)
+
 This repository contains the LaTeX source files for the project report associated with
 [Project Repository](https://github.com/ML4Net/SSH-Shell-Attacks), which holds the main code and related materials.
 The report repository will be included as a submodule in the main project repository to facilitate
