@@ -95,30 +95,49 @@
 % Short author list for page headers
 \renewcommand{\shortauthors}{Botticella, Innocenti, Mignone, and Romano}
 
-\begin{abstract}
+% CCS Concepts
+\begin{CCSXML}
+% TODO: update
+<ccs2012>
+   <concept>
+       <concept_id>10002978.10003022.10003023</concept_id>
+       <concept_desc>Security and privacy~Software and application security</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002978.10003022.10003023.10003025</concept_id>
+       <concept_desc>Security and privacy~Vulnerability management</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+</ccs2012>
+\end{CCSXML}
 
-% Guidelines for abstract:
-% - Usually 150-250 words
-% - Can include formatting:
+% TODO: update
+\ccsdesc[500]{Security and privacy~Software and application security}
+\ccsdesc[500]{Security and privacy~Vulnerability management}
 
-This paper presents \textit{novel approach} to...
-We achieve an improvement of \textbf{20\%} over...
-Our main contributions are:
-\begin{itemize}
-    \item First contribution
-    \item Second contribution
-\end{itemize}
+% Keywords
+\keywords{SSH shell attacks, machine learning, supervised learning, unsupervised learning, language models, security logs} % TODO: add some
 
-\end{abstract}
+\input{sections/00-abstract}
 
 \maketitle
 
 % TODO: do we have to include the Table of Contents?
-% \tableofcontents                    % Basic TOC
+\tableofcontents                      % Basic TOC
 % \tableofcontents[numberdepth=3]     % Control depth
 
 % Include the sections you have in your sections directory
 \input{sections/01-introduction}
+\input{sections/02-background}
+\input{sections/03-data-exploration-and-pre-processing}
+\input{sections/04-supervised-learning-classification}
+\input{sections/05-unsupervised-learning-clustering}
+\input{sections/06-language-model-exploration}
+\input{sections/07-conclusion}
+% References, Appendices, ... ?
+% References: Lists all the sources and references used in the report.
+% Appendices: Includes any additional material, code snippets, or detailed results.
 % ...
 
 % TODO: check
