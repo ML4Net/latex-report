@@ -11,6 +11,16 @@ YELLOW='\033[0;33m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
+# Function to remove the main.pdf file in the root directory
+remove_root_pdf() {
+    if [ -f "$PDF_FILE" ]; then
+        rm -f "$PDF_FILE"
+        # printf "\n${GREEN}File ${PDF_FILE} removed from root directory.${RESET}\n"
+    else
+        printf "\n${YELLOW}File ${PDF_FILE} not found in root directory, nothing to remove.${RESET}\n"
+    fi
+}
+
 # Check for "clean" argument
 if [ "$1" = "clean" ]; then
     # Clean the output directory if it exists
@@ -21,13 +31,8 @@ if [ "$1" = "clean" ]; then
         printf "\n${YELLOW}Output directory does not exist, nothing to clean.${RESET}\n"
     fi
 
-    # Remove main.pdf in the root directory if it exists
-    if [ -f "$PDF_FILE" ]; then
-        rm -f "$PDF_FILE"
-        printf "${GREEN}File ${PDF_FILE} removed from root directory.${RESET}\n"
-    else
-        printf "${YELLOW}File ${PDF_FILE} not found in root directory, nothing to remove.${RESET}\n"
-    fi
+    # Remove main.pdf in the root directory
+    remove_root_pdf
 else
     # Create output directory if it doesn't exist
     [ ! -d "$OUTPUT_DIR" ] && mkdir "$OUTPUT_DIR" && printf "\n${CYAN}Output directory created.${RESET}\n"
@@ -42,6 +47,9 @@ else
 
     # Check if the PDF file was generated successfully
     if [ -f "$OUTPUT_DIR/$PDF_FILE" ]; then
+        # Remove any existing main.pdf in the root directory
+        remove_root_pdf
+
         # Copy the PDF file to the root directory
         cp "$OUTPUT_DIR/$PDF_FILE" ./
         printf "\n${GREEN}File ${PDF_FILE} copied to root directory.${RESET}\n"

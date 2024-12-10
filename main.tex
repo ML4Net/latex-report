@@ -30,24 +30,46 @@
 \usepackage{listings}     % For code listings
 \usepackage{subcaption}   % For subfigures
 \usepackage{url}          % For URLs in bibliography
+\usepackage{titlesec}     % For custom formatting
 
 % TODO: check
 % Define paths for graphics and bibliography
 % \graphicspath{{template/column-format-template/}}
 % \bibliographystyle{template/column-format-template/ACM-Reference-Format}
 
-% \graphicspath{{figures/}}       % Single directory
-% \graphicspath{{fig1/}{fig2/}}   % Multiple directories
+% TODO: check
+% \graphicspath{{figures/}}                 % Single directory
+% \graphicspath{{fig1/}{fig2/}}             % Multiple directories
 
+% TODO: check
 % \bibliographystyle{ACM-Reference-Format}  % Standard ACM format
 % \bibliographystyle{plain}                 % Basic format
-% \bibliographystyle{ieeetr}               % IEEE format
+% \bibliographystyle{ieeetr}                % IEEE format
 
+% TODO: check
 % \keywords{keyword1, keyword2, keyword3}
 % \begin{teaserfigure}
 %   \includegraphics[width=\textwidth]{teaser}
 %   \caption{A teaser figure.}
 % \end{teaserfigure}
+
+% Customize section titles
+\titleformat{\section}
+  {\LARGE}                      % Large, not bold
+  {\thesection}                 % Section number
+  {0.5em}                       % Space between number and title
+  {}                            % Code before title body
+
+% Customize subsection titles
+\titleformat{\subsection}
+  {\Large}                      % Large (but smaller than section), not bold
+  {\thesubsection}              % Subsection number
+  {0.5em}                       % Space between number and title
+  {}                            % Code before title body
+
+% Adjust spacing before and after sections
+\titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{2.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \begin{document}
 
@@ -124,7 +146,7 @@
 \maketitle
 
 % TODO: do we have to include the Table of Contents?
-\tableofcontents                      % Basic TOC
+% \tableofcontents                    % Basic TOC
 % \tableofcontents[numberdepth=3]     % Control depth
 
 % Include the sections you have in your sections directory
