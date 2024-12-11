@@ -20,7 +20,6 @@
 \acmYear{2024}
 \acmDOI{XXXXXXX.XXXXXXX}
 
-% TODO: check
 % Set up any additional package imports here
 \usepackage{graphicx}     %
 \usepackage{amsmath}      % For advanced math formatting
@@ -45,13 +44,6 @@
 % \bibliographystyle{ACM-Reference-Format}  % Standard ACM format
 % \bibliographystyle{plain}                 % Basic format
 % \bibliographystyle{ieeetr}                % IEEE format
-
-% TODO: check
-% \keywords{keyword1, keyword2, keyword3}
-% \begin{teaserfigure}
-%   \includegraphics[width=\textwidth]{teaser}
-%   \caption{A teaser figure.}
-% \end{teaserfigure}
 
 % Customize section titles
 \titleformat{\section}
@@ -119,35 +111,54 @@
 
 % CCS Concepts
 \begin{CCSXML}
-% TODO: update
 <ccs2012>
    <concept>
-       <concept_id>10002978.10003022.10003023</concept_id>
-       <concept_desc>Security and privacy~Software and application security</concept_desc>
+       <concept_id>10002978.10003006.10011634</concept_id>
+       <concept_desc>Security and privacy~Intrusion detection systems</concept_desc>
        <concept_significance>500</concept_significance>
-       </concept>
+   </concept>
    <concept>
-       <concept_id>10002978.10003022.10003023.10003025</concept_id>
-       <concept_desc>Security and privacy~Vulnerability management</concept_desc>
+       <concept_id>10002978.10003022.10003465</concept_id>
+       <concept_desc>Security and privacy~Malware and its mitigation</concept_desc>
        <concept_significance>500</concept_significance>
-       </concept>
+   </concept>
+   <concept>
+       <concept_id>10010147.10010257.10010321.10010337</concept_id>
+       <concept_desc>Computing methodologies~Supervised learning by classification</concept_desc>
+       <concept_significance>300</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10010147.10010257.10010321.10010335</concept_id>
+       <concept_desc>Computing methodologies~Unsupervised learning</concept_desc>
+       <concept_significance>300</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10010147.10010257.10010339</concept_id>
+       <concept_desc>Computing methodologies~Natural language processing</concept_desc>
+       <concept_significance>300</concept_significance>
+   </concept>
 </ccs2012>
 \end{CCSXML}
 
-% TODO: update
-\ccsdesc[500]{Security and privacy~Software and application security}
-\ccsdesc[500]{Security and privacy~Vulnerability management}
+\ccsdesc[500]{Security and privacy~Intrusion detection systems}
+\ccsdesc[500]{Security and privacy~Malware and its mitigation}
+\ccsdesc[300]{Computing methodologies~Supervised learning by classification}
+\ccsdesc[300]{Computing methodologies~Unsupervised learning}
+\ccsdesc[300]{Computing methodologies~Natural language processing}
 
 % Keywords
-\keywords{SSH shell attacks, machine learning, supervised learning, unsupervised learning, language models, security logs} % TODO: add some
+\keywords{SSH shell attacks, machine learning, supervised learning, unsupervised learning, language models, security logs, intrusion detection}
 
 \input{sections/00-abstract}
 
 \maketitle
 
-% TODO: do we have to include the Table of Contents?
-% \tableofcontents                    % Basic TOC
-% \tableofcontents[numberdepth=3]     % Control depth
+\clearpage % TODO: check
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\vspace{-0.5cm}
 
 % Include the sections you have in your sections directory
 \input{sections/01-introduction}

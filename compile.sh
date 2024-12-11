@@ -42,8 +42,8 @@ else
     # Compile the LaTeX document
     pdflatex -output-directory="$OUTPUT_DIR" main.tex
     #bibtex "$OUTPUT_DIR"/main
-    #pdflatex -output-directory="$OUTPUT_DIR" main.tex
-    #pdflatex -output-directory="$OUTPUT_DIR" main.tex
+    pdflatex -output-directory="$OUTPUT_DIR" main.tex
+    pdflatex -output-directory="$OUTPUT_DIR" main.tex
 
     # Check if the PDF file was generated successfully
     if [ -f "$OUTPUT_DIR/$PDF_FILE" ]; then
