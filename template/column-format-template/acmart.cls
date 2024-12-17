@@ -3058,8 +3058,9 @@
       \fancyhead[RO]{\@headfootfont
         \shorttitle\quad\textbullet\quad\@acmArticlePage}%
       \if@ACM@nonacm\else%
-        \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
-        \@acmNumber, Article \@acmArticle.  Publication date: \@acmPubDate.}%
+        % \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
+        % \@acmNumber, Article \@acmArticle.  Publication date: \@acmPubDate.}%
+        \fancyfoot[RO,LE]{\footnotesize Publication date: \@acmPubDate.} % updated - @ eliainnocenti
       \fi
     \or % acmtog
       \fancyhead[LE]{\ACM@linecountL\@headfootfont
@@ -3176,9 +3177,10 @@
       \fancyhead[RE]{\@acmBadgeR}%
     \or % acmlarge
       \if@ACM@nonacm\else%
-        \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
-        \@acmNumber, Article \@acmArticle.  Publication date:
-        \@acmPubDate.}%
+        % \fancyfoot[RO,LE]{\footnotesize \@journalNameShort, Vol. \@acmVolume, No.
+        % \@acmNumber, Article \@acmArticle.  Publication date:
+        % \@acmPubDate.}%
+        \fancyfoot[RO,LE]{\footnotesize Publication date: \@acmPubDate.} % updated - @eliainnocenti
       \fi%
       \fancyhead[RO]{\@acmBadgeR}%
       \fancyhead[RE]{\@acmBadgeR}%

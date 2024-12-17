@@ -3,25 +3,8 @@
 % Use the ACM large 1-column format class from your template directory
 \documentclass[acmlarge]{template/column-format-template/acmart}
 
-% TODO: check
-% \BibTeX command to typeset BibTeX logo in the docs
-\AtBeginDocument{%
-  \providecommand\BibTeX{{%
-    Bib\TeX}}}
-  
-% TODO: check
-% Rights management information.  This information is sent to you
-% when you complete the rights form.  These commands have SAMPLE
-% values in them; it is your responsibility as an author to replace
-% the commands and values with those provided to you when you
-% complete the rights form.
-\setcopyright{acmlicensed}
-\copyrightyear{2024}
-\acmYear{2024}
-\acmDOI{XXXXXXX.XXXXXXX}
-
 % Set up any additional package imports here
-\usepackage{graphicx}     %
+\usepackage{graphicx}     % For including graphics
 \usepackage{amsmath}      % For advanced math formatting
 \usepackage{algorithm}    % For algorithm pseudocode
 \usepackage{algorithmic}  % For algorithm pseudocode
@@ -30,6 +13,27 @@
 \usepackage{subcaption}   % For subfigures
 \usepackage{url}          % For URLs in bibliography
 \usepackage{titlesec}     % For custom formatting
+  
+% Remove ACM-specific references and permissions
+\setcopyright{none} % Disable copyright
+\makeatletter
+\@printpermissionfalse
+\@printcopyrightfalse
+\@acmownedfalse
+\makeatother
+
+% Remove ACM reference format
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+
+% Optional: Plain page style
+\pagestyle{plain}
+
+% TODO: check
+% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
 
 % TODO: check
 % Define paths for graphics and bibliography
@@ -45,21 +49,21 @@
 % \bibliographystyle{plain}                 % Basic format
 % \bibliographystyle{ieeetr}                % IEEE format
 
-% Customize section titles
+% Optional: Customize section titles
 % \titleformat{\section}
 %   {\LARGE}                      % Large, not bold
 %   {\thesection}                 % Section number
 %   {0.5em}                       % Space between number and title
 %   {}                            % Code before title body
 
-% Customize subsection titles
+% Optional: Customize subsection titles
 % \titleformat{\subsection}
 %   {\Large}                      % Large (but smaller than section), not bold
 %   {\thesubsection}              % Subsection number
 %   {0.5em}                       % Space between number and title
 %   {}                            % Code before title body
 
-% Adjust spacing before and after sections
+% Optional: Adjust spacing before and after sections
 % \titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 % \titlespacing*{\subsection}{0pt}{2.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
@@ -150,11 +154,17 @@
 
 % Keywords
 % TODO: update
-\keywords{SSH shell attacks, machine learning, supervised learning, unsupervised learning, language models, security logs, intrusion detection}
+\keywords{SSH shell attacks, machine learning, supervised learning, unsupervised learning, language models, security logs, intrusion detection.}
 
 \input{sections/00-abstract}
 
 \maketitle
+
+% Table of Contents
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\vspace{-0.5cm}
 
 % Include the sections you have in your sections directory
 \input{sections/01-introduction}
