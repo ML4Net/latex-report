@@ -46,22 +46,22 @@
 % \bibliographystyle{ieeetr}                % IEEE format
 
 % Customize section titles
-\titleformat{\section}
-  {\LARGE}                      % Large, not bold
-  {\thesection}                 % Section number
-  {0.5em}                       % Space between number and title
-  {}                            % Code before title body
+% \titleformat{\section}
+%   {\LARGE}                      % Large, not bold
+%   {\thesection}                 % Section number
+%   {0.5em}                       % Space between number and title
+%   {}                            % Code before title body
 
 % Customize subsection titles
-\titleformat{\subsection}
-  {\Large}                      % Large (but smaller than section), not bold
-  {\thesubsection}              % Subsection number
-  {0.5em}                       % Space between number and title
-  {}                            % Code before title body
+% \titleformat{\subsection}
+%   {\Large}                      % Large (but smaller than section), not bold
+%   {\thesubsection}              % Subsection number
+%   {0.5em}                       % Space between number and title
+%   {}                            % Code before title body
 
 % Adjust spacing before and after sections
-\titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\titlespacing*{\subsection}{0pt}{2.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% \titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% \titlespacing*{\subsection}{0pt}{2.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \begin{document}
 
@@ -111,6 +111,7 @@
 
 % CCS Concepts
 \begin{CCSXML}
+% TODO: update
 <ccs2012>
    <concept>
        <concept_id>10002978.10003006.10011634</concept_id>
@@ -140,6 +141,7 @@
 </ccs2012>
 \end{CCSXML}
 
+% TODO: update
 \ccsdesc[500]{Security and privacy~Intrusion detection systems}
 \ccsdesc[500]{Security and privacy~Malware and its mitigation}
 \ccsdesc[300]{Computing methodologies~Supervised learning by classification}
@@ -147,18 +149,12 @@
 \ccsdesc[300]{Computing methodologies~Natural language processing}
 
 % Keywords
+% TODO: update
 \keywords{SSH shell attacks, machine learning, supervised learning, unsupervised learning, language models, security logs, intrusion detection}
 
 \input{sections/00-abstract}
 
 \maketitle
-
-\clearpage % TODO: check
-
-\setcounter{tocdepth}{1}
-\tableofcontents
-
-\vspace{-0.5cm}
 
 % Include the sections you have in your sections directory
 \input{sections/01-introduction}
