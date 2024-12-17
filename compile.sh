@@ -4,6 +4,9 @@
 OUTPUT_DIR="out"
 PDF_FILE="main.pdf"
 
+# Set custom PDF name
+CUSTOM_PDF_NAME="SSH-Shell-Attacks-Botticella-Innocenti-Mignone-Romano.pdf"
+
 # Define color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -11,13 +14,13 @@ YELLOW='\033[0;33m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
-# Function to remove the main.pdf file in the root directory
+# Function to remove the pdf file in the root directory
 remove_root_pdf() {
-    if [ -f "$PDF_FILE" ]; then
-        rm -f "$PDF_FILE"
-        # printf "\n${GREEN}File ${PDF_FILE} removed from root directory.${RESET}\n"
+    if [ -f "$CUSTOM_PDF_NAME" ]; then
+        rm -f "$CUSTOM_PDF_NAME"
+        # printf "\n${GREEN}File ${CUSTOM_PDF_NAME} removed from root directory.${RESET}\n"
     else
-        printf "\n${YELLOW}File ${PDF_FILE} not found in root directory, nothing to remove.${RESET}\n"
+        printf "\n${YELLOW}File ${CUSTOM_PDF_NAME} not found in root directory, nothing to remove.${RESET}\n"
     fi
 }
 
@@ -47,12 +50,12 @@ else
 
     # Check if the PDF file was generated successfully
     if [ -f "$OUTPUT_DIR/$PDF_FILE" ]; then
-        # Remove any existing main.pdf in the root directory
+        # Remove any existing custom-named PDF in the root directory
         remove_root_pdf
 
         # Copy the PDF file to the root directory
-        cp "$OUTPUT_DIR/$PDF_FILE" ./
-        printf "\n${GREEN}File ${PDF_FILE} copied to root directory.${RESET}\n"
+        cp "$OUTPUT_DIR/$PDF_FILE" "./$CUSTOM_PDF_NAME"
+        printf "\n${GREEN}File copied to root directory as ${CYAN}${CUSTOM_PDF_NAME}${RESET}\n"
     else
         printf "\n${RED}Compilation failed. ${PDF_FILE} not found in ${OUTPUT_DIR}.${RESET}\n"
     fi
