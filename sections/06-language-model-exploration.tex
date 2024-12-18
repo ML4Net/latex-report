@@ -10,29 +10,136 @@
 \section{LANGUAGE MODEL EXPLORATION}
 
     % Main Content
-    This section \ldots
 
-    % Subsections
     \subsection{Introduction}
     
-        Overview of the language models task and its objectives.
+        This section provides an overview of the language models task and its objectives. The goal is to leverage advanced language models to classify attack session tactics based on the provided dataset. We will explore the use of pretrained models such as BERT and Doc2Vec, fine-tune them for our specific task, and analyze their performance.
 
-        \ldots
+        Language models have revolutionized natural language processing (NLP) by enabling transfer learning, where models pretrained on large datasets can be fine-tuned on specific tasks. This approach allows us to benefit from the knowledge encoded in these models and achieve better performance with less training data.
 
     \subsection{Pretraining}
     
-        Pretraining Doc2Vec or using a pretrained Bert model.
+        Pretraining involves using a pretrained language model or training a model from scratch on a large corpus of text. For this task, we will use a pretrained BERT model from HuggingFace's Transformers library.
 
-        \ldots
+        \textbf{Installing Dependencies:}
+
+        \begin{verbatim}
+            !pip install transformers torch
+        \end{verbatim}
+
+        \textbf{Loading the Dataset:}
+
+        \begin{verbatim}
+            import pandas as pd
+
+            # Load the dataset
+            df = pd.read_parquet("../data/processed/ssh_attacks_sampled_decoded.parquet")
+            print(f"Dataset size: {df.shape[0]} rows")
+        \end{verbatim}
+
+        \textbf{Preprocessing:}
+
+        \begin{verbatim}
+            from sklearn.preprocessing import MultiLabelBinarizer
+
+            # Preprocess Set_Fingerprint column
+            df['Set_Fingerprint'] = df['Set_Fingerprint'].apply(lambda x: [intent.strip() for intent in x.split(',')])
+            mlb = MultiLabelBinarizer()
+            y = mlb.fit_transform(df['Set_Fingerprint'])
+            print(f"Classes identified: {mlb.classes_}")
+        \end{verbatim}
+
+        \textbf{Placeholder for Dataset Summary Table}
         
     \subsection{Model Fine-tuning}
     
-        Fine-tuning the last layer of the network.
+        Fine-tuning involves training the last layer of the pretrained model on our specific dataset. We will use BERT for sequence classification and fine-tune it on the SSH attack sessions.
 
-        \ldots
-        
+        \textbf{Tokenization:}
+
+        \begin{verbatim}
+            from transformers import BertTokenizer
+
+            # Tokenize the text data
+            tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+            train_encodings = tokenizer(list(train_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
+            val_encodings = tokenizer(list(val_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
+        \end{verbatim}
+
+        \textbf{Model Initialization:}
+
+        \begin{verbatim}
+            from transformers import BertForSequenceClassification, AdamW
+
+            # Initialize the BERT model for sequence classification
+            model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=y.shape[1])
+            model.to(device)
+
+            # Optimizer and Loss
+            optimizer = AdamW(model.parameters(), lr=5e-5)
+            criterion = torch.nn.BCEWithLogitsLoss()
+        \end{verbatim}
+
+        \textbf{Training Loop:}
+
+        \begin{verbatim}
+            train_loss_list, val_loss_list = [], []
+
+            for epoch in range(5):  # Fine-tune for 5 epochs
+                model.train()
+                total_loss = 0
+
+                for batch in train_loader:
+                    optimizer.zero_grad()
+                    input_ids, attention_mask, labels = (
+                        batch['input_ids'].to(device),
+                        batch['attention_mask'].to(device),
+                        batch['labels'].to(device),
+                    )
+                    outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+                    loss = criterion(outputs.logits, labels)
+                    loss.backward()
+                    optimizer.step()
+                    total_loss += loss.item()
+
+                train_loss_list.append(total_loss / len(train_loader))
+
+                # Validation
+                model.eval()
+                val_loss = 0
+                with torch.no_grad():
+                    for batch in val_loader:
+                        input_ids, attention_mask, labels = (
+                            batch['input_ids'].to(device),
+                            batch['attention_mask'].to(device),
+                            batch['labels'].to(device),
+                        )
+                        outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+                        loss = criterion(outputs.logits, labels)
+                        val_loss += loss.item()
+                val_loss_list.append(val_loss / len(val_loader))
+        \end{verbatim}
+
+        \textbf{Placeholder for Training and Validation Loss Table}
+            
     \subsection{Learning Curves}
     
-        Plotting learning curves and determining the optimal number of epochs.
+        Plotting learning curves helps in understanding the model's performance over epochs and determining the optimal number of epochs for training.
 
-        \ldots
+        \textbf{Plotting Learning Curves:}
+
+        \begin{verbatim}
+            import matplotlib.pyplot as plt
+
+            # Plot learning curves
+            plt.plot(range(1, 6), train_loss_list, label="Training Loss")
+            plt.plot(range(1, 6), val_loss_list, label="Validation Loss")
+            plt.xlabel("Epochs")
+            plt.ylabel("Loss")
+            plt.legend()
+            plt.show()
+        \end{verbatim}
+
+        \textbf{Placeholder for Learning Curves Plot}
+
+        By analyzing the learning curves, we can determine the optimal number of epochs to stop training and avoid overfitting. The point where the validation loss stops decreasing or starts increasing indicates the optimal stopping point.
