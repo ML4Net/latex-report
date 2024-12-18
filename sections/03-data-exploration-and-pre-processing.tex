@@ -14,7 +14,6 @@
 
     % Main Content
 
-    % Subsections
     \subsection{Introduction}
 
         This section details the data exploration and pre-processing steps undertaken to analyze SSH shell attack logs. The tasks include dataset preparation, temporal analysis, feature extraction, common words analysis, intent distribution, and text representation.
@@ -37,6 +36,15 @@
             print(SSH_Attacks.duplicated().sum())
         \end{verbatim}
 
+        The initial inspection revealed that the dataset is well-structured with columns that are essential for our analysis. However, it is important to handle any missing values and duplicates to ensure the integrity of the data. The following steps were taken to address these issues:
+
+        \begin{itemize}
+            \item **Missing Values**: We identified and handled missing values by either imputing them with appropriate values or removing the affected rows.
+            \item **Duplicate Rows**: Duplicate rows were detected and removed to avoid redundancy in the analysis.
+        \end{itemize}
+
+        \textbf{Placeholder for Dataset Structure Table}
+
     \subsection{Temporal Analysis}
     
         The temporal analysis examines when the attacks were performed. The \texttt{first\_timestamp} column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
@@ -53,7 +61,11 @@
             )
         \end{verbatim}
 
-        The analysis includes plotting the number of attacks per hour, month, and year to identify patterns and trends.
+        The analysis includes plotting the number of attacks per hour, month, and year to identify patterns and trends. This helps in understanding the temporal distribution of attacks and identifying any periodic patterns or anomalies.
+
+        \textbf{Placeholder for Temporal Analysis Plot}
+
+        The temporal analysis revealed that the frequency of attacks varies significantly over time. By examining the hourly, daily, and monthly trends, we can gain insights into the behavior of attackers and the times when systems are most vulnerable.
 
     \subsection{Feature Extraction}
     
@@ -68,6 +80,12 @@
             sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
         \end{verbatim}
 
+        The distribution of classes provides valuable information about the types of attacks and their prevalence. By visualizing this distribution, we can identify the most common attack intents and focus our analysis on these areas.
+
+        \textbf{Placeholder for Class Distribution Bar Plot}
+
+        The feature extraction process also involves creating new features that can enhance the analysis. For example, we can extract the length of each session, the number of commands executed, and other relevant metrics.
+
     \subsection{Common Words Analysis}
     
         The common words analysis identifies the most frequent words used in the attack sessions. This is achieved using word clouds and other text analysis techniques.
@@ -79,6 +97,14 @@
             plt.axis('off')
             plt.show()
         \end{verbatim}
+
+        The word cloud visualization highlights the most common words used in the attack sessions, providing insights into the attackers' behavior and strategies. This can help in identifying common commands and patterns used in the attacks.
+
+        \textbf{Placeholder for Word Cloud Visualization}
+
+        Additionally, we can create bar plots to show the frequency of the top 10 most common words, which can further aid in understanding the textual characteristics of the attack sessions.
+
+        \textbf{Placeholder for Common Words Bar Plot}
 
     \subsection{Intent Distribution}
             
@@ -94,14 +120,30 @@
             )
         \end{verbatim}
 
+        By analyzing the distribution of intents over time, we can identify trends and patterns in the attackers' behavior. This can help in understanding how different types of attacks evolve and vary over time.
+
+        \textbf{Placeholder for Intent Distribution Plot}
+
+        The intent distribution analysis also helps in identifying any seasonal or periodic patterns in the attacks, which can be crucial for developing effective defense strategies.
+
     \subsection{Text Representation}
     
-        Text representation converts the session text into numerical representations using techniques such as Bag of Words (BoW) and TF-IDF. These representations are used for further analysis and machine learning tasks.
+        Text representation converts the session text into numerical representations using techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF). These representations are used for further analysis and machine learning tasks.
 
         \begin{verbatim}
-            # Convert text into numerical representations
-            vectorizer = TfidfVectorizer()
-            X_tfidf = vectorizer.fit_transform(SSH_Attacks['Full session text'])
+            # Convert text into numerical representations using Bag of Words (BoW)
+            from sklearn.feature_extraction.text import CountVectorizer
+            bow_vectorizer = CountVectorizer()
+            X_bow = bow_vectorizer.fit_transform(SSH_Attacks['Full session text'])
+
+            # Convert text into numerical representations using TF-IDF
+            from sklearn.feature_extraction.text import TfidfVectorizer
+            tfidf_vectorizer = TfidfVectorizer()
+            X_tfidf = tfidf_vectorizer.fit_transform(SSH_Attacks['Full session text'])
         \end{verbatim}
 
-        The resulting numerical representations are normalized and used for subsequent analysis and modeling.
+        The resulting numerical representations from both BoW and TF-IDF are normalized and used for subsequent analysis and modeling. These representations are essential for applying machine learning algorithms to classify and predict attack intents.
+
+        \textbf{Placeholder for Text Representation Table}
+
+        The text representation techniques help in transforming the unstructured session text into structured numerical data, which can be used for various analytical and predictive tasks. By comparing the performance of different representation techniques, we can select the most effective method for our analysis.

@@ -12,41 +12,140 @@
 \section{SUPERVISED LEARNING - CLUSTERING}
 
     % Main Content
-    This section \ldots
 
-    % Subsections
     \subsection{Introduction}
     
-        Overview of the supervised learning task and its objectives.
-
-        \ldots
+        This section provides an overview of the supervised learning task and its objectives. The goal is to classify attack session tactics based on the provided dataset. We will implement and evaluate various machine learning models to determine the most effective approach for this classification task.
 
     \subsection{Data Splitting}
     
-        Splitting the dataset into training and test sets.
+        The first step in the supervised learning process is to split the dataset into training and test sets. This ensures that we can evaluate the performance of our models on unseen data.
 
-        \ldots
-        
+        \textbf{Data Loading:} The dataset is loaded from a Parquet file into a Pandas DataFrame.
+
+        \begin{verbatim}
+            # Load the dataset
+            SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
+        \end{verbatim}
+
+        \textbf{Data Splitting:} We split the dataset into training and test sets, ensuring a 70/30 split while maintaining reproducibility.
+
+        \begin{verbatim}
+            # Split the dataset into training and test sets
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=0.3, random_state=42
+            )
+        \end{verbatim}
+
+        \textbf{Placeholder for Data Splitting Summary Table}
+
+        The data splitting process ensures that the training set is used to train the models, while the test set is used to evaluate their performance.
+            
     \subsection{Baseline Model Implementation}
     
-        Implementing and evaluating baseline models.
+        In this subsection, we implement and evaluate baseline models to establish a performance benchmark. We will use Logistic Regression, Random Forest, and Support Vector Machine (SVM) as our baseline models.
 
-        \ldots
-        
+        \textbf{Logistic Regression:}
+
+        \begin{verbatim}
+            # Initialize and train Logistic Regression model
+            model = LogisticRegression(max_iter=1000, random_state=42)
+            model.fit(X_train_tfidf, y_train_binary)
+        \end{verbatim}
+
+        \textbf{Random Forest:}
+
+        \begin{verbatim}
+            # Initialize and train Random Forest model
+            model = RandomForestClassifier(n_estimators=100, random_state=42)
+            model.fit(X_train_tfidf, y_train_binary)
+        \end{verbatim}
+
+        \textbf{Support Vector Machine (SVM):}
+
+        \begin{verbatim}
+            # Initialize and train SVM model
+            model = SVC(kernel='linear', random_state=42)
+            model.fit(X_train_tfidf, y_train_binary)
+        \end{verbatim}
+
+        \textbf{Placeholder for Baseline Model Performance Table}
+
+        The baseline model implementation provides a reference point for evaluating the performance of more advanced models.
+            
     \subsection{Hyperparameter Tuning}
     
-        Tuning hyperparameters and evaluating performance.
+        Hyperparameter tuning involves optimizing the parameters of the models to improve their performance. We use GridSearchCV to perform an exhaustive search over specified parameter values.
 
-        \ldots
-        
+        \textbf{Logistic Regression Hyperparameter Tuning:}
+
+        \begin{verbatim}
+            # Define parameter grid for Logistic Regression
+            param_grid = {'C': [0.1, 1, 10, 100]}
+            grid_search = GridSearchCV(LogisticRegression(max_iter=1000, random_state=42), param_grid, cv=5)
+            grid_search.fit(X_train_tfidf, y_train_binary)
+        \end{verbatim}
+
+        \textbf{Random Forest Hyperparameter Tuning:}
+
+        \begin{verbatim}
+            # Define parameter grid for Random Forest
+            param_grid = {'n_estimators': [50, 100, 200]}
+            grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, cv=5)
+            grid_search.fit(X_train_tfidf, y_train_binary)
+        \end{verbatim}
+
+        \textbf{Placeholder for Hyperparameter Tuning Results Table}
+
+        Hyperparameter tuning helps in finding the best parameters for each model, thereby improving their performance.
+            
     \subsection{Result Analysis}
     
-        Analyzing the results for each intent.
+        In this subsection, we analyze the results of the models for each intent. We use metrics such as accuracy, precision, recall, and F1-score to evaluate the performance.
 
-        \ldots
-        
+        \textbf{Classification Report:}
+
+        \begin{verbatim}
+            # Generate classification report
+            report = classification_report(y_test_binary, y_pred, zero_division=0)
+            print(report)
+        \end{verbatim}
+
+        \textbf{Confusion Matrix:}
+
+        \begin{verbatim}
+            # Generate confusion matrix
+            cm = confusion_matrix(y_test_binary, y_pred)
+            sns.heatmap(cm, annot=True, fmt='d', cmap='coolwarm')
+            plt.show()
+        \end{verbatim}
+
+        \textbf{Placeholder for Classification Report and Confusion Matrix Plots}
+
+        The result analysis provides insights into the performance of the models and helps in identifying areas for improvement.
+            
     \subsection{Feature Experimentation}
     
-        Exploring different feature combinations and their impact on performance.
+        Feature experimentation involves exploring different feature combinations and their impact on model performance. We experiment with various text representation techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF).
 
-        \ldots
+        \textbf{Bag of Words (BoW):}
+
+        \begin{verbatim}
+            # Convert text into numerical representations using Bag of Words (BoW)
+            bow_vectorizer = CountVectorizer()
+            X_train_bow = bow_vectorizer.fit_transform(X_train)
+            X_test_bow = bow_vectorizer.transform(X_test)
+        \end{verbatim}
+
+        \textbf{TF-IDF:}
+
+        \begin{verbatim}
+            # Convert text into numerical representations using TF-IDF
+            tfidf_vectorizer = TfidfVectorizer()
+            X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
+            X_test_tfidf = tfidf_vectorizer.transform(X_test)
+        \end{verbatim}
+
+        \textbf{Placeholder for Feature Experimentation Results Table}
+
+        By experimenting with different features, we can identify the most effective representation techniques for our classification task.
