@@ -4,3 +4,6 @@
 # Output dirs
 out/
 template/column-format-template/out/
+
+# Temporary files
+tmp/

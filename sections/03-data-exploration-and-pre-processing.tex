@@ -13,47 +13,95 @@
 \section{DATA EXPLORATION AND PRE-PROCESSING}
 
     % Main Content
-    This section \ldots
 
     % Subsections
     \subsection{Introduction}
 
-        Brief introduction to the data exploration and pre-processing tasks.
-
-        \ldots
+        This section details the data exploration and pre-processing steps undertaken to analyze SSH shell attack logs. The tasks include dataset preparation, temporal analysis, feature extraction, common words analysis, intent distribution, and text representation.
 
     \subsection{Dataset Preparation}
     
-        Loading the dataset and initial inspection.
+        The dataset used in this research is loaded from a Parquet file (`ssh_attacks.parquet`) into a Pandas DataFrame. The initial inspection involves checking the dataset's structure, identifying missing values, and detecting duplicate rows. The dataset contains columns such as `Session ID`, `Full session text`, `Timestamp`, and `Intent labels`.
 
-        \ldots
+        \begin{verbatim}
+            # Load the dataset
+            SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
+    
+            # Inspect the dataset structure
+            print(SSH_Attacks.info())
+    
+            # Check for missing values
+            print(SSH_Attacks.isnull().sum())
+    
+            # Check for duplicate rows
+            print(SSH_Attacks.duplicated().sum())
+        \end{verbatim}
 
     \subsection{Temporal Analysis}
     
-        Analysis of when the attacks were performed.
+        The temporal analysis examines when the attacks were performed. The `first_timestamp` column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
 
-        \ldots
+        \begin{verbatim}
+            # Convert first_timestamp to datetime format
+            SSH_Attacks['first_timestamp'] = pd.to_datetime(SSH_Attacks['first_timestamp'])
+
+            # Analyze attack frequencies over time
+            temporal_series = (
+                SSH_Attacks.groupby(SSH_Attacks['first_timestamp'].dt.date)
+                .size()
+                .reset_index(name='attack_count')
+            )
+        \end{verbatim}
+
+        The analysis includes plotting the number of attacks per hour, month, and year to identify patterns and trends.
 
     \subsection{Feature Extraction}
     
-        Extracting features from the attack sessions.
+        Feature extraction involves identifying and extracting relevant features from the attack sessions. This includes analyzing the distribution of classes (intents) and visualizing the data using bar plots.
 
-        \ldots
+        \begin{verbatim}
+            # Extract and count occurrences of each class
+            all_classes = SSH_Attacks['Set_Fingerprint'].explode().str.strip()
+            class_counts = all_classes.value_counts()
+
+            # Plot the distribution of classes
+            sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
+        \end{verbatim}
 
     \subsection{Common Words Analysis}
     
-        Identifying the most common words in the sessions.
+        The common words analysis identifies the most frequent words used in the attack sessions. This is achieved using word clouds and other text analysis techniques.
 
-        \ldots
+        \begin{verbatim}
+            # Generate a word cloud for the session text
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(' '.join(SSH_Attacks['Full session text']))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            plt.show()
+        \end{verbatim}
 
     \subsection{Intent Distribution}
             
-        Analyzing the distribution of intents over time.
+        The intent distribution analysis examines the distribution of intents over time. This involves grouping the data by date and intent to count occurrences and visualize the trends.
 
-        \ldots
+        \begin{verbatim}
+            # Group by Set_Fingerprint and date to count occurrences
+            grouped_SSH_Attacks = (
+                SSH_Attacks.explode('Set_Fingerprint')
+                .groupby([SSH_Attacks['first_timestamp'].dt.date, 'Set_Fingerprint'])
+                .size()
+                .reset_index(name='attack_count')
+            )
+        \end{verbatim}
 
     \subsection{Text Representation}
     
-        Converting text into numerical representations (BoW, TF-IDF).
+        Text representation converts the session text into numerical representations using techniques such as Bag of Words (BoW) and TF-IDF. These representations are used for further analysis and machine learning tasks.
 
-        \ldots
+        \begin{verbatim}
+            # Convert text into numerical representations
+            vectorizer = TfidfVectorizer()
+            X_tfidf = vectorizer.fit_transform(SSH_Attacks['Full session text'])
+        \end{verbatim}
+
+        The resulting numerical representations are normalized and used for subsequent analysis and modeling.
