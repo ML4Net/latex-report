@@ -23,23 +23,30 @@
 
         \textbf{Installing Dependencies:}
 
-        \begin{verbatim}
+        % Install required packages
+        \begin{lstlisting}[language=bash, caption={Install required packages}, label={lst:install_packages}]
             !pip install transformers torch
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Loading the Dataset:}
 
-        \begin{verbatim}
+        % Load dataset and print its size
+        \begin{lstlisting}[caption={Load dataset and print its size}, label={lst:load_dataset}]
             import pandas as pd
 
             # Load the dataset
             df = pd.read_parquet("../data/processed/ssh_attacks_sampled_decoded.parquet")
             print(f"Dataset size: {df.shape[0]} rows")
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Preprocessing:}
 
-        \begin{verbatim}
+        % Preprocess `Set_Fingerprint` column
+        \begin{lstlisting}[caption={Preprocess `Set\_Fingerprint` column}, label={lst:preprocess-fingerprint}]
             from sklearn.preprocessing import MultiLabelBinarizer
 
             # Preprocess Set_Fingerprint column
@@ -47,7 +54,9 @@
             mlb = MultiLabelBinarizer()
             y = mlb.fit_transform(df['Set_Fingerprint'])
             print(f"Classes identified: {mlb.classes_}")
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Dataset Summary Table}
         
@@ -57,18 +66,22 @@
 
         \textbf{Tokenization:}
 
-        \begin{verbatim}
+        % Tokenize text data using BERT tokenizer
+        \begin{lstlisting}[caption={Tokenize text data using BERT tokenizer}, label={lst:bert_tokenizer}]
             from transformers import BertTokenizer
 
             # Tokenize the text data
             tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
             train_encodings = tokenizer(list(train_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
             val_encodings = tokenizer(list(val_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Model Initialization:}
 
-        \begin{verbatim}
+        % Initialize BERT model for sequence classification
+        \begin{lstlisting}[caption={Initialize BERT model for sequence classification}, label={lst:bert_model}]
             from transformers import BertForSequenceClassification, AdamW
 
             # Initialize the BERT model for sequence classification
@@ -78,11 +91,14 @@
             # Optimizer and Loss
             optimizer = AdamW(model.parameters(), lr=5e-5)
             criterion = torch.nn.BCEWithLogitsLoss()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Training Loop:}
 
-        \begin{verbatim}
+        % Fine-tune BERT model
+        \begin{lstlisting}[caption={Fine-tune BERT model}, label={lst:bert_fine_tune}]
             train_loss_list, val_loss_list = [], []
 
             for epoch in range(5):  # Fine-tune for 5 epochs
@@ -118,7 +134,9 @@
                         loss = criterion(outputs.logits, labels)
                         val_loss += loss.item()
                 val_loss_list.append(val_loss / len(val_loader))
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Training and Validation Loss Table}
             
@@ -128,7 +146,8 @@
 
         \textbf{Plotting Learning Curves:}
 
-        \begin{verbatim}
+        % Plot learning curves
+        \begin{lstlisting}[caption={Plot learning curves}, label={lst:plot_learning_curves}]
             import matplotlib.pyplot as plt
 
             # Plot learning curves
@@ -138,7 +157,9 @@
             plt.ylabel("Loss")
             plt.legend()
             plt.show()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Learning Curves Plot}
 

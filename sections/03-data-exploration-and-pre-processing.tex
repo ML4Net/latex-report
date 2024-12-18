@@ -22,7 +22,8 @@
     
         The dataset used in this research is loaded from a Parquet file (\texttt{ssh\_attacks.parquet}) into a Pandas DataFrame. The initial inspection involves checking the dataset's structure, identifying missing values, and detecting duplicate rows. The dataset contains columns such as \texttt{Session ID}, \texttt{Full session text}, \texttt{Timestamp}, and \texttt{Intent labels}.
 
-        \begin{verbatim}
+        % Load and inspect the dataset
+        \begin{lstlisting}[caption={Load and inspect the dataset}, label={lst:load-inspect-dataset}]
             # Load the dataset
             SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
     
@@ -34,7 +35,9 @@
     
             # Check for duplicate rows
             print(SSH_Attacks.duplicated().sum())
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         The initial inspection revealed that the dataset is well-structured with columns that are essential for our analysis. However, it is important to handle any missing values and duplicates to ensure the integrity of the data. The following steps were taken to address these issues:
 
@@ -49,7 +52,8 @@
     
         The temporal analysis examines when the attacks were performed. The \texttt{first\_timestamp} column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
 
-        \begin{verbatim}
+        % Convert timestamps and analyze frequencies
+        \begin{lstlisting}[caption={Convert timestamps and analyze frequencies}, label={lst:convert-analyze-frequencies}]
             # Convert first_timestamp to datetime format
             SSH_Attacks['first_timestamp'] = pd.to_datetime(SSH_Attacks['first_timestamp'])
 
@@ -59,7 +63,9 @@
                 .size()
                 .reset_index(name='attack_count')
             )
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         The analysis includes plotting the number of attacks per hour, month, and year to identify patterns and trends. This helps in understanding the temporal distribution of attacks and identifying any periodic patterns or anomalies.
 
@@ -71,14 +77,17 @@
     
         Feature extraction involves identifying and extracting relevant features from the attack sessions. This includes analyzing the distribution of classes (intents) and visualizing the data using bar plots.
 
-        \begin{verbatim}
+        % Extract and visualize class distribution
+        \begin{lstlisting}[caption={Extract and visualize class distribution}, label={lst:extract-visualize-classes}]
             # Extract and count occurrences of each class
             all_classes = SSH_Attacks['Set_Fingerprint'].explode().str.strip()
             class_counts = all_classes.value_counts()
 
             # Plot the distribution of classes
             sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         The distribution of classes provides valuable information about the types of attacks and their prevalence. By visualizing this distribution, we can identify the most common attack intents and focus our analysis on these areas.
 
@@ -90,13 +99,16 @@
     
         The common words analysis identifies the most frequent words used in the attack sessions. This is achieved using word clouds and other text analysis techniques.
 
-        \begin{verbatim}
+        % Generate a word cloud from session text
+        \begin{lstlisting}[caption={Generate a word cloud from session text}, label={lst:generate-wordcloud}]
             # Generate a word cloud for the session text
             wordcloud = WordCloud(width=800, height=400, background_color='white').generate(' '.join(SSH_Attacks['Full session text']))
             plt.imshow(wordcloud, interpolation='bilinear')
             plt.axis('off')
             plt.show()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         The word cloud visualization highlights the most common words used in the attack sessions, providing insights into the attackers' behavior and strategies. This can help in identifying common commands and patterns used in the attacks.
 
@@ -110,7 +122,8 @@
             
         The intent distribution analysis examines the distribution of intents over time. This involves grouping the data by date and intent to count occurrences and visualize the trends.
 
-        \begin{verbatim}
+        % Group attacks by fingerprint and date
+        \begin{lstlisting}[caption={Group attacks by fingerprint and date}, label={lst:group-attacks}]
             # Group by Set_Fingerprint and date to count occurrences
             grouped_SSH_Attacks = (
                 SSH_Attacks.explode('Set_Fingerprint')
@@ -118,7 +131,9 @@
                 .size()
                 .reset_index(name='attack_count')
             )
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         By analyzing the distribution of intents over time, we can identify trends and patterns in the attackers' behavior. This can help in understanding how different types of attacks evolve and vary over time.
 
@@ -130,7 +145,8 @@
     
         Text representation converts the session text into numerical representations using techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF). These representations are used for further analysis and machine learning tasks.
 
-        \begin{verbatim}
+        % Convert text into numerical representations
+        \begin{lstlisting}[caption={Convert text into numerical representations}, label={lst:convert-text-numerical}]
             # Convert text into numerical representations using Bag of Words (BoW)
             from sklearn.feature_extraction.text import CountVectorizer
             bow_vectorizer = CountVectorizer()
@@ -140,7 +156,9 @@
             from sklearn.feature_extraction.text import TfidfVectorizer
             tfidf_vectorizer = TfidfVectorizer()
             X_tfidf = tfidf_vectorizer.fit_transform(SSH_Attacks['Full session text'])
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         The resulting numerical representations from both BoW and TF-IDF are normalized and used for subsequent analysis and modeling. These representations are essential for applying machine learning algorithms to classify and predict attack intents.
 

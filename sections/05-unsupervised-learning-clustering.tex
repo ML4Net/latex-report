@@ -24,7 +24,8 @@
 
         \textbf{Elbow Method:} The elbow method involves plotting the sum of squared distances (inertia) for a range of cluster numbers and identifying the point where the inertia starts to decrease more slowly (the "elbow").
 
-        \begin{verbatim}
+        % Elbow Method for k-Means Clustering
+        \begin{lstlisting}[caption={Elbow Method for k-Means Clustering}, label={lst:elbow_method}]
             # Elbow Method
             n_cluster_list = []
             inertia_list = []
@@ -41,13 +42,16 @@
             plt.ylabel('k-Means clustering error')
             plt.title('Elbow Method')
             plt.show()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Elbow Method Plot}
 
         \textbf{Silhouette Analysis:} Silhouette analysis involves calculating the silhouette score for each potential cluster number. The silhouette score measures how similar an object is to its own cluster compared to other clusters.
 
-        \begin{verbatim}
+        % Silhouette Analysis for k-Means Clustering
+        \begin{lstlisting}[caption={Silhouette Analysis for k-Means Clustering}, label={lst:silhouette_analysis}]
             # Silhouette Analysis
             silhouette_list = []
             for n_clusters in range(3, 17):
@@ -63,7 +67,9 @@
             plt.ylabel('Silhouette Score')
             plt.title('Silhouette Analysis')
             plt.show()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Silhouette Analysis Plot}
 
@@ -75,7 +81,8 @@
 
         \textbf{K-Means Hyperparameter Tuning:}
 
-        \begin{verbatim}
+        % Grid Search for k-Means Clustering
+        \begin{lstlisting}[caption={Grid Search for k-Means Clustering}, label={lst:grid_search_kmeans}]
             # Define parameter grid for K-Means
             param_grid_kmeans = {
                 'init': ['k-means++', 'random'],
@@ -95,13 +102,16 @@
             # Get the best parameters
             best_params_kmeans = grid_search_kmeans.best_params_
             print("Best parameters:", best_params_kmeans)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for K-Means Hyperparameter Tuning Results}
 
         \textbf{Gaussian Mixture Model (GMM) Hyperparameter Tuning:}
 
-        \begin{verbatim}
+        % Grid Search for Gaussian Mixture Model (GMM)
+        \begin{lstlisting}[caption={Grid Search for Gaussian Mixture Model (GMM)}, label={lst:grid_search_gmm}]
             # Define parameter grid for GMM
             param_grid_gmm = {
                 'init_params': ['kmeans'],
@@ -122,7 +132,9 @@
             # Get the best parameters
             best_params_gmm = grid_search_gmm.best_params_
             print("Best parameters:", best_params_gmm)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for GMM Hyperparameter Tuning Results}
             
@@ -132,7 +144,8 @@
 
         \textbf{t-SNE Visualization:}
 
-        \begin{verbatim}
+        % t-SNE Visualization of Clusters
+        \begin{lstlisting}[caption={t-SNE Visualization of Clusters}, label={lst:tsne_visualization}]
             # Apply t-SNE to reduce the number of components
             tsne = TSNE(n_components=2, random_state=42).fit_transform(X)
             df_tsne = pd.DataFrame(tsne, columns=['x1', 'x2'])
@@ -148,7 +161,9 @@
             sns.scatterplot(data=df_tsne, x='x1', y='x2', hue='cluster_gmm', palette='viridis')
             plt.title('t-SNE Visualization of GMM Clusters')
             plt.show()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for t-SNE Visualization of K-Means Clusters}
 
@@ -160,13 +175,16 @@
 
         \textbf{Cluster Feature Analysis:}
 
-        \begin{verbatim}
+        % Feature Distribution Analysis by Cluster
+        \begin{lstlisting}[caption={Feature Distribution Analysis by Cluster}, label={lst:feature_distribution}]
             # Analyze the distribution of features within each cluster
             for cluster in range(10):
                 cluster_data = df_tsne[df_tsne['cluster_kmeans'] == cluster]
                 print(f"Cluster {cluster} Feature Distribution:")
                 print(cluster_data.describe())
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Cluster Feature Distribution Tables}
             
@@ -176,14 +194,17 @@
 
         \textbf{Intent Homogeneity Analysis:}
 
-        \begin{verbatim}
+        % Intent Proportions Analysis by Cluster
+        \begin{lstlisting}[caption={Intent Proportions Analysis by Cluster}, label={lst:intent_proportions}]
             # Calculate the proportion of each intent within the clusters
             for cluster in range(10):
                 cluster_data = df_tsne[df_tsne['cluster_kmeans'] == cluster]
                 intent_proportions = cluster_data['intent'].value_counts(normalize=True)
                 print(f"Cluster {cluster} Intent Proportions:")
                 print(intent_proportions)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Intent Proportion Tables}
         
@@ -193,13 +214,16 @@
 
         \textbf{Attack Category Analysis:}
 
-        \begin{verbatim}
+        % Attack Categories Analysis by Cluster
+        \begin{lstlisting}[caption={Attack Categories Analysis by Cluster}, label={lst:attack_categories}]
             # Analyze the most frequent attack categories within the clusters
             for cluster in range(10):
                 cluster_data = df_tsne[df_tsne['cluster_kmeans'] == cluster]
                 attack_categories = cluster_data['attack_category'].value_counts()
                 print(f"Cluster {cluster} Attack Categories:")
                 print(attack_categories)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Attack Category Distribution Tables}

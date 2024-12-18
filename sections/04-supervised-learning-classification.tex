@@ -23,19 +23,25 @@
 
         \textbf{Data Loading:} The dataset is loaded from a Parquet file into a Pandas DataFrame.
 
-        \begin{verbatim}
+        % Load the dataset
+        \begin{lstlisting}[caption={Load the dataset}, label={lst:load_dataset}]
             # Load the dataset
             SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Data Splitting:} We split the dataset into training and test sets, ensuring a 70/30 split while maintaining reproducibility.
 
-        \begin{verbatim}
+        % Split the dataset into training and test sets
+        \begin{lstlisting}[caption={Split the dataset into training and test sets}, label={lst:split_dataset}]
             # Split the dataset into training and test sets
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=0.3, random_state=42
             )
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Data Splitting Summary Table}
 
@@ -47,27 +53,36 @@
 
         \textbf{Logistic Regression:}
 
-        \begin{verbatim}
+        % Train Logistic Regression model
+        \begin{lstlisting}[caption={Train Logistic Regression model}, label={lst:logistic_regression}]
             # Initialize and train Logistic Regression model
             model = LogisticRegression(max_iter=1000, random_state=42)
             model.fit(X_train_tfidf, y_train_binary)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Random Forest:}
 
-        \begin{verbatim}
+        % Train Random Forest model
+        \begin{lstlisting}[caption={Train Random Forest model}, label={lst:random_forest}]
             # Initialize and train Random Forest model
             model = RandomForestClassifier(n_estimators=100, random_state=42)
             model.fit(X_train_tfidf, y_train_binary)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Support Vector Machine (SVM):}
 
-        \begin{verbatim}
+        % Train SVM model
+        \begin{lstlisting}[caption={Train SVM model}, label={lst:svm}]
             # Initialize and train SVM model
             model = SVC(kernel='linear', random_state=42)
             model.fit(X_train_tfidf, y_train_binary)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Baseline Model Performance Table}
 
@@ -79,21 +94,27 @@
 
         \textbf{Logistic Regression Hyperparameter Tuning:}
 
-        \begin{verbatim}
+        % Define parameter grid for Logistic Regression
+        \begin{lstlisting}[caption={Parameter grid for Logistic Regression}, label={lst:param_grid_logistic}]
             # Define parameter grid for Logistic Regression
             param_grid = {'C': [0.1, 1, 10, 100]}
             grid_search = GridSearchCV(LogisticRegression(max_iter=1000, random_state=42), param_grid, cv=5)
             grid_search.fit(X_train_tfidf, y_train_binary)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Random Forest Hyperparameter Tuning:}
 
-        \begin{verbatim}
+        % Define parameter grid for Random Forest
+        \begin{lstlisting}[caption={Parameter grid for Random Forest}, label={lst:param_grid_rf}]
             # Define parameter grid for Random Forest
             param_grid = {'n_estimators': [50, 100, 200]}
             grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, cv=5)
             grid_search.fit(X_train_tfidf, y_train_binary)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Hyperparameter Tuning Results Table}
 
@@ -105,20 +126,26 @@
 
         \textbf{Classification Report:}
 
-        \begin{verbatim}
+        % Generate classification report
+        \begin{lstlisting}[caption={Generate classification report}, label={lst:classification_report}]
             # Generate classification report
             report = classification_report(y_test_binary, y_pred, zero_division=0)
             print(report)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Confusion Matrix:}
 
-        \begin{verbatim}
+        % Generate confusion matrix
+        \begin{lstlisting}[caption={Generate confusion matrix}, label={lst:confusion_matrix}]
             # Generate confusion matrix
             cm = confusion_matrix(y_test_binary, y_pred)
             sns.heatmap(cm, annot=True, fmt='d', cmap='coolwarm')
             plt.show()
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Classification Report and Confusion Matrix Plots}
 
@@ -130,21 +157,27 @@
 
         \textbf{Bag of Words (BoW):}
 
-        \begin{verbatim}
+        % Convert text using Bag of Words (BoW)
+        \begin{lstlisting}[caption={Convert text using Bag of Words (BoW)}, label={lst:bow_conversion}]
             # Convert text into numerical representations using Bag of Words (BoW)
             bow_vectorizer = CountVectorizer()
             X_train_bow = bow_vectorizer.fit_transform(X_train)
             X_test_bow = bow_vectorizer.transform(X_test)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{TF-IDF:}
 
-        \begin{verbatim}
+        % Convert text using TF-IDF
+        \begin{lstlisting}[caption={Convert text using TF-IDF}, label={lst:tfidf_conversion}]
             # Convert text into numerical representations using TF-IDF
             tfidf_vectorizer = TfidfVectorizer()
             X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
             X_test_tfidf = tfidf_vectorizer.transform(X_test)
-        \end{verbatim}
+        \end{lstlisting}
+        
+        \vspace{1em}
 
         \textbf{Placeholder for Feature Experimentation Results Table}
 
