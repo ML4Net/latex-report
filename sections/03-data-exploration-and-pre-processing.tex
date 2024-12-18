@@ -21,7 +21,7 @@
 
     \subsection{Dataset Preparation}
     
-        The dataset used in this research is loaded from a Parquet file (`ssh_attacks.parquet`) into a Pandas DataFrame. The initial inspection involves checking the dataset's structure, identifying missing values, and detecting duplicate rows. The dataset contains columns such as `Session ID`, `Full session text`, `Timestamp`, and `Intent labels`.
+        The dataset used in this research is loaded from a Parquet file (\texttt{ssh\_attacks.parquet}) into a Pandas DataFrame. The initial inspection involves checking the dataset's structure, identifying missing values, and detecting duplicate rows. The dataset contains columns such as \texttt{Session ID}, \texttt{Full session text}, \texttt{Timestamp}, and \texttt{Intent labels}.
 
         \begin{verbatim}
             # Load the dataset
@@ -39,7 +39,7 @@
 
     \subsection{Temporal Analysis}
     
-        The temporal analysis examines when the attacks were performed. The `first_timestamp` column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
+        The temporal analysis examines when the attacks were performed. The \texttt{first\_timestamp} column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
 
         \begin{verbatim}
             # Convert first_timestamp to datetime format

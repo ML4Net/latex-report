@@ -9,54 +9,54 @@
 
     \subsection{Security Logs and Attack Analysis}
     
-    Security logs represent a critical source of information for understanding system vulnerabilities and potential cyber attacks. These logs capture detailed records of system events, network interactions, and user activities, providing valuable insights into potential security breaches.
+        Security logs represent a critical source of information for understanding system vulnerabilities and potential cyber attacks. These logs capture detailed records of system events, network interactions, and user activities, providing valuable insights into potential security breaches.
 
-    In the context of SSH shell attacks, logs document the sequence of commands executed during a malicious session, enabling security researchers to analyze attacker behaviors, techniques, and potential system impacts. However, the manual analysis of these logs is challenging due to their volume, complexity, and often non-standard formatting.
+        In the context of SSH shell attacks, logs document the sequence of commands executed during a malicious session, enabling security researchers to analyze attacker behaviors, techniques, and potential system impacts. However, the manual analysis of these logs is challenging due to their volume, complexity, and often non-standard formatting.
 
     \subsection{MITRE ATT\&CK Framework}
     
-    The MITRE ATT\&CK (Adversarial Tactics, Techniques, and Common Knowledge) framework provides a comprehensive knowledge base of adversary tactics and techniques observed in real-world cyber attacks. This framework serves as a standardized methodology for understanding and categorizing attack strategies.
+        The MITRE ATT\&CK (Adversarial Tactics, Techniques, and Common Knowledge) framework provides a comprehensive knowledge base of adversary tactics and techniques observed in real-world cyber attacks. This framework serves as a standardized methodology for understanding and categorizing attack strategies.
 
-    \noindent For our research, we focus on seven key intents derived from the MITRE ATT\&CK framework:
+        \noindent For our research, we focus on seven key intents derived from the MITRE ATT\&CK framework:
 
-    \begin{itemize}
-        \item \textbf{Persistence:} Techniques used by adversaries to maintain system access across restarts or credential changes.
-        \item \textbf{Discovery:} Methods for gathering information about the target system and network environment.
-        \item \textbf{Defense Evasion:} Strategies to avoid detection by security mechanisms.
-        \item \textbf{Execution:} Techniques for running malicious code on target systems.
-        \item \textbf{Impact:} Actions aimed at manipulating, interrupting, or destroying systems and data.
-        \item \textbf{Other:} Less common tactics including Reconnaissance, Resource Development, Initial Access, etc.
-        \item \textbf{Harmless:} Non-malicious code or actions.
-    \end{itemize}
+        \begin{itemize}
+            \item \textbf{Persistence:} Techniques used by adversaries to maintain system access across restarts or credential changes.
+            \item \textbf{Discovery:} Methods for gathering information about the target system and network environment.
+            \item \textbf{Defense Evasion:} Strategies to avoid detection by security mechanisms.
+            \item \textbf{Execution:} Techniques for running malicious code on target systems.
+            \item \textbf{Impact:} Actions aimed at manipulating, interrupting, or destroying systems and data.
+            \item \textbf{Other:} Less common tactics including Reconnaissance, Resource Development, Initial Access, etc.
+            \item \textbf{Harmless:} Non-malicious code or actions.
+        \end{itemize}
 
     \subsection{Dataset Overview}
     
-    Our research utilizes a comprehensive dataset of SSH shell attacks collected from a honeypot deployment. Key characteristics of the dataset include:
+        Our research utilizes a comprehensive dataset of SSH shell attacks collected from a honeypot deployment. Key characteristics of the dataset include:
 
-    \begin{itemize}
-        \item Approximately 230,000 unique Unix shell attack sessions
-        \item Recorded after SSH login
-        \item Stored in Parquet format for efficient data processing
-        \item Columns include:
         \begin{itemize}
-            \item Session ID
-            \item Full session text (command sequences)
-            \item Timestamp
-            \item Intent labels based on MITRE ATT\&CK tactics
+            \item Approximately 230,000 unique Unix shell attack sessions
+            \item Recorded after SSH login
+            \item Stored in Parquet format for efficient data processing
+            \item Columns include:
+            \begin{itemize}
+                \item Session ID
+                \item Full session text (command sequences)
+                \item Timestamp
+                \item Intent labels based on MITRE ATT\&CK tactics
+            \end{itemize}
         \end{itemize}
-    \end{itemize}
 
-    It is important to note that the dataset's labels are automatically generated through a research project and may contain potential classification errors. This inherent uncertainty adds an additional layer of complexity to our analysis and highlights the importance of robust machine learning techniques.
+        It is important to note that the dataset's labels are automatically generated through a research project and may contain potential classification errors. This inherent uncertainty adds an additional layer of complexity to our analysis and highlights the importance of robust machine learning techniques.
 
     \subsection{Research Approach}
     
-    Our research employs a multi-faceted approach to SSH shell attack log analysis:
+        Our research employs a multi-faceted approach to SSH shell attack log analysis:
 
-    \begin{itemize}
-        \item Comprehensive data exploration and preprocessing
-        \item Supervised learning for attack intent classification
-        \item Unsupervised learning for attack pattern discovery
-        \item Advanced language model exploration
-    \end{itemize}
+        \begin{itemize}
+            \item Comprehensive data exploration and preprocessing
+            \item Supervised learning for attack intent classification
+            \item Unsupervised learning for attack pattern discovery
+            \item Advanced language model exploration
+        \end{itemize}
 
-    By combining these techniques, we aim to develop a comprehensive framework for understanding and categorizing SSH shell attacks, ultimately contributing to improved cybersecurity threat detection and response strategies.
+        By combining these techniques, we aim to develop a comprehensive framework for understanding and categorizing SSH shell attacks, ultimately contributing to improved cybersecurity threat detection and response strategies.
