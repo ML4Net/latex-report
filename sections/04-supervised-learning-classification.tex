@@ -23,15 +23,17 @@
 
         \textbf{Data Loading:} The dataset is loaded from a Parquet file into a Pandas DataFrame.
 
+        \vspace{0.5em}
+
         % Load the dataset
         \begin{lstlisting}[caption={Load the dataset}, label={lst:load_dataset}]
             # Load the dataset
             SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Data Splitting:} We split the dataset into training and test sets, ensuring a 70/30 split while maintaining reproducibility.
+        
+        \vspace{0.5em}
 
         % Split the dataset into training and test sets
         \begin{lstlisting}[caption={Split the dataset into training and test sets}, label={lst:split_dataset}]
@@ -40,8 +42,6 @@
                 X, y, test_size=0.3, random_state=42
             )
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Data Splitting Summary Table}
 
@@ -52,6 +52,8 @@
         In this subsection, we implement and evaluate baseline models to establish a performance benchmark. We will use Logistic Regression, Random Forest, and Support Vector Machine (SVM) as our baseline models.
 
         \textbf{Logistic Regression:}
+        
+        \vspace{0.5em}
 
         % Train Logistic Regression model
         \begin{lstlisting}[caption={Train Logistic Regression model}, label={lst:logistic_regression}]
@@ -59,10 +61,10 @@
             model = LogisticRegression(max_iter=1000, random_state=42)
             model.fit(X_train_tfidf, y_train_binary)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Random Forest:}
+
+        \vspace{0.5em}
 
         % Train Random Forest model
         \begin{lstlisting}[caption={Train Random Forest model}, label={lst:random_forest}]
@@ -70,10 +72,10 @@
             model = RandomForestClassifier(n_estimators=100, random_state=42)
             model.fit(X_train_tfidf, y_train_binary)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Support Vector Machine (SVM):}
+        
+        \vspace{0.5em}
 
         % Train SVM model
         \begin{lstlisting}[caption={Train SVM model}, label={lst:svm}]
@@ -81,8 +83,6 @@
             model = SVC(kernel='linear', random_state=42)
             model.fit(X_train_tfidf, y_train_binary)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Baseline Model Performance Table}
 
@@ -93,6 +93,8 @@
         Hyperparameter tuning involves optimizing the parameters of the models to improve their performance. We use GridSearchCV to perform an exhaustive search over specified parameter values.
 
         \textbf{Logistic Regression Hyperparameter Tuning:}
+        
+        \vspace{0.5em}
 
         % Define parameter grid for Logistic Regression
         \begin{lstlisting}[caption={Parameter grid for Logistic Regression}, label={lst:param_grid_logistic}]
@@ -101,10 +103,10 @@
             grid_search = GridSearchCV(LogisticRegression(max_iter=1000, random_state=42), param_grid, cv=5)
             grid_search.fit(X_train_tfidf, y_train_binary)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Random Forest Hyperparameter Tuning:}
+        
+        \vspace{0.5em}
 
         % Define parameter grid for Random Forest
         \begin{lstlisting}[caption={Parameter grid for Random Forest}, label={lst:param_grid_rf}]
@@ -113,8 +115,6 @@
             grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, cv=5)
             grid_search.fit(X_train_tfidf, y_train_binary)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Hyperparameter Tuning Results Table}
 
@@ -125,6 +125,8 @@
         In this subsection, we analyze the results of the models for each intent. We use metrics such as accuracy, precision, recall, and F1-score to evaluate the performance.
 
         \textbf{Classification Report:}
+        
+        \vspace{0.5em}
 
         % Generate classification report
         \begin{lstlisting}[caption={Generate classification report}, label={lst:classification_report}]
@@ -132,10 +134,10 @@
             report = classification_report(y_test_binary, y_pred, zero_division=0)
             print(report)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Confusion Matrix:}
+        
+        \vspace{0.5em}
 
         % Generate confusion matrix
         \begin{lstlisting}[caption={Generate confusion matrix}, label={lst:confusion_matrix}]
@@ -144,8 +146,6 @@
             sns.heatmap(cm, annot=True, fmt='d', cmap='coolwarm')
             plt.show()
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Classification Report and Confusion Matrix Plots}
 
@@ -156,6 +156,8 @@
         Feature experimentation involves exploring different feature combinations and their impact on model performance. We experiment with various text representation techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF).
 
         \textbf{Bag of Words (BoW):}
+        
+        \vspace{0.5em}
 
         % Convert text using Bag of Words (BoW)
         \begin{lstlisting}[caption={Convert text using Bag of Words (BoW)}, label={lst:bow_conversion}]
@@ -164,10 +166,10 @@
             X_train_bow = bow_vectorizer.fit_transform(X_train)
             X_test_bow = bow_vectorizer.transform(X_test)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{TF-IDF:}
+        
+        \vspace{0.5em}
 
         % Convert text using TF-IDF
         \begin{lstlisting}[caption={Convert text using TF-IDF}, label={lst:tfidf_conversion}]
@@ -176,8 +178,6 @@
             X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
             X_test_tfidf = tfidf_vectorizer.transform(X_test)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Feature Experimentation Results Table}
 

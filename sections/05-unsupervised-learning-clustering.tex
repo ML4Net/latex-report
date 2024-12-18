@@ -23,6 +23,8 @@
         Determining the optimal number of clusters is a crucial step in the clustering process. We use methods like the elbow method and silhouette analysis to identify the appropriate number of clusters.
 
         \textbf{Elbow Method:} The elbow method involves plotting the sum of squared distances (inertia) for a range of cluster numbers and identifying the point where the inertia starts to decrease more slowly (the "elbow").
+        
+        \vspace{0.5em}
 
         % Elbow Method for k-Means Clustering
         \begin{lstlisting}[caption={Elbow Method for k-Means Clustering}, label={lst:elbow_method}]
@@ -43,12 +45,12 @@
             plt.title('Elbow Method')
             plt.show()
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Elbow Method Plot}
 
         \textbf{Silhouette Analysis:} Silhouette analysis involves calculating the silhouette score for each potential cluster number. The silhouette score measures how similar an object is to its own cluster compared to other clusters.
+        
+        \vspace{0.5em}
 
         % Silhouette Analysis for k-Means Clustering
         \begin{lstlisting}[caption={Silhouette Analysis for k-Means Clustering}, label={lst:silhouette_analysis}]
@@ -68,8 +70,6 @@
             plt.title('Silhouette Analysis')
             plt.show()
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Silhouette Analysis Plot}
 
@@ -80,6 +80,8 @@
         Hyperparameter tuning involves optimizing the parameters of the clustering algorithms to improve their performance. We use GridSearchCV to perform an exhaustive search over specified parameter values.
 
         \textbf{K-Means Hyperparameter Tuning:}
+        
+        \vspace{0.5em}
 
         % Grid Search for k-Means Clustering
         \begin{lstlisting}[caption={Grid Search for k-Means Clustering}, label={lst:grid_search_kmeans}]
@@ -103,12 +105,12 @@
             best_params_kmeans = grid_search_kmeans.best_params_
             print("Best parameters:", best_params_kmeans)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for K-Means Hyperparameter Tuning Results}
 
         \textbf{Gaussian Mixture Model (GMM) Hyperparameter Tuning:}
+        
+        \vspace{0.5em}
 
         % Grid Search for Gaussian Mixture Model (GMM)
         \begin{lstlisting}[caption={Grid Search for Gaussian Mixture Model (GMM)}, label={lst:grid_search_gmm}]
@@ -133,8 +135,6 @@
             best_params_gmm = grid_search_gmm.best_params_
             print("Best parameters:", best_params_gmm)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for GMM Hyperparameter Tuning Results}
             
@@ -143,6 +143,8 @@
         Visualizing the clusters helps in understanding the distribution and characteristics of the clusters. We use t-SNE to reduce the dimensionality of the data and create clear visual representations of the clusters.
 
         \textbf{t-SNE Visualization:}
+        
+        \vspace{0.5em}
 
         % t-SNE Visualization of Clusters
         \begin{lstlisting}[caption={t-SNE Visualization of Clusters}, label={lst:tsne_visualization}]
@@ -162,8 +164,6 @@
             plt.title('t-SNE Visualization of GMM Clusters')
             plt.show()
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for t-SNE Visualization of K-Means Clusters}
 
@@ -174,6 +174,8 @@
         Analyzing the characteristics of each cluster helps in understanding the common patterns and behaviors within the clusters. We examine the distribution of features and intents within each cluster.
 
         \textbf{Cluster Feature Analysis:}
+        
+        \vspace{0.5em}
 
         % Feature Distribution Analysis by Cluster
         \begin{lstlisting}[caption={Feature Distribution Analysis by Cluster}, label={lst:feature_distribution}]
@@ -183,8 +185,6 @@
                 print(f"Cluster {cluster} Feature Distribution:")
                 print(cluster_data.describe())
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Cluster Feature Distribution Tables}
             
@@ -193,6 +193,8 @@
         Assessing if clusters reflect intent division involves examining the homogeneity of intents within each cluster. We calculate the proportion of each intent within the clusters to determine if the clusters are homogeneous.
 
         \textbf{Intent Homogeneity Analysis:}
+        
+        \vspace{0.5em}
 
         % Intent Proportions Analysis by Cluster
         \begin{lstlisting}[caption={Intent Proportions Analysis by Cluster}, label={lst:intent_proportions}]
@@ -203,8 +205,6 @@
                 print(f"Cluster {cluster} Intent Proportions:")
                 print(intent_proportions)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Intent Proportion Tables}
         
@@ -213,6 +213,8 @@
         Associating clusters with specific attack categories involves identifying the common attack patterns within each cluster. We analyze the most frequent attack categories within the clusters to understand their characteristics.
 
         \textbf{Attack Category Analysis:}
+        
+        \vspace{0.5em}
 
         % Attack Categories Analysis by Cluster
         \begin{lstlisting}[caption={Attack Categories Analysis by Cluster}, label={lst:attack_categories}]
@@ -223,7 +225,5 @@
                 print(f"Cluster {cluster} Attack Categories:")
                 print(attack_categories)
         \end{lstlisting}
-        
-        \vspace{1em}
 
         \textbf{Placeholder for Attack Category Distribution Tables}
