@@ -22,22 +22,7 @@
     
         The dataset used in this research is loaded from a Parquet file (\texttt{ssh\_attacks.parquet}) into a Pandas DataFrame. The initial inspection involves checking the dataset's structure, identifying missing values, and detecting duplicate rows. The dataset contains columns such as \texttt{Session ID}, \texttt{Full session text}, \texttt{Timestamp}, and \texttt{Intent labels}.
         
-        \vspace{0.5em}
-
-        % Load and inspect the dataset
-        \begin{lstlisting}[caption={Load and inspect the dataset}, label={lst:load-inspect-dataset}]
-            # Load the dataset
-            SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
-    
-            # Inspect the dataset structure
-            print(SSH_Attacks.info())
-    
-            # Check for missing values
-            print(SSH_Attacks.isnull().sum())
-    
-            # Check for duplicate rows
-            print(SSH_Attacks.duplicated().sum())
-        \end{lstlisting}
+        \textbf{Refer to Appendix \ref{lst:load-inspect-dataset} for the code snippet.}
 
         The initial inspection revealed that the dataset is well-structured with columns that are essential for our analysis. However, it is important to handle any missing values and duplicates to ensure the integrity of the data. The following steps were taken to address these issues:
 
@@ -46,98 +31,104 @@
             \item **Duplicate Rows**: Duplicate rows were detected and removed to avoid redundancy in the analysis.
         \end{itemize}
 
-        \textbf{Placeholder for Dataset Structure Table}
+        \textbf{Table \ref{tab:dataset-structure}} summarizes the dataset structure.
+
+        \begin{table}[h]
+            \centering
+            \caption{Dataset Structure}
+            \label{tab:dataset-structure}
+            \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Column} & \textbf{Description} \\ \hline
+                Session ID & Unique identifier for each session \\ \hline
+                Full session text & Text of the entire session \\ \hline
+                Timestamp & Timestamp of the session \\ \hline
+                Intent labels & Labels indicating the intent of the session \\ \hline
+            \end{tabular}
+        \end{table}
 
     \subsection{Temporal Analysis}
     
         The temporal analysis examines when the attacks were performed. The \texttt{first\_timestamp} column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
-        
-        \vspace{0.5em}
-
-        % Convert timestamps and analyze frequencies
-        \begin{lstlisting}[caption={Convert timestamps and analyze frequencies}, label={lst:convert-analyze-frequencies}]
-            # Convert first_timestamp to datetime format
-            SSH_Attacks['first_timestamp'] = pd.to_datetime(SSH_Attacks['first_timestamp'])
-
-            # Analyze attack frequencies over time
-            temporal_series = (
-                SSH_Attacks.groupby(SSH_Attacks['first_timestamp'].dt.date)
-                .size()
-                .reset_index(name='attack_count')
-            )
-        \end{lstlisting}
+            
+        \textbf{Refer to Appendix \ref{lst:convert-analyze-frequencies} for the code snippet.}
 
         The analysis includes plotting the number of attacks per hour, month, and year to identify patterns and trends. This helps in understanding the temporal distribution of attacks and identifying any periodic patterns or anomalies.
 
-        \textbf{Placeholder for Temporal Analysis Plot}
+        \textbf{Figure \ref{fig:temporal-analysis}} shows the temporal analysis of SSH attacks.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/temporal_series_of_ssh_attacks.png}
+            \caption{Temporal Series of SSH Attacks}
+            \label{fig:temporal-analysis}
+        \end{figure}
 
         The temporal analysis revealed that the frequency of attacks varies significantly over time. By examining the hourly, daily, and monthly trends, we can gain insights into the behavior of attackers and the times when systems are most vulnerable.
 
     \subsection{Feature Extraction}
     
         Feature extraction involves identifying and extracting relevant features from the attack sessions. This includes analyzing the distribution of classes (intents) and visualizing the data using bar plots.
-        
-        \vspace{0.5em}
-
-        % Extract and visualize class distribution
-        \begin{lstlisting}[caption={Extract and visualize class distribution}, label={lst:extract-visualize-classes}]
-            # Extract and count occurrences of each class
-            all_classes = SSH_Attacks['Set_Fingerprint'].explode().str.strip()
-            class_counts = all_classes.value_counts()
-
-            # Plot the distribution of classes
-            sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
-        \end{lstlisting}
+            
+        \textbf{Refer to Appendix \ref{lst:extract-visualize-classes} for the code snippet.}
 
         The distribution of classes provides valuable information about the types of attacks and their prevalence. By visualizing this distribution, we can identify the most common attack intents and focus our analysis on these areas.
 
-        \textbf{Placeholder for Class Distribution Bar Plot}
+        \textbf{Figure \ref{fig:class-distribution}} shows the distribution of classes.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/distribution_of_classes.png}
+            \caption{Distribution of Classes}
+            \label{fig:class-distribution}
+        \end{figure}
 
         The feature extraction process also involves creating new features that can enhance the analysis. For example, we can extract the length of each session, the number of commands executed, and other relevant metrics.
 
     \subsection{Common Words Analysis}
     
         The common words analysis identifies the most frequent words used in the attack sessions. This is achieved using word clouds and other text analysis techniques.
-        
-        \vspace{0.5em}
-
-        % Generate a word cloud from session text
-        \begin{lstlisting}[caption={Generate a word cloud from session text}, label={lst:generate-wordcloud}]
-            # Generate a word cloud for the session text
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(' '.join(SSH_Attacks['Full session text']))
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis('off')
-            plt.show()
-        \end{lstlisting}
+            
+        \textbf{Refer to Appendix \ref{lst:generate-wordcloud} for the code snippet.}
 
         The word cloud visualization highlights the most common words used in the attack sessions, providing insights into the attackers' behavior and strategies. This can help in identifying common commands and patterns used in the attacks.
 
-        \textbf{Placeholder for Word Cloud Visualization}
+        \textbf{Figure \ref{fig:word-cloud}} shows the word cloud of the most common words.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/word_cloud_of_most_common_words.png}
+            \caption{Word Cloud of Most Common Words}
+            \label{fig:word-cloud}
+        \end{figure}
 
         Additionally, we can create bar plots to show the frequency of the top 10 most common words, which can further aid in understanding the textual characteristics of the attack sessions.
 
-        \textbf{Placeholder for Common Words Bar Plot}
+        \textbf{Figure \ref{fig:common-words}} shows the top 10 most common words.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/top_10_most_common_words.png}
+            \caption{Top 10 Most Common Words}
+            \label{fig:common-words}
+        \end{figure}
 
     \subsection{Intent Distribution}
             
         The intent distribution analysis examines the distribution of intents over time. This involves grouping the data by date and intent to count occurrences and visualize the trends.
-        
-        \vspace{0.5em}
-
-        % Group attacks by fingerprint and date
-        \begin{lstlisting}[caption={Group attacks by fingerprint and date}, label={lst:group-attacks}]
-            # Group by Set_Fingerprint and date to count occurrences
-            grouped_SSH_Attacks = (
-                SSH_Attacks.explode('Set_Fingerprint')
-                .groupby([SSH_Attacks['first_timestamp'].dt.date, 'Set_Fingerprint'])
-                .size()
-                .reset_index(name='attack_count')
-            )
-        \end{lstlisting}
+            
+        \textbf{Refer to Appendix \ref{lst:group-attacks} for the code snippet.}
 
         By analyzing the distribution of intents over time, we can identify trends and patterns in the attackers' behavior. This can help in understanding how different types of attacks evolve and vary over time.
 
-        \textbf{Placeholder for Intent Distribution Plot}
+        \textbf{Figure \ref{fig:intent-distribution}} shows the distribution of intents over time.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/intents_over_timestamps.png}
+            \caption{Distribution of Intents Over Time}
+            \label{fig:intent-distribution}
+        \end{figure}
 
         The intent distribution analysis also helps in identifying any seasonal or periodic patterns in the attacks, which can be crucial for developing effective defense strategies.
 
@@ -145,23 +136,22 @@
     
         Text representation converts the session text into numerical representations using techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF). These representations are used for further analysis and machine learning tasks.
         
-        \vspace{0.5em}
-
-        % Convert text into numerical representations
-        \begin{lstlisting}[caption={Convert text into numerical representations}, label={lst:convert-text-numerical}]
-            # Convert text into numerical representations using Bag of Words (BoW)
-            from sklearn.feature_extraction.text import CountVectorizer
-            bow_vectorizer = CountVectorizer()
-            X_bow = bow_vectorizer.fit_transform(SSH_Attacks['Full session text'])
-
-            # Convert text into numerical representations using TF-IDF
-            from sklearn.feature_extraction.text import TfidfVectorizer
-            tfidf_vectorizer = TfidfVectorizer()
-            X_tfidf = tfidf_vectorizer.fit_transform(SSH_Attacks['Full session text'])
-        \end{lstlisting}
+        \textbf{Refer to Appendix \ref{lst:convert-text-numerical} for the code snippet.}
 
         The resulting numerical representations from both BoW and TF-IDF are normalized and used for subsequent analysis and modeling. These representations are essential for applying machine learning algorithms to classify and predict attack intents.
 
-        \textbf{Placeholder for Text Representation Table}
+        \textbf{Table \ref{tab:text-representation}} summarizes the text representation techniques.
+
+        \begin{table}[h]
+            \centering
+            \caption{Text Representation Techniques}
+            \label{tab:text-representation}
+            \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Technique} & \textbf{Description} \\ \hline
+                Bag of Words (BoW) & Converts text into a matrix of token counts \\ \hline
+                TF-IDF & Converts text into a matrix of TF-IDF features \\ \hline
+            \end{tabular}
+        \end{table}
 
         The text representation techniques help in transforming the unstructured session text into structured numerical data, which can be used for various analytical and predictive tasks. By comparing the performance of different representation techniques, we can select the most effective method for our analysis.

@@ -1,0 +1,88 @@
+% appendix.tex
+
+\appendix
+
+\section{Appendix}
+
+    \subsection{Code Snippets}
+
+        \subsubsection{Data Exploration and Pre-processing}
+
+            % Load and inspect the dataset
+            \begin{lstlisting}[caption={Load and inspect the dataset}, label={lst:load-inspect-dataset}]
+                # Load the dataset
+                SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
+        
+                # Inspect the dataset structure
+                print(SSH_Attacks.info())
+        
+                # Check for missing values
+                print(SSH_Attacks.isnull().sum())
+        
+                # Check for duplicate rows
+                print(SSH_Attacks.duplicated().sum())
+            \end{lstlisting}
+
+            % Convert timestamps and analyze frequencies
+            \begin{lstlisting}[caption={Convert timestamps and analyze frequencies}, label={lst:convert-analyze-frequencies}]
+                # Convert first_timestamp to datetime format
+                SSH_Attacks['first_timestamp'] = pd.to_datetime(SSH_Attacks['first_timestamp'])
+
+                # Analyze attack frequencies over time
+                temporal_series = (
+                    SSH_Attacks.groupby(SSH_Attacks['first_timestamp'].dt.date)
+                    .size()
+                    .reset_index(name='attack_count')
+                )
+            \end{lstlisting}
+
+            % Extract and visualize class distribution
+            \begin{lstlisting}[caption={Extract and visualize class distribution}, label={lst:extract-visualize-classes}]
+                # Extract and count occurrences of each class
+                all_classes = SSH_Attacks['Set_Fingerprint'].explode().str.strip()
+                class_counts = all_classes.value_counts()
+
+                # Plot the distribution of classes
+                sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
+            \end{lstlisting}
+
+            % Generate a word cloud from session text
+            \begin{lstlisting}[caption={Generate a word cloud from session text}, label={lst:generate-wordcloud}]
+                # Generate a word cloud for the session text
+                wordcloud = WordCloud(width=800, height=400, background_color='white').generate(' '.join(SSH_Attacks['Full session text']))
+                plt.imshow(wordcloud, interpolation='bilinear')
+                plt.axis('off')
+                plt.show()
+            \end{lstlisting}
+
+            % Group attacks by fingerprint and date
+            \begin{lstlisting}[caption={Group attacks by fingerprint and date}, label={lst:group-attacks}]
+                # Group by Set_Fingerprint and date to count occurrences
+                grouped_SSH_Attacks = (
+                    SSH_Attacks.explode('Set_Fingerprint')
+                    .groupby([SSH_Attacks['first_timestamp'].dt.date, 'Set_Fingerprint'])
+                    .size()
+                    .reset_index(name='attack_count')
+                )
+            \end{lstlisting}
+
+            % Convert text into numerical representations
+            \begin{lstlisting}[caption={Convert text into numerical representations}, label={lst:convert-text-numerical}]
+                # Convert text into numerical representations using Bag of Words (BoW)
+                from sklearn.feature_extraction.text import CountVectorizer
+                bow_vectorizer = CountVectorizer()
+                X_bow = bow_vectorizer.fit_transform(SSH_Attacks['Full session text'])
+
+                # Convert text into numerical representations using TF-IDF
+                from sklearn.feature_extraction.text import TfidfVectorizer
+                tfidf_vectorizer = TfidfVectorizer()
+                X_tfidf = tfidf_vectorizer.fit_transform(SSH_Attacks['Full session text'])
+            \end{lstlisting}
+
+        \subsubsection{Supervised Learning - Classification}
+
+
+        \subsubsection{Unsupervised Learning - Clustering}
+
+
+        \subsubsection{Language Model Exploration}
