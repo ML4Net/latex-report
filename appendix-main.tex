@@ -1,0 +1,108 @@
+% appendix-main.tex
+
+% Use the ACM large 1-column format class from your template directory
+\documentclass[acmlarge]{template/column-format-template/acmart}
+
+% Set up any additional package imports here
+\usepackage{graphicx}     % For including graphics
+\usepackage{amsmath}      % For advanced math formatting
+\usepackage{algorithm}    % For algorithm pseudocode
+\usepackage{algorithmic}  % For algorithm pseudocode
+\usepackage{booktabs}     % For professional tables
+\usepackage{listings}     % For code listings
+\usepackage{subcaption}   % For subfigures
+\usepackage{url}          % For URLs in bibliography
+\usepackage{titlesec}     % For custom formatting
+\usepackage{xcolor}       % For colors
+\usepackage{listings}     % For code snippets
+
+% Custom settings for listings
+\lstset{
+    language=Python,                    % Sets the programming language for syntax highlighting
+    basicstyle=\footnotesize\ttfamily,  % Sets the font style and size for the code
+    keywordstyle=\color{blue},          % Style applied to keywords (e.g., "def", "import")
+    commentstyle=\color{gray},          % Style applied to comments (e.g., lines starting with "#")
+    stringstyle=\color{red},            % Style applied to strings (e.g., text within quotes)
+    linewidth=0.95\linewidth,           % Code block occupies 80% of text width
+    xleftmargin=-30pt,                  % Moves the listing 20pt closer to the left margin
+    xrightmargin=5pt,                   % Optional: Adds extra padding on the right
+    breaklines=true,                    % Automatically breaks long lines to fit within the page width
+    captionpos=b,                       % Places the caption below the code block
+    abovecaptionskip=5pt,               % Adjusts the space above the caption to 5pt
+    belowcaptionskip=8pt,               % Adjusts the space below the caption to 8pt
+}
+
+% Remove ACM-specific references and permissions
+\setcopyright{none} % Disable copyright
+\makeatletter
+\@printpermissionfalse
+\@printcopyrightfalse
+\@acmownedfalse
+\makeatother
+
+% Remove ACM reference format
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+
+% Optional: Plain page style
+\pagestyle{plain}
+
+\begin{document}
+
+% Title
+\title{SSH Shell Attacks - Appendix}
+
+% Define authors and their affiliations
+\author{Andrea Botticella}
+\authornote{The authors collaborated closely in developing this project.}
+\email{andrea.botticella@studenti.polito.it}
+\affiliation{%
+  \institution{Politecnico di Torino}
+  \city{Turin}
+  \country{Italy}
+}
+
+\author{Elia Innocenti}
+\authornotemark[1]
+\email{elia.innocenti@studenti.polito.it}
+\affiliation{%
+  \institution{Politecnico di Torino}
+  \city{Turin}
+  \country{Italy}
+}
+
+\author{Renato Mignone}
+\authornotemark[1]
+\email{renato.mignone@studenti.polito.it}
+\affiliation{%
+  \institution{Politecnico di Torino}
+  \city{Turin}
+  \country{Italy}
+}
+
+\author{Simone Romano}
+\authornotemark[1]
+\email{simone.romano@studenti.polito.it}
+\affiliation{%
+  \institution{Politecnico di Torino}
+  \city{Turin}
+  \country{Italy}
+}
+
+% Short author list for page headers
+\renewcommand{\shortauthors}{Botticella, Innocenti, Mignone, and Romano}
+
+\maketitle
+
+% Include the appendix sections
+\input{appendix/appendix}
+
+% TODO: check
+% Include the bibliography file
+\bibliography{../template/column-format-template/sample-base}
+
+% At end of document
+% \bibliography{references}           % Single .bib file
+% \bibliography{ref1,ref2,ref3}       % Multiple .bib files
+
+\end{document}

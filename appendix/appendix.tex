@@ -2,11 +2,14 @@
 
 \appendix
 
-\section{Appendix}
+\section{Code Snippets}
 
-    \subsection{Code Snippets}
+    % \subsection{Code Snippets}
 
-        \subsubsection{Data Exploration and Pre-processing}
+        \subsection{Data Exploration and Pre-processing}
+        % \textbf{{Data Exploration and Pre-processing}
+        
+            \vspace{0.5em}
 
             % Load and inspect the dataset
             \begin{lstlisting}[caption={Load and inspect the dataset}, label={lst:load-inspect-dataset}]
@@ -22,6 +25,8 @@
                 # Check for duplicate rows
                 print(SSH_Attacks.duplicated().sum())
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Convert timestamps and analyze frequencies
             \begin{lstlisting}[caption={Convert timestamps and analyze frequencies}, label={lst:convert-analyze-frequencies}]
@@ -35,6 +40,8 @@
                     .reset_index(name='attack_count')
                 )
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Extract and visualize class distribution
             \begin{lstlisting}[caption={Extract and visualize class distribution}, label={lst:extract-visualize-classes}]
@@ -45,6 +52,8 @@
                 # Plot the distribution of classes
                 sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Generate a word cloud from session text
             \begin{lstlisting}[caption={Generate a word cloud from session text}, label={lst:generate-wordcloud}]
@@ -54,6 +63,8 @@
                 plt.axis('off')
                 plt.show()
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Group attacks by fingerprint and date
             \begin{lstlisting}[caption={Group attacks by fingerprint and date}, label={lst:group-attacks}]
@@ -65,6 +76,8 @@
                     .reset_index(name='attack_count')
                 )
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Convert text into numerical representations
             \begin{lstlisting}[caption={Convert text into numerical representations}, label={lst:convert-text-numerical}]
@@ -78,12 +91,122 @@
                 tfidf_vectorizer = TfidfVectorizer()
                 X_tfidf = tfidf_vectorizer.fit_transform(SSH_Attacks['Full session text'])
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
-        \subsubsection{Supervised Learning - Classification}
+        \subsection{Supervised Learning - Classification}
+        % \textbf{Supervised Learning - Classification}
+        
+            \vspace{0.5em}
 
-            % TODO: add
+            % Load the dataset
+            \begin{lstlisting}[caption={Load the dataset}, label={lst:load_dataset}]
+                # Load the dataset
+                SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Split the dataset into training and test sets
+            \begin{lstlisting}[caption={Split the dataset into training and test sets}, label={lst:split_dataset}]
+                # Split the dataset into training and test sets
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=0.3, random_state=42
+                )
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Train Logistic Regression model
+            \begin{lstlisting}[caption={Train Logistic Regression model}, label={lst:logistic_regression}]
+                # Initialize and train Logistic Regression model
+                model = LogisticRegression(max_iter=1000, random_state=42)
+                model.fit(X_train_tfidf, y_train_binary)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Train Random Forest model
+            \begin{lstlisting}[caption={Train Random Forest model}, label={lst:random_forest}]
+                # Initialize and train Random Forest model
+                model = RandomForestClassifier(n_estimators=100, random_state=42)
+                model.fit(X_train_tfidf, y_train_binary)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Train SVM model
+            \begin{lstlisting}[caption={Train SVM model}, label={lst:svm}]
+                # Initialize and train SVM model
+                model = SVC(kernel='linear', random_state=42)
+                model.fit(X_train_tfidf, y_train_binary)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Define parameter grid for Logistic Regression
+            \begin{lstlisting}[caption={Parameter grid for Logistic Regression}, label={lst:param_grid_logistic}]
+                # Define parameter grid for Logistic Regression
+                param_grid = {'C': [0.1, 1, 10, 100]}
+                grid_search = GridSearchCV(LogisticRegression(max_iter=1000, random_state=42), param_grid, cv=5)
+                grid_search.fit(X_train_tfidf, y_train_binary)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Define parameter grid for Random Forest
+            \begin{lstlisting}[caption={Parameter grid for Random Forest}, label={lst:param_grid_rf}]
+                # Define parameter grid for Random Forest
+                param_grid = {'n_estimators': [50, 100, 200]}
+                grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, cv=5)
+                grid_search.fit(X_train_tfidf, y_train_binary)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Generate classification report
+            \begin{lstlisting}[caption={Generate classification report}, label={lst:classification_report}]
+                # Generate classification report
+                report = classification_report(y_test_binary, y_pred, zero_division=0)
+                print(report)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Generate confusion matrix
+            \begin{lstlisting}[caption={Generate confusion matrix}, label={lst:confusion_matrix}]
+                # Generate confusion matrix
+                cm = confusion_matrix(y_test_binary, y_pred)
+                sns.heatmap(cm, annot=True, fmt='d', cmap='coolwarm')
+                plt.show()
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Convert text using Bag of Words (BoW)
+            \begin{lstlisting}[caption={Convert text using Bag of Words (BoW)}, label={lst:bow_conversion}]
+                # Convert text into numerical representations using Bag of Words (BoW)
+                bow_vectorizer = CountVectorizer()
+                X_train_bow = bow_vectorizer.fit_transform(X_train)
+                X_test_bow = bow_vectorizer.transform(X_test)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Convert text using TF-IDF
+            \begin{lstlisting}[caption={Convert text using TF-IDF}, label={lst:tfidf_conversion}]
+                # Convert text into numerical representations using TF-IDF
+                tfidf_vectorizer = TfidfVectorizer()
+                X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
+                X_test_tfidf = tfidf_vectorizer.transform(X_test)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
 
-        \subsubsection{Unsupervised Learning - Clustering}
+        \subsection{Unsupervised Learning - Clustering}
+        % \textbf{Unsupervised Learning - Clustering}
+        
+            \vspace{0.5em}
 
             % Elbow Method for k-Means Clustering
             \begin{lstlisting}[caption={Elbow Method for k-Means Clustering}, label={lst:elbow_method}]
@@ -104,6 +227,8 @@
                 plt.title('Elbow Method')
                 plt.show()
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Silhouette Analysis for k-Means Clustering
             \begin{lstlisting}[caption={Silhouette Analysis for k-Means Clustering}, label={lst:silhouette_analysis}]
@@ -123,6 +248,8 @@
                 plt.title('Silhouette Analysis')
                 plt.show()
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Grid Search for k-Means Clustering
             \begin{lstlisting}[caption={Grid Search for k-Means Clustering}, label={lst:grid_search_kmeans}]
@@ -146,6 +273,8 @@
                 best_params_kmeans = grid_search_kmeans.best_params_
                 print("Best parameters:", best_params_kmeans)
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Grid Search for Gaussian Mixture Model (GMM)
             \begin{lstlisting}[caption={Grid Search for Gaussian Mixture Model (GMM)}, label={lst:grid_search_gmm}]
@@ -170,6 +299,8 @@
                 best_params_gmm = grid_search_gmm.best_params_
                 print("Best parameters:", best_params_gmm)
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % t-SNE Visualization of Clusters
             \begin{lstlisting}[caption={t-SNE Visualization of Clusters}, label={lst:tsne_visualization}]
@@ -189,6 +320,8 @@
                 plt.title('t-SNE Visualization of GMM Clusters')
                 plt.show()
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Feature Distribution Analysis by Cluster
             \begin{lstlisting}[caption={Feature Distribution Analysis by Cluster}, label={lst:feature_distribution}]
@@ -198,6 +331,8 @@
                     print(f"Cluster {cluster} Feature Distribution:")
                     print(cluster_data.describe())
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Intent Proportions Analysis by Cluster
             \begin{lstlisting}[caption={Intent Proportions Analysis by Cluster}, label={lst:intent_proportions}]
@@ -208,6 +343,8 @@
                     print(f"Cluster {cluster} Intent Proportions:")
                     print(intent_proportions)
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
             % Attack Categories Analysis by Cluster
             \begin{lstlisting}[caption={Attack Categories Analysis by Cluster}, label={lst:attack_categories}]
@@ -218,7 +355,122 @@
                     print(f"Cluster {cluster} Attack Categories:")
                     print(attack_categories)
             \end{lstlisting}
+            
+            \vspace{0.5em}
 
-        \subsubsection{Language Model Exploration}
+        \subsection{Language Model Exploration}
+        % \textbf{Language Model Exploration}
+        
+            \vspace{0.5em}
 
-            % TODO: add
+            % Install required packages
+            \begin{lstlisting}[language=bash, caption={Install required packages}, label={lst:install_packages}]
+                !pip install transformers torch
+            \end{lstlisting} 
+            
+            \vspace{0.5em}
+            
+            % Load dataset and print its size
+            \begin{lstlisting}[caption={Load dataset and print its size}, label={lst:load_dataset}]
+                import pandas as pd
+
+                # Load the dataset
+                df = pd.read_parquet("../data/processed/ssh_attacks_sampled_decoded.parquet")
+                print(f"Dataset size: {df.shape[0]} rows")
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Preprocess `Set_Fingerprint` column
+            \begin{lstlisting}[caption={Preprocess `Set\_Fingerprint` column}, label={lst:preprocess-fingerprint}]
+                from sklearn.preprocessing import MultiLabelBinarizer
+
+                # Preprocess Set_Fingerprint column
+                df['Set_Fingerprint'] = df['Set_Fingerprint'].apply(lambda x: [intent.strip() for intent in x.split(',')])
+                mlb = MultiLabelBinarizer()
+                y = mlb.fit_transform(df['Set_Fingerprint'])
+                print(f"Classes identified: {mlb.classes_}")
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Tokenize text data using BERT tokenizer
+            \begin{lstlisting}[caption={Tokenize text data using BERT tokenizer}, label={lst:bert_tokenizer}]
+                from transformers import BertTokenizer
+
+                # Tokenize the text data
+                tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+                train_encodings = tokenizer(list(train_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
+                val_encodings = tokenizer(list(val_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Initialize BERT model for sequence classification
+            \begin{lstlisting}[caption={Initialize BERT model for sequence classification}, label={lst:bert_model}]
+                from transformers import BertForSequenceClassification, AdamW
+
+                # Initialize the BERT model for sequence classification
+                model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=y.shape[1])
+                model.to(device)
+
+                # Optimizer and Loss
+                optimizer = AdamW(model.parameters(), lr=5e-5)
+                criterion = torch.nn.BCEWithLogitsLoss()
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Fine-tune BERT model
+            \begin{lstlisting}[caption={Fine-tune BERT model}, label={lst:bert_fine_tune}]
+                train_loss_list, val_loss_list = [], []
+
+                for epoch in range(5):  # Fine-tune for 5 epochs
+                    model.train()
+                    total_loss = 0
+
+                    for batch in train_loader:
+                        optimizer.zero_grad()
+                        input_ids, attention_mask, labels = (
+                            batch['input_ids'].to(device),
+                            batch['attention_mask'].to(device),
+                            batch['labels'].to(device),
+                        )
+                        outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+                        loss = criterion(outputs.logits, labels)
+                        loss.backward()
+                        optimizer.step()
+                        total_loss += loss.item()
+
+                    train_loss_list.append(total_loss / len(train_loader))
+
+                    # Validation
+                    model.eval()
+                    val_loss = 0
+                    with torch.no_grad():
+                        for batch in val_loader:
+                            input_ids, attention_mask, labels = (
+                                batch['input_ids'].to(device),
+                                batch['attention_mask'].to(device),
+                                batch['labels'].to(device),
+                            )
+                            outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+                            loss = criterion(outputs.logits, labels)
+                            val_loss += loss.item()
+                    val_loss_list.append(val_loss / len(val_loader))
+            \end{lstlisting}
+            
+            \vspace{0.5em}
+            
+            % Plot learning curves
+            \begin{lstlisting}[caption={Plot learning curves}, label={lst:plot_learning_curves}]
+                import matplotlib.pyplot as plt
+
+                # Plot learning curves
+                plt.plot(range(1, 6), train_loss_list, label="Training Loss")
+                plt.plot(range(1, 6), val_loss_list, label="Validation Loss")
+                plt.xlabel("Epochs")
+                plt.ylabel("Loss")
+                plt.legend()
+                plt.show()
+            \end{lstlisting}

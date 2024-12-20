@@ -3,9 +3,11 @@
 # Define output directory
 OUTPUT_DIR="out"
 PDF_FILE="main.pdf"
+APPENDIX_PDF_FILE="appendix-main.pdf"
 
 # Set custom PDF name
 CUSTOM_PDF_NAME="SSH-Shell-Attacks-Botticella-Innocenti-Mignone-Romano.pdf"
+CUSTOM_APPENDIX_PDF_NAME="SSH-Shell-Attacks-Appendix.pdf"
 
 # Define color codes
 RED='\033[0;31m'
@@ -14,51 +16,61 @@ YELLOW='\033[0;33m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
-# Function to remove the pdf file in the root directory
+# Function to remove PDF files in the root directory
 remove_root_pdf() {
-    if [ -f "$CUSTOM_PDF_NAME" ]; then
-        rm -f "$CUSTOM_PDF_NAME"
-        # printf "\n${GREEN}File ${CUSTOM_PDF_NAME} removed from root directory.${RESET}\n"
-    else
-        printf "\n${YELLOW}File ${CUSTOM_PDF_NAME} not found in root directory, nothing to remove.${RESET}\n"
-    fi
+    [ -f "$CUSTOM_PDF_NAME" ] && rm -f "$CUSTOM_PDF_NAME"
+    printf "\n${GREEN}Removed ${CUSTOM_PDF_NAME} from root directory.${RESET}\n"
 }
 
-# Check for "clean" argument
-if [ "$1" = "clean" ]; then
-    # Clean the output directory if it exists
+remove_root_appendix_pdf() {
+    [ -f "$CUSTOM_APPENDIX_PDF_NAME" ] && rm -f "$CUSTOM_APPENDIX_PDF_NAME"
+    printf "\n${GREEN}Removed ${CUSTOM_APPENDIX_PDF_NAME} from root directory.${RESET}\n"
+}
+
+# Function to clean the output directory
+clean_output() {
     if [ -d "$OUTPUT_DIR" ]; then
         rm -rf "$OUTPUT_DIR"/*
         printf "\n${GREEN}Output directory cleaned.${RESET}\n"
     else
         printf "\n${YELLOW}Output directory does not exist, nothing to clean.${RESET}\n"
     fi
-
-    # Remove main.pdf in the root directory
     remove_root_pdf
-else
-    # Create output directory if it doesn't exist
-    [ ! -d "$OUTPUT_DIR" ] && mkdir "$OUTPUT_DIR" && printf "\n${CYAN}Output directory created.${RESET}\n"
-    
-    printf "\n${CYAN}Compiling ...${RESET}\n"
+    remove_root_appendix_pdf
+}
 
-    # Compile the LaTeX document
-    pdflatex -output-directory="$OUTPUT_DIR" main.tex
-    #bibtex "$OUTPUT_DIR"/main
-    pdflatex -output-directory="$OUTPUT_DIR" main.tex
-    pdflatex -output-directory="$OUTPUT_DIR" main.tex
+# Function to compile a LaTeX file
+compile_latex() {
+    local TEX_FILE=$1
+    local CUSTOM_NAME=$2
+    local OUTPUT_PDF=$3
 
-    # Check if the PDF file was generated successfully
-    if [ -f "$OUTPUT_DIR/$PDF_FILE" ]; then
-        # Remove any existing custom-named PDF in the root directory
-        remove_root_pdf
+    printf "\n${CYAN}Compiling $TEX_FILE ...${RESET}\n"
+    pdflatex -output-directory="$OUTPUT_DIR" "$TEX_FILE"
+    pdflatex -output-directory="$OUTPUT_DIR" "$TEX_FILE"
+    pdflatex -output-directory="$OUTPUT_DIR" "$TEX_FILE"
 
-        # Copy the PDF file to the root directory
-        cp "$OUTPUT_DIR/$PDF_FILE" "./$CUSTOM_PDF_NAME"
-        printf "\n${GREEN}File copied to root directory as ${CYAN}${CUSTOM_PDF_NAME}${RESET}\n"
+    if [ -f "$OUTPUT_DIR/$OUTPUT_PDF" ]; then
+        [ "$CUSTOM_NAME" != "" ] && cp "$OUTPUT_DIR/$OUTPUT_PDF" "./$CUSTOM_NAME"
+        printf "\n${GREEN}File $OUTPUT_PDF compiled and copied as $CUSTOM_NAME.${RESET}\n"
     else
-        printf "\n${RED}Compilation failed. ${PDF_FILE} not found in ${OUTPUT_DIR}.${RESET}\n"
+        printf "\n${RED}Compilation failed for $TEX_FILE.${RESET}\n"
     fi
+}
 
-    printf "\n${GREEN}Compilation complete. Output available in ${CYAN}$OUTPUT_DIR/${RESET}\n"
-fi
+# Main script logic
+case "$1" in
+    clean)
+        clean_output
+        ;;
+    main)
+        compile_latex "main.tex" "$CUSTOM_PDF_NAME" "$PDF_FILE"
+        ;;
+    appendix)
+        compile_latex "appendix-main.tex" "$CUSTOM_APPENDIX_PDF_NAME" "$APPENDIX_PDF_FILE"
+        ;;
+    *)
+        compile_latex "main.tex" "$CUSTOM_PDF_NAME" "$PDF_FILE"
+        compile_latex "appendix-main.tex" "$CUSTOM_APPENDIX_PDF_NAME" "$APPENDIX_PDF_FILE"
+        ;;
+esac

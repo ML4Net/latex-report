@@ -9,7 +9,7 @@
 % 4.6. Feature Experimentation: Explores different feature combinations and their impact on performance.
 
 % Section Title
-\section{SUPERVISED LEARNING - CLUSTERING}
+\section{SUPERVISED LEARNING - CLASSIFICATION}
 
     % Main Content
 
@@ -22,14 +22,6 @@
         The first step in the supervised learning process is to split the dataset into training and test sets. This ensures that we can evaluate the performance of our models on unseen data.
 
         \textbf{Data Loading:} The dataset is loaded from a Parquet file into a Pandas DataFrame.
-
-        \vspace{0.5em}
-
-        % Load the dataset
-        \begin{lstlisting}[caption={Load the dataset}, label={lst:load_dataset}]
-            # Load the dataset
-            SSH_Attacks = pd.read_parquet("../data/processed/ssh_attacks_decoded.parquet")
-        \end{lstlisting}
 
         \textbf{Data Splitting:} We split the dataset into training and test sets, ensuring a 70/30 split while maintaining reproducibility.
         

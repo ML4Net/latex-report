@@ -15,7 +15,8 @@ The repository is organized as follows:
 - `images/`: stores all images and diagrams included in the report.
 - `bibliography/`: holds references and bibliography files.
 - `main.tex`: the main LaTeX file that compiles the entire report.
-- `compile.sh`: a script to compile the report.
+- `appendix-main.tex`: the LaTeX file that compiles the appendix.
+- `compile.sh`: a script to compile the report and appendix, or clean the build environment.
 
 ## Authors
 
@@ -38,27 +39,40 @@ Before using the `compile.sh` script for the first time, make sure it has the ne
 chmod +x compile.sh
 ```
 
-### Compile the Report
+### Compile Options
 
-Run the following command to compile the report:
+The `compile.sh` script provides the following functionalities:
 
-```bash
-./compile.sh
-```
-
-This command will generate the final PDF document from the LaTeX source files and store it in the `out` directory. Ensure all dependencies, including LaTeX and bibliography tools, are installed on your system before running the command.
-
-### Clean the Output Directory
-
-To remove all files from the output directory (`out`), you can use the `clean` option:
-
-```bash
-./compile.sh clean
-```
-
-This command deletes all files in the output directory if it exists, ensuring a fresh build environment for the next compilation.
+- **Compile both main report and appendix**:
+  ```bash
+  ./compile.sh
+  ```
+  This is the default behavior and compiles both `main.tex` and `appendix-main.tex`, generating PDFs for the report and appendix in the `out` directory.
+  
+- **Compile only the main report**:
+  ```bash
+  ./compile.sh main
+  ```
+  This compiles `main.tex` and generates the report PDF.
+  
+- **Compile only the appendix**:
+  ```bash
+  ./compile.sh appendix
+  ```
+  This compiles `appendix-main.tex` and generates the appendix PDF.
+  
+- **Clean the output directory**:
+  ```bash
+  ./compile.sh clean
+  ```
+  This removes all files in the `out` directory and any previously generated PDFs in the project root, ensuring a fresh build environment.
 
 For any issues, please refer to the main project repository or contact the authors.
+
+### Notes
+
+- Ensure all necessary dependencies, including LaTeX and bibliography tools, are installed on your system before running the script.
+- The output files are saved in the `out` directory, with the report and appendix PDFs copied to the project root with custom names.
 
 ---
 
