@@ -81,8 +81,144 @@
 
         \subsubsection{Supervised Learning - Classification}
 
+            % TODO: add
 
         \subsubsection{Unsupervised Learning - Clustering}
 
+            % Elbow Method for k-Means Clustering
+            \begin{lstlisting}[caption={Elbow Method for k-Means Clustering}, label={lst:elbow_method}]
+                # Elbow Method
+                n_cluster_list = []
+                inertia_list = []
+                for n_clusters in range(3, 17):
+                    kmeans = KMeans(n_clusters=n_clusters, n_init=10, random_state=42)
+                    kmeans.fit(X)
+                    inertia_list.append(kmeans.inertia_)
+                    n_cluster_list.append(n_clusters)
+                
+                # Plot Elbow Method
+                plt.figure(figsize=(5, 3.5))
+                plt.plot(n_cluster_list, inertia_list, marker='o', markersize=5, color='blue')
+                plt.xlabel('Number of clusters')
+                plt.ylabel('k-Means clustering error')
+                plt.title('Elbow Method')
+                plt.show()
+            \end{lstlisting}
+
+            % Silhouette Analysis for k-Means Clustering
+            \begin{lstlisting}[caption={Silhouette Analysis for k-Means Clustering}, label={lst:silhouette_analysis}]
+                # Silhouette Analysis
+                silhouette_list = []
+                for n_clusters in range(3, 17):
+                    kmeans = KMeans(n_clusters=n_clusters, n_init=10, random_state=42)
+                    labels = kmeans.fit_predict(X)
+                    silhouette_score_value = silhouette_score(X, labels)
+                    silhouette_list.append(silhouette_score_value)
+                
+                # Plot Silhouette Analysis
+                plt.figure(figsize=(5, 3.5))
+                plt.plot(n_cluster_list, silhouette_list, marker='o', markersize=5, color='blue')
+                plt.xlabel('Number of clusters')
+                plt.ylabel('Silhouette Score')
+                plt.title('Silhouette Analysis')
+                plt.show()
+            \end{lstlisting}
+
+            % Grid Search for k-Means Clustering
+            \begin{lstlisting}[caption={Grid Search for k-Means Clustering}, label={lst:grid_search_kmeans}]
+                # Define parameter grid for K-Means
+                param_grid_kmeans = {
+                    'init': ['k-means++', 'random'],
+                    'n_init': list(range(10, 21, 2)),
+                    'max_iter': list(range(50, 200, 50)),
+                }
+                
+                # Create KMeans object
+                kmeans = KMeans(n_clusters=10, random_state=42)
+                
+                # Create GridSearchCV object
+                grid_search_kmeans = GridSearchCV(kmeans, param_grid=param_grid_kmeans, cv=5)
+                
+                # Fit the grid search to the data
+                grid_search_kmeans.fit(X)
+                
+                # Get the best parameters
+                best_params_kmeans = grid_search_kmeans.best_params_
+                print("Best parameters:", best_params_kmeans)
+            \end{lstlisting}
+
+            % Grid Search for Gaussian Mixture Model (GMM)
+            \begin{lstlisting}[caption={Grid Search for Gaussian Mixture Model (GMM)}, label={lst:grid_search_gmm}]
+                # Define parameter grid for GMM
+                param_grid_gmm = {
+                    'init_params': ['kmeans'],
+                    'covariance_type': ['full', 'spherical'],
+                    'tol': [1e-3, 1e-4, 1e-5],
+                    'max_iter': list(range(50, 300, 50)),
+                }
+                
+                # Create GaussianMixture object
+                gmm = GaussianMixture(n_components=10, random_state=42)
+                
+                # Create GridSearchCV object
+                grid_search_gmm = GridSearchCV(gmm, param_grid=param_grid_gmm, cv=5, scoring=silhouette_scorer)
+                
+                # Fit the grid search to the data
+                grid_search_gmm.fit(X)
+                
+                # Get the best parameters
+                best_params_gmm = grid_search_gmm.best_params_
+                print("Best parameters:", best_params_gmm)
+            \end{lstlisting}
+
+            % t-SNE Visualization of Clusters
+            \begin{lstlisting}[caption={t-SNE Visualization of Clusters}, label={lst:tsne_visualization}]
+                # Apply t-SNE to reduce the number of components
+                tsne = TSNE(n_components=2, random_state=42).fit_transform(X)
+                df_tsne = pd.DataFrame(tsne, columns=['x1', 'x2'])
+                
+                # K-Means Clusters
+                df_tsne['cluster_kmeans'] = kmeans_tuned.labels_
+                sns.scatterplot(data=df_tsne, x='x1', y='x2', hue='cluster_kmeans', palette='viridis')
+                plt.title('t-SNE Visualization of K-Means Clusters')
+                plt.show()
+                
+                # GMM Clusters
+                df_tsne['cluster_gmm'] = gmm_tuned.predict(X)
+                sns.scatterplot(data=df_tsne, x='x1', y='x2', hue='cluster_gmm', palette='viridis')
+                plt.title('t-SNE Visualization of GMM Clusters')
+                plt.show()
+            \end{lstlisting}
+
+            % Feature Distribution Analysis by Cluster
+            \begin{lstlisting}[caption={Feature Distribution Analysis by Cluster}, label={lst:feature_distribution}]
+                # Analyze the distribution of features within each cluster
+                for cluster in range(10):
+                    cluster_data = df_tsne[df_tsne['cluster_kmeans'] == cluster]
+                    print(f"Cluster {cluster} Feature Distribution:")
+                    print(cluster_data.describe())
+            \end{lstlisting}
+
+            % Intent Proportions Analysis by Cluster
+            \begin{lstlisting}[caption={Intent Proportions Analysis by Cluster}, label={lst:intent_proportions}]
+                # Calculate the proportion of each intent within the clusters
+                for cluster in range(10):
+                    cluster_data = df_tsne[df_tsne['cluster_kmeans'] == cluster]
+                    intent_proportions = cluster_data['intent'].value_counts(normalize=True)
+                    print(f"Cluster {cluster} Intent Proportions:")
+                    print(intent_proportions)
+            \end{lstlisting}
+
+            % Attack Categories Analysis by Cluster
+            \begin{lstlisting}[caption={Attack Categories Analysis by Cluster}, label={lst:attack_categories}]
+                # Analyze the most frequent attack categories within the clusters
+                for cluster in range(10):
+                    cluster_data = df_tsne[df_tsne['cluster_kmeans'] == cluster]
+                    attack_categories = cluster_data['attack_category'].value_counts()
+                    print(f"Cluster {cluster} Attack Categories:")
+                    print(attack_categories)
+            \end{lstlisting}
 
         \subsubsection{Language Model Exploration}
+
+            % TODO: add
