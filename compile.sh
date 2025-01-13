@@ -44,6 +44,12 @@ compile_latex() {
     local TEX_FILE=$1
     local CUSTOM_NAME=$2
     local OUTPUT_PDF=$3
+    
+    # Ensure the output directory exists
+    if [ ! -d "$OUTPUT_DIR" ]; then
+        mkdir -p "$OUTPUT_DIR"
+        printf "\n${GREEN}Created output directory: $OUTPUT_DIR.${RESET}\n"
+    fi
 
     printf "\n${CYAN}Compiling $TEX_FILE ...${RESET}\n"
     pdflatex -output-directory="$OUTPUT_DIR" "$TEX_FILE"
