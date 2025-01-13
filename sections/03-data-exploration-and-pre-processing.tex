@@ -20,149 +20,222 @@
         
     \subsection{Dataset Overview}
     
-        The dataset consists of logs from SSH attacks. Each entry contains timestamps, intents, and textual descriptions of attack sessions. Key features include:
-        
-        \begin{itemize}
-            \item Timestamps: Indicating when the attack occurred.
-            \item Intents: Representing the purpose or action of the attacker.
-            \item Session Data: Textual information about each attack session.
-        \end{itemize}
-
-    \subsection{Dataset Preparation}
-    
-        The dataset used in this research is loaded from a Parquet file (\texttt{ssh\_attacks.parquet}) into a Pandas DataFrame. The initial inspection involves checking the dataset's structure, identifying missing values, and detecting duplicate rows. The dataset contains columns such as \texttt{Session ID}, \texttt{Full session text}, \texttt{Timestamp}, and \texttt{Intent labels}.
-        
-        \textbf{Refer to Appendix \ref{lst:load-inspect-dataset} for the code snippet.}
-
-        The initial inspection revealed that the dataset is well-structured with columns that are essential for our analysis. However, it is important to handle any missing values and duplicates to ensure the integrity of the data. The following steps were taken to address these issues:
+        The dataset consists of logs from SSH attacks. Each entry includes the following features:
 
         \begin{itemize}
-            \item **Missing Values**: We identified and handled missing values by either imputing them with appropriate values or removing the affected rows.
-            \item **Duplicate Rows**: Duplicate rows were detected and removed to avoid redundancy in the analysis.
+            \item \textbf{session\_id}: An integer representing the unique identifier for each session.
+            \item \textbf{full\_session}: A string containing the full sequence of commands executed during the attack session.
+            \item \textbf{first\_timestamp}: The timestamp indicating the start of the session.
+            \item \textbf{Set\_Fingerprint}: A set of strings (labels) describing the nature of the attack.
         \end{itemize}
 
-        \textbf{Table \ref{tab:dataset-structure}} summarizes the dataset structure.
+        Below is an example of the dataset structure:
 
-        \begin{table}[h]
+        \begin{figure}[h!]
             \centering
-            \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Column} & \textbf{Description} \\ \hline
-                Session ID & Unique identifier for each session \\ \hline
-                Full session text & Text of the entire session \\ \hline
-                Timestamp & Timestamp of the session \\ \hline
-                Intent labels & Labels indicating the intent of the session \\ \hline
-            \end{tabular}
-            \vspace{1em}
-            \caption{Dataset Structure}
-            \label{tab:dataset-structure}
-        \end{table}
+            \includegraphics[width=0.9\textwidth]{figures/others/dataset_1.png}
+            \vspace{-1em}
+            \caption{Dataset}
+            \label{fig:dataset_example}
+        \end{figure}
+
+    \vspace{-1em}
+
+    \subsection{Dataset Preparation and Feature Extraction}
+
+        The dataset used in this study was provided as a Parquet file. % Key columns of interest included:
+
+        % \begin{itemize}
+        %     \item \textbf{full\_session}: This column contained the complete sequence of commands executed during the attack sessions, making it crucial for analyzing attack behavior.
+        %     \item \textbf{Set\_Fingerprint}: This column served as the labels for the attacks and formed the basis of machine learning research by representing the intents behind the attacks.
+        %     \item \textbf{first\_timestamp}: Primarily used for visualization and temporal analysis of the attacks.
+        % \end{itemize}
+
+        To prepare the dataset for analysis and ensure its quality, several preprocessing steps were undertaken, described in detail below:
+
+        \begin{enumerate}
+        
+            \item \textbf{Decoding the \textbf{full\_session} column}: The \texttt{full\_session} column contained \texttt{90026} encoded shell scripts, making the raw data difficult to interpret. A decoding process was applied to these entries, converting them into a human-readable format.
+            
+            \item \textbf{Formatting the \textbf{first\_timestamp} column}: The \texttt{first\_timestamp} column was checked for consistency and converted into a standard datetime format.
+            
+            \item \textbf{Splitting the \textbf{full\_session} column into lists of commands}: 
+            The \texttt{full\_session} column contained entire attack sessions represented as single strings. Since we wanted each word / command to be a feature of our models, it was necessary to break it down into individual commands or keywords for more granular analysis. This was achieved through a multi-step splitting process using specific delimiters:
+            
+            \begin{itemize}
+                \item The semicolon (\texttt{;}) was used to separate distinct commands within a session.
+                \item The pipe (\texttt{|}) was used to divide concatenated commands or pipelines.
+                \item Whitespace (\texttt{ }) was used to further split commands into individual words or arguments.
+            \end{itemize}
+            
+            This process allowed the identification of specific actions and parameters, facilitating a detailed analysis of the attack strategies.
+            
+            \item \textbf{Cleaning individual commands}: Each command or keyword extracted from the \texttt{full\_session} column was processed to remove unnecessary or undesired elements. Regular expressions were used to strip unwanted symbols, qualifiers, and variable assignments. 
+            
+            \item \textbf{Handling missing values}: 
+            To ensure the integrity and completeness of the dataset, a thorough check for missing values was performed across all columns.
+            
+        \end{enumerate}
+        
+        % TODO: check and remove/change language formattation
+        \begin{lstlisting}[language=sh, caption={Dataset Processing}, label={lst:dataset-processing}]
+            enable ; system ; shell ; sh ; cat /proc/mounts ; /bin/busybox SAEMW ; cd /dev/shm ; cat .s || cp /bin/echo .s ; /bin/busybox SAEMW ; tftp ; wget ; /bin/busybox SAEMW ; dd bs=52 count=1 if=.s || cat .s || while read i ; do echo $i ; done < .s ; /bin/busybox SAEMW ; rm .s ; exit ;
+            
+            [enable, system, shell, sh, cat, /proc/mounts, /bin/busybox, SAEMW, cd, /dev/shm, cat, .s, cp, /bin/echo, .s, /bin/busybox, SAEMW, tftp, wget , /bin/busybox, SAEMW, dd, bs, count, if, cat, .s, while, read, i, do, echo, i, done, .s, /bin/busybox, SAEMW, rm, .s, exit]
+        \end{lstlisting}
+        
+        % \begin{figure}[h!]
+        %     \centering
+        %     \includegraphics[width=0.9\textwidth]{figures/others/dataset_processed.png}
+        %     \vspace{-1em}
+        %     \caption{Processed Dataset}
+        %     \label{fig:dataset_example}
+        % \end{figure}
+
+        These preprocessing steps ensured that the dataset was well-structured, clean, standardized and ready for advanced analysis and machine learning tasks. By addressing issues such as encoding, formatting, and missing data, the preprocessing phase established a robust foundation for the study.
 
     \subsection{Temporal Analysis}
     
-        The temporal analysis examines when the attacks were performed. The \texttt{first\_timestamp} column is converted to a datetime format to analyze attack frequencies over time, including hourly, daily, and monthly trends.
-            
-        \textbf{Refer to Appendix \ref{lst:convert-analyze-frequencies} for the code snippet.}
-
-        The analysis includes plotting the number of attacks per hour, month, and year to identify patterns and trends. This helps in understanding the temporal distribution of attacks and identifying any periodic patterns or anomalies.
-
-        \textbf{Figure \ref{fig:temporal-analysis}} shows the temporal analysis of SSH attacks.
-
-        \begin{figure}[h]
+        The temporal analysis examines when the attacks were performed and the intent distribution over time.
+        
+        \begin{figure}[H]
             \centering
-            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/temporal_series_of_ssh_attacks.png}
+            \includegraphics[width=0.75\textwidth]{../figures/plots/section1/combined_temporal_series_of_ssh_attacks_by_type.png}
             \caption{Temporal Series of SSH Attacks}
             \label{fig:temporal-analysis}
         \end{figure}
+        
+        Our dataset spans from June 2019 to March 2020, revealing a notable concentration of attacks between mid-October 2019 and January 2020.
 
-        The temporal analysis revealed that the frequency of attacks varies significantly over time. By examining the hourly, daily, and monthly trends, we can gain insights into the behavior of attackers and the times when systems are most vulnerable.
-
-    \subsection{Feature Extraction}
-    
-        Feature extraction involves identifying and extracting relevant features from the attack sessions. This includes analyzing the distribution of classes (intents) and visualizing the data using bar plots.
-            
-        \textbf{Refer to Appendix \ref{lst:extract-visualize-classes} for the code snippet.}
-
-        The distribution of classes provides valuable information about the types of attacks and their prevalence. By visualizing this distribution, we can identify the most common attack intents and focus our analysis on these areas.
-
-        \textbf{Figure \ref{fig:class-distribution}} shows the distribution of classes.
-
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/distribution_of_classes.png}
-            \caption{Distribution of Classes}
-            \label{fig:class-distribution}
-        \end{figure}
-
-        The feature extraction process also involves creating new features that can enhance the analysis. For example, we can extract the length of each session, the number of commands executed, and other relevant metrics.
+        Further analysis was conducted on the distribution of attacks/sessions across various temporal dimensions (months, days of the week, etc.), but no significant patterns were identified.
+        
+        % TODO: say that those images can be seen in the Appendix
 
     \subsection{Common Words Analysis}
     
-        The common words analysis identifies the most frequent words used in the attack sessions. This is achieved using word clouds and other text analysis techniques.
-            
-        \textbf{Refer to Appendix \ref{lst:generate-wordcloud} for the code snippet.}
+        The analysis of common words within the attack sessions provides insights into frequently utilized commands and keywords. These elements are pivotal for understanding attacker behavior and informing model training for detecting attack intents. 
 
-        The word cloud visualization highlights the most common words used in the attack sessions, providing insights into the attackers' behavior and strategies. This can help in identifying common commands and patterns used in the attacks.
+        To visualize and analyze the most frequent words, two approaches were used: 
+        
+        % TODO: add image references
 
-        \textbf{Figure \ref{fig:word-cloud}} shows the word cloud of the most common words.
+        \begin{itemize}
+            \item \textbf{Word Cloud Visualization}: A word cloud (Figure~\ref{fig:word-cloud}) was generated to represent the most common words in the dataset. Commands like \texttt{tmp}, \texttt{grep}, \texttt{var}, and \texttt{cat} dominate the word cloud, highlighting their frequent usage in attack sessions.
 
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/word_cloud_of_most_common_words.png}
-            \caption{Word Cloud of Most Common Words}
-            \label{fig:word-cloud}
-        \end{figure}
+            \item \textbf{Top 20 Most Common Words Bar Plot}: A bar plot (Figure~\ref{fig:common-words}) showcases the top 20 most frequent words, ordered by their frequency. This plot provides more quantitative detail, revealing the high occurrence of commands such as \texttt{tmp} (over 2 million occurrences) and \texttt{var} (nearly 2 million occurrences). Other significant commands include \texttt{grep}, \texttt{cat}, \texttt{echo}, and \texttt{cp}, each surpassing 1 million occurrences. These commands are commonly associated with file manipulation, string searching, and process information, which are typical in malicious activities.
+        \end{itemize}
 
-        Additionally, we can create bar plots to show the frequency of the top 10 most common words, which can further aid in understanding the textual characteristics of the attack sessions.
+        The combination of these visualizations supports the identification of commonly used commands and their potential roles in attack sessions. 
 
-        \textbf{Figure \ref{fig:common-words}} shows the top 10 most common words.
+        % FIXME: images visualization
 
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/top_10_most_common_words.png}
-            \caption{Top 10 Most Common Words}
-            \label{fig:common-words}
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/word_cloud_of_most_common_words.png}
+                \caption{Word Cloud of Most Common Words}
+                \label{fig:word-cloud}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/top_10_most_common_words.png}
+                \caption{Top 20 Most Common Words}
+                \label{fig:common-words}
+            \end{subfigure}
+            \caption{Visualization of Most Common Words}
+            \label{fig:common-words-comparison}
         \end{figure}
 
-    \subsection{Intent Distribution}
-            
-        The intent distribution analysis examines the distribution of intents over time. This involves grouping the data by date and intent to count occurrences and visualize the trends.
-            
-        \textbf{Refer to Appendix \ref{lst:group-attacks} for the code snippet.}
+    \subsection{Intent Analysis}
+    
+        This section presents an analysis of different intents identified in attack sessions and their relationships. Our analysis reveals distinct patterns in both the frequency of individual intents and their co-occurrence relationships, providing valuable insights into attacker behavior patterns.
 
-        By analyzing the distribution of intents over time, we can identify trends and patterns in the attackers' behavior. This can help in understanding how different types of attacks evolve and vary over time.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
+            \caption{Occurrences of each Intent}
+            \label{fig:occurrences-of-each-intent}
+        \end{figure}
+        
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.75\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
+            \caption{Co-Occurrence Heatmap of Intents}
+            \label{fig:co-occurrence-heatmap-of-intents}
+        \end{figure}
 
-        \textbf{Figure \ref{fig:intent-distribution}} shows the distribution of intents over time.
+        Figure \ref{fig:occurrences-of-each-intent} illustrates the frequency distribution of different intents in our dataset. The analysis reveals that Discovery and Persistence are the most prevalent intents, with approximately 200,000 occurrences each. This suggests that attackers primarily focus on reconnaissance activities and establishing long-term presence in the targeted systems. Execution intent appears as the third most common, with roughly 100,000 occurrences, indicating a significant number of attempts to run malicious code. Defense Evasion shows notably fewer occurrences (around 20,000), while Harmless, Other, and Impact intents are relatively rare in the dataset.
+
+        The co-occurrence heatmap (Figure \ref{fig:co-occurrence-heatmap-of-intents}) reveals significant patterns in how different intents interact within attack sessions. Several key observations emerge:
+
+        \begin{itemize}
+        
+            \item The strongest co-occurrence relationship exists between Discovery and Persistence (211,281 co-occurrences), suggesting that attackers often combine reconnaissance activities with attempts to maintain system access.
+
+            \item Execution shows strong correlations with both Discovery (92,279) and Persistence (91,576), indicating that malicious code execution frequently accompanies both system discovery and persistence establishment attempts.
+
+            \item Defense Evasion exhibits moderate co-occurrence with Discovery (18,825) and minimal correlation with other intents, suggesting that evasion techniques are primarily employed during reconnaissance phases.
+
+            \item Harmless, Impact, and Other intents show minimal co-occurrence with other categories (with values mostly under 20 co-occurrences). This isolation pattern is partially explained by their low frequency in the dataset: Harmless with 2,206 occurrences, Impact with only 27 occurrences, and Other with 327 occurrences. These numbers represent a small fraction of the total recorded intents, naturally limiting their potential for co-occurrence with other intent types.
+            
+        \end{itemize}
+
+        These findings highlight common attack patterns where adversaries typically begin with discovery operations, followed by persistence establishment and execution of malicious code. This understanding can inform the development of detection strategies and defensive measures, particularly focusing on the most common intent combinations.
+        
+    \subsection{Session Analysis}
+
+        The session analysis aims to understand the structural characteristics of the attack sessions in the dataset. This is accomplished through two visualizations: the Empirical Cumulative Distribution Function (ECDF) plots and the distribution of the number of words per session.
+
+        % FIXME: images visualization
 
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.8\textwidth]{../figures/plots/section1/intents_over_timestamps.png}
-            \caption{Distribution of Intents Over Time}
-            \label{fig:intent-distribution}
+            \begin{subfigure}[b]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/ecdf_for_characters_and_for_words.png}
+                \caption{ECDF for Characters and Words in Sessions}
+                \label{fig:ecdf_sessions}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[b]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/distribution_of_number_of_words_per_session_limited.png}
+                \caption{Distribution of the Number of Words per Session}
+                \label{fig:word_distribution}
+            \end{subfigure}
+            \caption{}
+            \label{fig:}
         \end{figure}
 
-        The intent distribution analysis also helps in identifying any seasonal or periodic patterns in the attacks, which can be crucial for developing effective defense strategies.
+        The ECDF plots in Figure~\ref{fig:ecdf_sessions} provide insights into the distribution of the number of characters and words across all sessions. The Empirical Cumulative Distribution Function (ECDF) is a statistical tool that represents the proportion of observations below a certain value, offering an intuitive way to understand data distributions.
+        \begin{itemize}
+            \item The ECDF for characters indicates that the majority of sessions have fewer than $10^3$ characters, with a sharp increase between $10^2$ and $10^3$ characters. This suggests a high concentration of relatively short sessions.
+            \item The ECDF for words shows a similar trend, with most sessions containing fewer than $10^2$ words. The distribution reflects the concise nature of many attack sessions, potentially focusing on executing a limited number of commands.
+        \end{itemize}
+
+        Figure~\ref{fig:word_distribution} illustrates the density distribution of the number of words per session. Key observations include:
+        \begin{itemize}
+            \item The distribution is bimodal, with two distinct peaks. This likely reflects different categories of sessions, such as exploratory attacks with a larger number of commands versus simpler, targeted attacks with fewer commands.
+            \item The majority of sessions have fewer than 100 words, reinforcing the compactness observed in the ECDF plots.
+            \item Outliers with higher word counts likely represent complex sessions, potentially involving multiple stages or more sophisticated attack strategies.
+        \end{itemize}
+
+        The relevance of these plots lies in their ability to provide a foundational understanding of session structure, which is critical for feature engineering and model development. Shorter sessions may correspond to quick, automated attacks, while longer sessions might represent manual or multi-step intrusions. These insights can inform the design of models by emphasizing features tailored to the varying lengths and complexities of sessions, ultimately improving detection accuracy.
 
     \subsection{Text Representation}
-    
-        Text representation converts the session text into numerical representations using techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF). These representations are used for further analysis and machine learning tasks.
+
+        To enable further analysis of the dataset, the initial textual data was transformed into numerical representations. This step is essential for applying machine learning techniques, as numerical formats are required for model training and evaluation. Two widely used text representation techniques were employed:
+
+        \begin{itemize}
+            \item \textbf{Bag of Words (BoW)}: This technique represents each session as a vector where each dimension corresponds to a specific word, and the value represents the frequency of that word in the session. While simple and interpretable, BoW does not capture the importance or uniqueness of words across the dataset.
+            \item \textbf{Term Frequency-Inverse Document Frequency (TF-IDF)}: This method extends BoW by weighting the word frequencies based on their inverse document frequency, thereby emphasizing words that are important within a session but less frequent across all sessions. This approach helps reduce the impact of common but non-informative words.
+        \end{itemize}
+
+        Figure X and Figure Y illustrate the transformed datasets using the BoW and TF-IDF techniques, respectively. The TF-IDF representation was selected for further analysis due to its ability to capture more meaningful patterns in the data by accounting for word relevance.
+
+
+        The use of the TF-IDF representation ensures that subsequent analyses focus on the most distinctive features of each session, enhancing the effectiveness of machine learning models in identifying patterns and predicting intents.
         
-        \textbf{Refer to Appendix \ref{lst:convert-text-numerical} for the code snippet.}
-
-        The resulting numerical representations from both BoW and TF-IDF are normalized and used for subsequent analysis and modeling. These representations are essential for applying machine learning algorithms to classify and predict attack intents.
-
-        \textbf{Table \ref{tab:text-representation}} summarizes the text representation techniques.
-
-        \begin{table}[h]
-            \centering
-            \caption{Text Representation Techniques}
-            \label{tab:text-representation}
-            \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Technique} & \textbf{Description} \\ \hline
-                Bag of Words (BoW) & Converts text into a matrix of token counts \\ \hline
-                TF-IDF & Converts text into a matrix of TF-IDF features \\ \hline
-            \end{tabular}
-        \end{table}
-
-        The text representation techniques help in transforming the unstructured session text into structured numerical data, which can be used for various analytical and predictive tasks. By comparing the performance of different representation techniques, we can select the most effective method for our analysis.
+    \clearpage % TODO: remove

@@ -5,7 +5,7 @@
 \begin{abstract}
 
 % The exponential growth of cybersecurity threats has underscored the need for automated solutions to analyze and mitigate attack patterns. 
-This paper introduces a comprehensive machine learning framework to analyze SSH shell attack sessions, leveraging both supervised and unsupervised learning techniques. Using a dataset of 230,000 unique Unix shell attack sessions, the framework aims to classify attacker tactics based on the MITRE ATT\&CK framework and uncover latent patterns through clustering.
+This paper introduces a comprehensive machine learning approach to analyze SSH shell attack sessions, leveraging both supervised and unsupervised learning techniques. Using a dataset of 230,000 unique Unix shell attack sessions, the framework aims to classify attacker tactics based on the MITRE ATT\&CK framework and uncover latent patterns through clustering.
 
 % \noindent Our approach employs robust pre-processing pipelines to transform unstructured textual logs into meaningful numerical representations, including Term Frequency-Inverse Document Frequency (TF-IDF) and embeddings from language models such as BERT and Doc2Vec. 
 % Supervised classification experiments compare traditional algorithms with advanced neural networks, achieving notable accuracy improvements across key metrics. 
@@ -17,6 +17,7 @@ This paper introduces a comprehensive machine learning framework to analyze SSH 
     \item Implementation of supervised classification models to accurately predict multiple attacker tactics, supported by hyperparameter tuning and feature engineering for enhanced performance.
     \item Application of unsupervised clustering techniques to uncover hidden patterns in attack behaviors, leveraging visualization tools and cluster analysis for fine-grained categorization.
     \item Exploration of advanced language models, such as BERT and Doc2Vec, for representation learning and fine-tuning to improve intent classification and session interpretation.
+    % TODO: remove "Doc2Vec" if not implemented
 \end{itemize}
 
 % \noindent The findings demonstrate the potential of combining traditional and modern machine learning techniques in improving cybersecurity threat analysis, providing a blueprint for future advancements in automated security log interpretation.
