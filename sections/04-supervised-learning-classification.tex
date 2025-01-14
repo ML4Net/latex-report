@@ -15,162 +15,293 @@
 
     \subsection{Introduction}
     
-        This section provides an overview of the supervised learning task and its objectives. The goal is to classify attack session tactics based on the provided dataset. We will implement and evaluate various machine learning models to determine the most effective approach for this classification task.
+        The supervised learning experiment in this project aimed to classify attack sessions into various intent categories derived from the `Set\_Fingerprint` column of the dataset. This section explores the use of Random Forest and Support Vector Machines (SVM) as the primary models. The analysis focuses on how these models handle multi-label classification and evaluates their performance using metrics such as weighted F1-scores and confusion matrices.
 
-    \subsection{Data Splitting}
+        This section outlines the model training and evaluation processes, and a detailed discussion of the results obtained. Each model's strengths and weaknesses are analyzed, providing insights into their application to multi-label classification problems.
+
+    \subsection{Data Preprocessing}
     
-        The first step in the supervised learning process is to split the dataset into training and test sets. This ensures that we can evaluate the performance of our models on unseen data.
+        To prepare the data for supervised learning:
 
-        \textbf{Data Loading:} The dataset is loaded from a Parquet file into a Pandas DataFrame.
-
-        \textbf{Data Splitting:} We split the dataset into training and test sets, ensuring a 70/30 split while maintaining reproducibility.
+        \begin{enumerate}
         
-        \vspace{0.5em}
-
-        % Split the dataset into training and test sets
-        \begin{lstlisting}[caption={Split the dataset into training and test sets}, label={lst:split_dataset}]
-            # Split the dataset into training and test sets
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=0.3, random_state=42
-            )
-        \end{lstlisting}
-
-        \textbf{Placeholder for Data Splitting Summary Table}
-
-        The data splitting process ensures that the training set is used to train the models, while the test set is used to evaluate their performance.
+            \item \textbf{Dataset loading}: To perform the supervised learning process, we decided to start from a TF-IDF representation of the dataset, thanks to which it was possible to assign a weight to each word of the SSH session attack.
             
-    \subsection{Baseline Model Implementation}
+            \item \textbf{Encoding Intents:} The `Set\_Fingerprint` column was encoded into multi-label binary format using the MultiLabelBinarizer. Each intent was represented as a binary vector, allowing for simultaneous prediction of multiple labels.
+            
+            \item \textbf{Splitting the Data:} The dataset was divided into training (70\%), validation (20\%), and testing (10\%) subsets. Stratified splitting was employed to ensure that all intents were well-represented in each subset.
+        
+        \end{enumerate}
+
+        These steps ensured the dataset was clean, balanced, and ready for supervised learning.
+
+    \subsection{Model Training}
     
-        In this subsection, we implement and evaluate baseline models to establish a performance benchmark. We will use Logistic Regression, Random Forest, and Support Vector Machine (SVM) as our baseline models.
+        Three models were trained and evaluated using their default configurations to establish baseline performance:
 
-        \textbf{Logistic Regression:}
+        \subsubsection*{1. Random Forest \\}
         
-        \vspace{0.5em}
-
-        % Train Logistic Regression model
-        \begin{lstlisting}[caption={Train Logistic Regression model}, label={lst:logistic_regression}]
-            # Initialize and train Logistic Regression model
-            model = LogisticRegression(max_iter=1000, random_state=42)
-            model.fit(X_train_tfidf, y_train_binary)
-        \end{lstlisting}
-
-        \textbf{Random Forest:}
-
-        \vspace{0.5em}
-
-        % Train Random Forest model
-        \begin{lstlisting}[caption={Train Random Forest model}, label={lst:random_forest}]
-            # Initialize and train Random Forest model
-            model = RandomForestClassifier(n_estimators=100, random_state=42)
-            model.fit(X_train_tfidf, y_train_binary)
-        \end{lstlisting}
-
-        \textbf{Support Vector Machine (SVM):}
+            % \vspace{0.5em}
         
-        \vspace{0.5em}
+            The Random Forest model was trained with default parameters, including 100 estimators and unlimited maximum depth. This initial training provided insights into potential overfitting or underfitting issues and served as a benchmark for subsequent tuning.
 
-        % Train SVM model
-        \begin{lstlisting}[caption={Train SVM model}, label={lst:svm}]
-            # Initialize and train SVM model
-            model = SVC(kernel='linear', random_state=42)
-            model.fit(X_train_tfidf, y_train_binary)
-        \end{lstlisting}
+        \subsubsection*{2. Support Vector Machines (SVM) \\}
+        
+            % \vspace{0.5em}
+        
+            SVM was initially trained with default settings using a linear kernel and a regularization parameter \( C = 1 \). The performance was evaluated to assess the model's ability to handle multi-label classification tasks with linearly separable data.
 
-        \textbf{Placeholder for Baseline Model Performance Table}
+        \subsubsection*{3. Logistic Regression \\}
+        
+            % \vspace{0.5em}
+        
+            In order to have another view of the problem, we performed the training with the logistic regression model. While the model performed well, the results were not as significant as those of RF and SVM, so they will not be discussed in detail in this section (see Appendix).
 
-        The baseline model implementation provides a reference point for evaluating the performance of more advanced models.
+    \subsection{Evaluation Metrics}
+    
+        The models were evaluated using the following metrics:
+        
+        \begin{itemize}
+        
+            \item \textbf{Accuracy, Precision, Recall}
             
+            \item \textbf{Confusion Matrices:} Provided insight into true positives, false positives, false negatives, and true negatives for each intent.
+            
+            \item \textbf{Weighted F1-Scores:} Measured the harmonic mean of precision and recall, with weights proportional to class support.
+        
+        \end{itemize}
+
+        This evaluation allowed for the identification of baseline performance, highlighting potential areas for improvement through hyperparameter tuning.
+
     \subsection{Hyperparameter Tuning}
     
-        Hyperparameter tuning involves optimizing the parameters of the models to improve their performance. We use GridSearchCV to perform an exhaustive search over specified parameter values.
+        To optimize each model, hyperparameter tuning was performed using a grid search approach. This process aimed to improve performance and address issues of overfitting or underfitting observed in the baseline models:
 
-        \textbf{Logistic Regression Hyperparameter Tuning:}
+        \subsubsection*{1. Random Forest \\}
         
-        \vspace{0.5em}
-
-        % Define parameter grid for Logistic Regression
-        \begin{lstlisting}[caption={Parameter grid for Logistic Regression}, label={lst:param_grid_logistic}]
-            # Define parameter grid for Logistic Regression
-            param_grid = {'C': [0.1, 1, 10, 100]}
-            grid_search = GridSearchCV(LogisticRegression(max_iter=1000, random_state=42), param_grid, cv=5)
-            grid_search.fit(X_train_tfidf, y_train_binary)
-        \end{lstlisting}
-
-        \textbf{Random Forest Hyperparameter Tuning:}
+            % \vspace{0.5em}
         
-        \vspace{0.5em}
+            The grid search explored combinations of the number of estimators (50, 100, and 150) and maximum depth (unlimited, 50, and 100). The best-performing configuration was selected based on weighted F1-scores.
 
-        % Define parameter grid for Random Forest
-        \begin{lstlisting}[caption={Parameter grid for Random Forest}, label={lst:param_grid_rf}]
-            # Define parameter grid for Random Forest
-            param_grid = {'n_estimators': [50, 100, 200]}
-            grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, cv=5)
-            grid_search.fit(X_train_tfidf, y_train_binary)
-        \end{lstlisting}
+        \subsubsection*{2. Support Vector Machines (SVM) \\}
+        
+            % \vspace{0.5em}
+        
+            For SVM, the grid search varied the regularization parameter \( C \) (0.01, 0.1, 1, and 10) and the kernel type (linear and RBF). Additional tuning for the RBF kernel included the gamma parameter (scale and auto).
 
-        \textbf{Placeholder for Hyperparameter Tuning Results Table}
+    \subsection{Results and Observations}
 
-        Hyperparameter tuning helps in finding the best parameters for each model, thereby improving their performance.
+        \subsubsection{Random Forest}
             
-    \subsection{Result Analysis}
+            \begin{itemize}
+        
+                \item \textit{Performance Overview with base model}
+                
+                    \vspace{0.3em}
+
+                    The Random Forest base model showed robust performance, achieving high weighted F1-scores across all intents. However, minor overfitting was observed in intents with smaller sample sizes. Figure~\ref{fig:rf_cm_base} illustrates the confusion matrix for the base model, showing excellent precision and recall for major intents like \textit{Persistence} and \textit{Defense Evasion}.
+
+                \vspace{0.5em}
+
+                \item \textit{Hyperparameter Analysis}
+                
+                    \vspace{0.3em}
+
+                    Hyperparameter tuning improved the Random Forest model's performance, particularly for minority intents. The optimized model reduced overfitting by limiting tree depth and increasing the number of estimators. Figure~\ref{fig:rf_f1_tuning} highlights the improvement in weighted F1-scores across different configurations.
+
+                \vspace{0.5em}
+
+                \item \textit{Comparative Analysis of Baseline and Optimized Models}
+                
+                    \vspace{0.3em}
+
+                    Comparing the base and optimized models revealed significant improvements in precision and recall for minority intents. The optimized model maintained high performance for major intents while addressing issues of overfitting. Figure~\ref{fig:rf_cm_opt} presents the confusion matrix for the optimized Random Forest model.
+                
+            \end{itemize}
+
+        \subsubsection{Support Vector Machines (SVM)}
+        
+            \begin{itemize}
+        
+                \item \textit{Performance Overview with base model}
+                
+                    \vspace{0.3em}
+
+                    The SVM base model performed well for linearly separable data, achieving high precision and recall for intents with large sample sizes. However, it struggled with minority intents due to its sensitivity to class imbalances. Figure~\ref{fig:svm_cm_base} illustrates the confusion matrix for the base model.
+
+                \vspace{0.5em}
+
+                \item \textit{Hyperparameter Analysis}
+                
+                    \vspace{0.3em}
+
+                    Grid search tuning improved SVM's performance, especially for the RBF kernel. Increasing the regularization parameter \( C \) and fine-tuning the gamma parameter enhanced the model's ability to classify minority intents. Figure~\ref{fig:svm_f1_tuning} shows the weighted F1-scores for different hyperparameter combinations.
+
+                \vspace{0.5em}
+
+                \item \textit{Comparative Analysis of Baseline and Optimized Models}
+                
+                    \vspace{0.3em}
+
+                    The optimized SVM model outperformed the base model, particularly for minority intents. Figure~\ref{fig:svm_cm_opt} displays the confusion matrix for the optimized model, highlighting the improvements in precision and recall for challenging classifications.
+
+            \end{itemize}
+
+    \subsection{Conclusion}
     
-        In this subsection, we analyze the results of the models for each intent. We use metrics such as accuracy, precision, recall, and F1-score to evaluate the performance.
+        Random Forest and SVM both demonstrated strong performance in this experiment. Random Forest's ensemble nature provided robustness and generalization, making it the best-performing model overall. SVM, particularly with the linear kernel, offered comparable results but required more tuning to handle imbalanced classes effectively. These findings highlight the importance of selecting models and hyperparameters tailored to the dataset's characteristics and the problem's requirements.
 
-        \textbf{Classification Report:}
         
-        \vspace{0.5em}
-
-        % Generate classification report
-        \begin{lstlisting}[caption={Generate classification report}, label={lst:classification_report}]
-            # Generate classification report
-            report = classification_report(y_test_binary, y_pred, zero_division=0)
-            print(report)
-        \end{lstlisting}
-
-        \textbf{Confusion Matrix:}
-        
-        \vspace{0.5em}
-
-        % Generate confusion matrix
-        \begin{lstlisting}[caption={Generate confusion matrix}, label={lst:confusion_matrix}]
-            # Generate confusion matrix
-            cm = confusion_matrix(y_test_binary, y_pred)
-            sns.heatmap(cm, annot=True, fmt='d', cmap='coolwarm')
-            plt.show()
-        \end{lstlisting}
-
-        \textbf{Placeholder for Classification Report and Confusion Matrix Plots}
-
-        The result analysis provides insights into the performance of the models and helps in identifying areas for improvement.
-            
     \subsection{Feature Experimentation}
+        
+        \ldots
+        
+        % TODO: implement comparison between original dataset and tf-idf dataset results
+        
+        
+    % Plot pages
+        
+        \clearpage
+
+        % Random Forest
+        
+        \begin{figure}[H]
+        
+            \centering
+            
+            % Top row
+            \begin{minipage}{\textwidth}
+                % Top-left
+                \begin{minipage}[c]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/Random_Forest_base_evaluation.png}
+                    \caption{a}
+                    \label{fig:a}
+                \end{minipage}%
+                \hfill%
+                % Top-right
+                \begin{minipage}[c]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{b}
+                    \label{fig:b}
+                \end{minipage}
+            \end{minipage}
+
+            \vspace{0.5cm}  % Add some vertical spacing between rows
+            
+            % Middle row  
+            \begin{minipage}{\textwidth}
+                % Middle-left (Train)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{c}
+                    \label{fig:c}
+                \end{minipage}%
+                \hfill%
+                % Middle-right (Train)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{d}
+                    \label{fig:d}
+                \end{minipage}
+            \end{minipage}
+            
+            \vspace{0.5cm}  % Add some vertical spacing between rows
+
+            % Bottom row
+            \begin{minipage}{\textwidth}
+                % Bottom-left (Test)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{e}
+                    \label{fig:e}
+                \end{minipage}%
+                \hfill%
+                % Bottom-right (Test)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{f}
+                    \label{fig:f}
+                \end{minipage}  
+            
+            \end{minipage}
+            
+        \end{figure}
+            
+        \clearpage
     
-        Feature experimentation involves exploring different feature combinations and their impact on model performance. We experiment with various text representation techniques such as Bag of Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF).
-
-        \textbf{Bag of Words (BoW):}
+        % SVM
         
-        \vspace{0.5em}
-
-        % Convert text using Bag of Words (BoW)
-        \begin{lstlisting}[caption={Convert text using Bag of Words (BoW)}, label={lst:bow_conversion}]
-            # Convert text into numerical representations using Bag of Words (BoW)
-            bow_vectorizer = CountVectorizer()
-            X_train_bow = bow_vectorizer.fit_transform(X_train)
-            X_test_bow = bow_vectorizer.transform(X_test)
-        \end{lstlisting}
-
-        \textbf{TF-IDF:}
+        \begin{figure}[H]
         
-        \vspace{0.5em}
+            \centering
+            
+            % Top row
+            \begin{minipage}{\textwidth}
+                % Top-left
+                \begin{minipage}[c]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/Random_Forest_base_evaluation.png}
+                    \caption{a}
+                    \label{fig:a}
+                \end{minipage}%
+                \hfill%
+                % Top-right
+                \begin{minipage}[c]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{b}
+                    \label{fig:b}
+                \end{minipage}
+            \end{minipage}
 
-        % Convert text using TF-IDF
-        \begin{lstlisting}[caption={Convert text using TF-IDF}, label={lst:tfidf_conversion}]
-            # Convert text into numerical representations using TF-IDF
-            tfidf_vectorizer = TfidfVectorizer()
-            X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
-            X_test_tfidf = tfidf_vectorizer.transform(X_test)
-        \end{lstlisting}
+            \vspace{0.5cm}  % Add some vertical spacing between rows
+            
+            % Middle row  
+            \begin{minipage}{\textwidth}
+                % Middle-left (Train)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{c}
+                    \label{fig:c}
+                \end{minipage}%
+                \hfill%
+                % Middle-right (Train)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{d}
+                    \label{fig:d}
+                \end{minipage}
+            \end{minipage}
+            
+            \vspace{0.5cm}  % Add some vertical spacing between rows
 
-        \textbf{Placeholder for Feature Experimentation Results Table}
-
-        By experimenting with different features, we can identify the most effective representation techniques for our classification task.
+            % Bottom row
+            \begin{minipage}{\textwidth}
+                % Bottom-left (Test)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{e}
+                    \label{fig:e}
+                \end{minipage}%
+                \hfill%
+                % Bottom-right (Test)
+                \begin{minipage}[t]{0.48\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
+                    \caption{f}
+                    \label{fig:f}
+                \end{minipage}  
+            
+            \end{minipage}
+            
+        \end{figure}
+            

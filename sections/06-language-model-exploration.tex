@@ -13,154 +13,16 @@
 
     \subsection{Introduction}
     
-        This section provides an overview of the language models task and its objectives. The goal is to leverage advanced language models to classify attack session tactics based on the provided dataset. We will explore the use of pretrained models such as BERT and Doc2Vec, fine-tune them for our specific task, and analyze their performance.
-
-        Language models have revolutionized natural language processing (NLP) by enabling transfer learning, where models pretrained on large datasets can be fine-tuned on specific tasks. This approach allows us to benefit from the knowledge encoded in these models and achieve better performance with less training data.
-
+        \ldots
+    
     \subsection{Pretraining}
     
-        Pretraining involves using a pretrained language model or training a model from scratch on a large corpus of text. For this task, we will use a pretrained BERT model from HuggingFace's Transformers library.
-
-        \textbf{Installing Dependencies:}
-        
-        \vspace{0.5em}
-
-        % Install required packages
-        \begin{lstlisting}[language=bash, caption={Install required packages}, label={lst:install_packages}]
-            !pip install transformers torch
-        \end{lstlisting}
-
-        \textbf{Loading the Dataset:}
-        
-        \vspace{0.5em}
-
-        % Load dataset and print its size
-        \begin{lstlisting}[caption={Load dataset and print its size}, label={lst:load_dataset}]
-            import pandas as pd
-
-            # Load the dataset
-            df = pd.read_parquet("../data/processed/ssh_attacks_sampled_decoded.parquet")
-            print(f"Dataset size: {df.shape[0]} rows")
-        \end{lstlisting}
-
-        \textbf{Preprocessing:}
-        
-        \vspace{0.5em}
-
-        % Preprocess `Set_Fingerprint` column
-        \begin{lstlisting}[caption={Preprocess `Set\_Fingerprint` column}, label={lst:preprocess-fingerprint}]
-            from sklearn.preprocessing import MultiLabelBinarizer
-
-            # Preprocess Set_Fingerprint column
-            df['Set_Fingerprint'] = df['Set_Fingerprint'].apply(lambda x: [intent.strip() for intent in x.split(',')])
-            mlb = MultiLabelBinarizer()
-            y = mlb.fit_transform(df['Set_Fingerprint'])
-            print(f"Classes identified: {mlb.classes_}")
-        \end{lstlisting}
-
-        \textbf{Placeholder for Dataset Summary Table}
+        \ldots
         
     \subsection{Model Fine-tuning}
     
-        Fine-tuning involves training the last layer of the pretrained model on our specific dataset. We will use BERT for sequence classification and fine-tune it on the SSH attack sessions.
-
-        \textbf{Tokenization:}
-        
-        \vspace{0.5em}
-
-        % Tokenize text data using BERT tokenizer
-        \begin{lstlisting}[caption={Tokenize text data using BERT tokenizer}, label={lst:bert_tokenizer}]
-            from transformers import BertTokenizer
-
-            # Tokenize the text data
-            tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-            train_encodings = tokenizer(list(train_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
-            val_encodings = tokenizer(list(val_texts.fillna("").astype(str)), truncation=True, padding=True, max_length=128)
-        \end{lstlisting}
-
-        \textbf{Model Initialization:}
-        
-        \vspace{0.5em}
-
-        % Initialize BERT model for sequence classification
-        \begin{lstlisting}[caption={Initialize BERT model for sequence classification}, label={lst:bert_model}]
-            from transformers import BertForSequenceClassification, AdamW
-
-            # Initialize the BERT model for sequence classification
-            model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=y.shape[1])
-            model.to(device)
-
-            # Optimizer and Loss
-            optimizer = AdamW(model.parameters(), lr=5e-5)
-            criterion = torch.nn.BCEWithLogitsLoss()
-        \end{lstlisting}
-
-        \textbf{Training Loop:}
-        
-        \vspace{0.5em}
-
-        % Fine-tune BERT model
-        \begin{lstlisting}[caption={Fine-tune BERT model}, label={lst:bert_fine_tune}]
-            train_loss_list, val_loss_list = [], []
-
-            for epoch in range(5):  # Fine-tune for 5 epochs
-                model.train()
-                total_loss = 0
-
-                for batch in train_loader:
-                    optimizer.zero_grad()
-                    input_ids, attention_mask, labels = (
-                        batch['input_ids'].to(device),
-                        batch['attention_mask'].to(device),
-                        batch['labels'].to(device),
-                    )
-                    outputs = model(input_ids=input_ids, attention_mask=attention_mask)
-                    loss = criterion(outputs.logits, labels)
-                    loss.backward()
-                    optimizer.step()
-                    total_loss += loss.item()
-
-                train_loss_list.append(total_loss / len(train_loader))
-
-                # Validation
-                model.eval()
-                val_loss = 0
-                with torch.no_grad():
-                    for batch in val_loader:
-                        input_ids, attention_mask, labels = (
-                            batch['input_ids'].to(device),
-                            batch['attention_mask'].to(device),
-                            batch['labels'].to(device),
-                        )
-                        outputs = model(input_ids=input_ids, attention_mask=attention_mask)
-                        loss = criterion(outputs.logits, labels)
-                        val_loss += loss.item()
-                val_loss_list.append(val_loss / len(val_loader))
-        \end{lstlisting}
-
-        \textbf{Placeholder for Training and Validation Loss Table}
+        \ldots
             
     \subsection{Learning Curves}
     
-        Plotting learning curves helps in understanding the model's performance over epochs and determining the optimal number of epochs for training.
-
-        \textbf{Plotting Learning Curves:}
-        
-        \vspace{0.5em}
-
-        % Plot learning curves
-        \begin{lstlisting}[caption={Plot learning curves}, label={lst:plot_learning_curves}]
-            import matplotlib.pyplot as plt
-
-            # Plot learning curves
-            plt.plot(range(1, 6), train_loss_list, label="Training Loss")
-            plt.plot(range(1, 6), val_loss_list, label="Validation Loss")
-            plt.xlabel("Epochs")
-            plt.ylabel("Loss")
-            plt.legend()
-            plt.show()
-        \end{lstlisting}
-
-        \textbf{Placeholder for Learning Curves Plot}
-
-        By analyzing the learning curves, we can determine the optimal number of epochs to stop training and avoid overfitting. The point where the validation loss stops decreasing or starts increasing indicates the optimal stopping point.
+        \ldots

@@ -15,7 +15,8 @@
 \usepackage{titlesec}     % For custom formatting
 \usepackage{xcolor}       % For colors
 \usepackage{listings}     % For code snippets
-\usepackage{subcaption}   % For ...
+\usepackage{subcaption}   % For subfigures and subtables
+\usepackage{hyperref}     % For links and references
 
 % Custom settings for listings
 \lstset{
@@ -36,6 +37,17 @@
     captionpos=b,                       % Places the caption below the code block
     abovecaptionskip=5pt,               % Adjusts the space above the caption to 5pt
     belowcaptionskip=8pt,               % Adjusts the space below the caption to 8pt
+}
+
+% Custom settings for hyperref
+% FIXME: update and fix
+\hypersetup{
+    colorlinks=false,            % Disable colored links (use borders instead)
+    linkbordercolor=1 0 0,       % Red border around internal links
+    citebordercolor=0 1 0,       % Green border around citations
+    urlbordercolor=0 1 1,        % Cyan border around URLs
+    filebordercolor=0 .5 .5,     % Teal border around file links
+    pdfpagemode=UseOutlines,     % Open the PDF with bookmarks visible
 }
 
 % Remove ACM-specific references and permissions

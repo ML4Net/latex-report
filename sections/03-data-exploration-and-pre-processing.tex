@@ -43,13 +43,7 @@
 
     \subsection{Dataset Preparation and Feature Extraction}
 
-        The dataset used in this study was provided as a Parquet file. % Key columns of interest included:
-
-        % \begin{itemize}
-        %     \item \textbf{full\_session}: This column contained the complete sequence of commands executed during the attack sessions, making it crucial for analyzing attack behavior.
-        %     \item \textbf{Set\_Fingerprint}: This column served as the labels for the attacks and formed the basis of machine learning research by representing the intents behind the attacks.
-        %     \item \textbf{first\_timestamp}: Primarily used for visualization and temporal analysis of the attacks.
-        % \end{itemize}
+        The dataset used in this study was provided as a Parquet file.
 
         To prepare the dataset for analysis and ensure its quality, several preprocessing steps were undertaken, described in detail below:
 
@@ -57,10 +51,16 @@
         
             \item \textbf{Decoding the \textbf{full\_session} column}: The \texttt{full\_session} column contained \texttt{90026} encoded shell scripts, making the raw data difficult to interpret. A decoding process was applied to these entries, converting them into a human-readable format.
             
+            \vspace{0.2em}
+            
             \item \textbf{Formatting the \textbf{first\_timestamp} column}: The \texttt{first\_timestamp} column was checked for consistency and converted into a standard datetime format.
+            
+            \vspace{0.2em}
             
             \item \textbf{Splitting the \textbf{full\_session} column into lists of commands}: 
             The \texttt{full\_session} column contained entire attack sessions represented as single strings. Since we wanted each word / command to be a feature of our models, it was necessary to break it down into individual commands or keywords for more granular analysis. This was achieved through a multi-step splitting process using specific delimiters:
+            
+            \vspace{0.3em}
             
             \begin{itemize}
                 \item The semicolon (\texttt{;}) was used to separate distinct commands within a session.
@@ -68,9 +68,13 @@
                 \item Whitespace (\texttt{ }) was used to further split commands into individual words or arguments.
             \end{itemize}
             
+            \vspace{0.3em}
+            
             This process allowed the identification of specific actions and parameters, facilitating a detailed analysis of the attack strategies.
             
             \item \textbf{Cleaning individual commands}: Each command or keyword extracted from the \texttt{full\_session} column was processed to remove unnecessary or undesired elements. Regular expressions were used to strip unwanted symbols, qualifiers, and variable assignments. 
+            
+            \vspace{0.2em}
             
             \item \textbf{Handling missing values}: 
             To ensure the integrity and completeness of the dataset, a thorough check for missing values was performed across all columns.
@@ -120,9 +124,13 @@
         % TODO: add image references
 
         \begin{itemize}
+        
             \item \textbf{Word Cloud Visualization}: A word cloud (Figure~\ref{fig:common-words-comparison}a) was generated to represent the most common words in the dataset. Commands like \texttt{tmp}, \texttt{grep}, \texttt{var}, and \texttt{cat} dominate the word cloud, highlighting their frequent usage in attack sessions.
+            
+            \vspace{0.2em}
 
             \item \textbf{Top 20 Most Common Words Bar Plot}: A bar plot (Figure~\ref{fig:common-words-comparison}b) showcases the top 20 most frequent words, ordered by their frequency. This plot provides more quantitative detail, revealing the high occurrence of commands such as \texttt{tmp} (over 2 million occurrences) and \texttt{var} (nearly 2 million occurrences). Other significant commands include \texttt{grep}, \texttt{cat}, \texttt{echo}, and \texttt{cp}, each surpassing 1 million occurrences. These commands are commonly associated with file manipulation, string searching, and process information, which are typical in malicious activities.
+            
         \end{itemize}
 
         The combination of these visualizations supports the identification of commonly used commands and their potential roles in attack sessions. 
@@ -172,20 +180,6 @@
             \label{fig:occurrences-and-co-occurrences-intents}
         \end{figure}
 
-        % \begin{figure}[H]
-        %     \centering
-        %     \includegraphics[width=0.7\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
-        %     \caption{Occurrences of each Intent}
-        %     \label{fig:occurrences-of-each-intent}
-        % \end{figure}
-        
-        % \begin{figure}[H]
-        %     \centering
-        %     \includegraphics[width=0.75\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
-        %     \caption{Co-Occurrence Heatmap of Intents}
-        %     \label{fig:co-occurrence-heatmap-of-intents}
-        % \end{figure}
-
         Figure \ref{fig:occurrences-and-co-occurrences-intents}a illustrates the frequency distribution of different intents in our dataset. The analysis reveals that Discovery and Persistence are the most prevalent intents, with approximately 200,000 occurrences each. This suggests that attackers primarily focus on reconnaissance activities and establishing long-term presence in the targeted systems. Execution intent appears as the third most common, with roughly 100,000 occurrences, indicating a significant number of attempts to run malicious code. Defense Evasion shows notably fewer occurrences (around 20,000), while Harmless, Other, and Impact intents are relatively rare in the dataset.
 
         The co-occurrence heatmap (Figure \ref{fig:occurrences-and-co-occurrences-intents}b) reveals significant patterns in how different intents interact within attack sessions. Several key observations emerge:
@@ -194,9 +188,15 @@
         
             \item The strongest co-occurrence relationship exists between Discovery and Persistence (211,281 co-occurrences), suggesting that attackers often combine reconnaissance activities with attempts to maintain system access.
 
+            \vspace{0.2em}
+
             \item Execution shows strong correlations with both Discovery (92,279) and Persistence (91,576), indicating that malicious code execution frequently accompanies both system discovery and persistence establishment attempts.
 
+            \vspace{0.2em}
+
             \item Defense Evasion exhibits moderate co-occurrence with Discovery (18,825) and minimal correlation with other intents, suggesting that evasion techniques are primarily employed during reconnaissance phases.
+
+            \vspace{0.2em}
 
             \item Harmless, Impact, and Other intents show minimal co-occurrence with other categories (with values mostly under 20 co-occurrences). This isolation pattern is partially explained by their low frequency in the dataset: Harmless with 2,206 occurrences, Impact with only 27 occurrences, and Other with 327 occurrences. These numbers represent a small fraction of the total recorded intents, naturally limiting their potential for co-occurrence with other intent types.
             
@@ -211,9 +211,14 @@
         The ECDF plots in Figure~\ref{fig:ecfd-and-distribution-number-words}a provide insights into the distribution of the number of characters and words across all sessions. The Empirical Cumulative Distribution Function (ECDF) is a statistical tool that represents the proportion of observations below a certain value, offering an intuitive way to understand data distributions.
         
         \begin{itemize}
+        
             \item The ECDF for characters indicates that the majority of sessions have fewer than $10^3$ characters, with a sharp increase between $10^2$ and $10^3$ characters. This suggests a high concentration of relatively short sessions.
+            
             \item The ECDF for words shows a similar trend, with most sessions containing fewer than $10^2$ words. The distribution reflects the concise nature of many attack sessions, potentially focusing on executing a limited number of commands.
+            
         \end{itemize}
+        
+        \vspace{-0.5em}
         
         \begin{figure}[h]
             \centering
@@ -236,10 +241,15 @@
         \end{figure}
 
         Figure~\ref{fig:ecfd-and-distribution-number-words}b illustrates the density distribution of the number of words per session. Key observations include:
+        
         \begin{itemize}
+        
             \item The distribution is bimodal, with two distinct peaks. This likely reflects different categories of sessions, such as exploratory attacks with a larger number of commands versus simpler, targeted attacks with fewer commands.
+            
             \item The majority of sessions have fewer than 100 words, reinforcing the compactness observed in the ECDF plots.
+            
             \item Outliers with higher word counts likely represent complex sessions, potentially involving multiple stages or more sophisticated attack strategies.
+            
         \end{itemize}
 
         The relevance of these plots lies in their ability to provide a foundational understanding of session structure, which is critical for feature engineering and model development. Shorter sessions may correspond to quick, automated attacks, while longer sessions might represent manual or multi-step intrusions. These insights can inform the design of models by emphasizing features tailored to the varying lengths and complexities of sessions, ultimately improving detection accuracy.
