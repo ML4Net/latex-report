@@ -253,9 +253,24 @@
             \item \textbf{Term Frequency-Inverse Document Frequency (TF-IDF)}: This method extends BoW by weighting the word frequencies based on their inverse document frequency, thereby emphasizing words that are important within a session but less frequent across all sessions. This approach helps reduce the impact of common but non-informative words.
         \end{itemize}
 
-        Figure~\ref{fig: } and Figure ~\ref{fig: } illustrate the transformed datasets using the BoW and TF-IDF techniques, respectively. The TF-IDF representation was selected for further analysis due to its ability to capture more meaningful patterns in the data by accounting for word relevance.
-
+        Figure~\ref{fig:bow} and Figure ~\ref{fig:tf-idf} illustrate the transformed datasets using the BoW and TF-IDF techniques, respectively. The TF-IDF representation was selected for further analysis due to its ability to capture more meaningful patterns in the data by accounting for word relevance.
 
         The use of the TF-IDF representation ensures that subsequent analyses focus on the most distinctive features of each session, enhancing the effectiveness of machine learning models in identifying patterns and predicting intents.
         
-    \clearpage % TODO: remove
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.95\textwidth]{../figures/others/dataset_bow_1.png}
+            \vspace{-0.3cm}
+            \caption{Bag-of-Words}
+            \label{fig:bow}
+        \end{figure}
+        
+        \vspace{-0.5cm}
+        
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.95\textwidth]{../figures/others/dataset_tf-idf_1.png}
+            \vspace{-0.3cm}
+            \caption{TF-IDF}
+            \label{fig:tf-idf}
+        \end{figure}
