@@ -120,14 +120,12 @@
         % TODO: add image references
 
         \begin{itemize}
-            \item \textbf{Word Cloud Visualization}: A word cloud (Figure~\ref{fig:word-cloud}) was generated to represent the most common words in the dataset. Commands like \texttt{tmp}, \texttt{grep}, \texttt{var}, and \texttt{cat} dominate the word cloud, highlighting their frequent usage in attack sessions.
+            \item \textbf{Word Cloud Visualization}: A word cloud (Figure~\ref{fig:common-words-comparison}a) was generated to represent the most common words in the dataset. Commands like \texttt{tmp}, \texttt{grep}, \texttt{var}, and \texttt{cat} dominate the word cloud, highlighting their frequent usage in attack sessions.
 
-            \item \textbf{Top 20 Most Common Words Bar Plot}: A bar plot (Figure~\ref{fig:common-words}) showcases the top 20 most frequent words, ordered by their frequency. This plot provides more quantitative detail, revealing the high occurrence of commands such as \texttt{tmp} (over 2 million occurrences) and \texttt{var} (nearly 2 million occurrences). Other significant commands include \texttt{grep}, \texttt{cat}, \texttt{echo}, and \texttt{cp}, each surpassing 1 million occurrences. These commands are commonly associated with file manipulation, string searching, and process information, which are typical in malicious activities.
+            \item \textbf{Top 20 Most Common Words Bar Plot}: A bar plot (Figure~\ref{fig:common-words-comparison}b) showcases the top 20 most frequent words, ordered by their frequency. This plot provides more quantitative detail, revealing the high occurrence of commands such as \texttt{tmp} (over 2 million occurrences) and \texttt{var} (nearly 2 million occurrences). Other significant commands include \texttt{grep}, \texttt{cat}, \texttt{echo}, and \texttt{cp}, each surpassing 1 million occurrences. These commands are commonly associated with file manipulation, string searching, and process information, which are typical in malicious activities.
         \end{itemize}
 
         The combination of these visualizations supports the identification of commonly used commands and their potential roles in attack sessions. 
-
-        \vspace{-0.5cm}
 
         \begin{figure}[h]
             \centering
@@ -153,24 +151,44 @@
     \subsection{Intent Analysis}
     
         This section presents an analysis of different intents identified in attack sessions and their relationships. Our analysis reveals distinct patterns in both the frequency of individual intents and their co-occurrence relationships, providing valuable insights into attacker behavior patterns.
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.7\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
-            \caption{Occurrences of each Intent}
-            \label{fig:occurrences-of-each-intent}
-        \end{figure}
         
-        \begin{figure}[H]
+        \begin{figure}[h]
             \centering
-            \includegraphics[width=0.75\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
-            \caption{Co-Occurrence Heatmap of Intents}
-            \label{fig:co-occurrence-heatmap-of-intents}
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
+                % \caption{Occurrences of each Intent}
+                \label{fig:occurrences-of-each-intent}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
+                % \caption{Co-Occurrence Heatmap of Intents}
+                \label{fig:co-occurrence-heatmap-of-intents}
+            \end{subfigure}
+            \vspace{-0.5cm}
+            \caption{(a) Occurrences of each Intent and (b) Co-Occurrence Heatmap of Intents}
+            \label{fig:occurrences-and-co-occurrences-intents}
         \end{figure}
 
-        Figure \ref{fig:occurrences-of-each-intent} illustrates the frequency distribution of different intents in our dataset. The analysis reveals that Discovery and Persistence are the most prevalent intents, with approximately 200,000 occurrences each. This suggests that attackers primarily focus on reconnaissance activities and establishing long-term presence in the targeted systems. Execution intent appears as the third most common, with roughly 100,000 occurrences, indicating a significant number of attempts to run malicious code. Defense Evasion shows notably fewer occurrences (around 20,000), while Harmless, Other, and Impact intents are relatively rare in the dataset.
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=0.7\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
+        %     \caption{Occurrences of each Intent}
+        %     \label{fig:occurrences-of-each-intent}
+        % \end{figure}
+        
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=0.75\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
+        %     \caption{Co-Occurrence Heatmap of Intents}
+        %     \label{fig:co-occurrence-heatmap-of-intents}
+        % \end{figure}
 
-        The co-occurrence heatmap (Figure \ref{fig:co-occurrence-heatmap-of-intents}) reveals significant patterns in how different intents interact within attack sessions. Several key observations emerge:
+        Figure \ref{fig:occurrences-and-co-occurrences-intents}a illustrates the frequency distribution of different intents in our dataset. The analysis reveals that Discovery and Persistence are the most prevalent intents, with approximately 200,000 occurrences each. This suggests that attackers primarily focus on reconnaissance activities and establishing long-term presence in the targeted systems. Execution intent appears as the third most common, with roughly 100,000 occurrences, indicating a significant number of attempts to run malicious code. Defense Evasion shows notably fewer occurrences (around 20,000), while Harmless, Other, and Impact intents are relatively rare in the dataset.
+
+        The co-occurrence heatmap (Figure \ref{fig:occurrences-and-co-occurrences-intents}b) reveals significant patterns in how different intents interact within attack sessions. Several key observations emerge:
 
         \begin{itemize}
         
@@ -190,34 +208,34 @@
 
         The session analysis aims to understand the structural characteristics of the attack sessions in the dataset. This is accomplished through two visualizations: the Empirical Cumulative Distribution Function (ECDF) plots and the distribution of the number of words per session.
 
-        % FIXME: images visualization
-
-        \begin{figure}[h]
-            \centering
-            \begin{subfigure}[b]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section1/ecdf_for_characters_and_for_words.png}
-                \caption{ECDF for Characters and Words in Sessions}
-                \label{fig:ecdf_sessions}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[b]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section1/distribution_of_number_of_words_per_session_limited.png}
-                \caption{Distribution of the Number of Words per Session}
-                \label{fig:word_distribution}
-            \end{subfigure}
-            \caption{}
-            \label{fig:}
-        \end{figure}
-
-        The ECDF plots in Figure~\ref{fig:ecdf_sessions} provide insights into the distribution of the number of characters and words across all sessions. The Empirical Cumulative Distribution Function (ECDF) is a statistical tool that represents the proportion of observations below a certain value, offering an intuitive way to understand data distributions.
+        The ECDF plots in Figure~\ref{fig:ecfd-and-distribution-number-words}a provide insights into the distribution of the number of characters and words across all sessions. The Empirical Cumulative Distribution Function (ECDF) is a statistical tool that represents the proportion of observations below a certain value, offering an intuitive way to understand data distributions.
+        
         \begin{itemize}
             \item The ECDF for characters indicates that the majority of sessions have fewer than $10^3$ characters, with a sharp increase between $10^2$ and $10^3$ characters. This suggests a high concentration of relatively short sessions.
             \item The ECDF for words shows a similar trend, with most sessions containing fewer than $10^2$ words. The distribution reflects the concise nature of many attack sessions, potentially focusing on executing a limited number of commands.
         \end{itemize}
+        
+        \begin{figure}[h]
+            \centering
+            \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/ecdf_for_characters_and_for_words.png}
+                % \caption{ECDF for Characters and Words in Sessions}
+                \label{fig:ecdf_sessions}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[b]{0.52\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/distribution_of_number_of_words_per_session_limited.png}
+                % \caption{Distribution of the Number of Words per Session}
+                \label{fig:word_distribution}
+            \end{subfigure}
+            \vspace{-0.5cm}
+            \caption{(a) ECDF for Characters and Words in Sessions and (b) Distribution of the Number of Words per Session}
+            \label{fig:ecfd-and-distribution-number-words}
+        \end{figure}
 
-        Figure~\ref{fig:word_distribution} illustrates the density distribution of the number of words per session. Key observations include:
+        Figure~\ref{fig:ecfd-and-distribution-number-words}b illustrates the density distribution of the number of words per session. Key observations include:
         \begin{itemize}
             \item The distribution is bimodal, with two distinct peaks. This likely reflects different categories of sessions, such as exploratory attacks with a larger number of commands versus simpler, targeted attacks with fewer commands.
             \item The majority of sessions have fewer than 100 words, reinforcing the compactness observed in the ECDF plots.
@@ -235,7 +253,7 @@
             \item \textbf{Term Frequency-Inverse Document Frequency (TF-IDF)}: This method extends BoW by weighting the word frequencies based on their inverse document frequency, thereby emphasizing words that are important within a session but less frequent across all sessions. This approach helps reduce the impact of common but non-informative words.
         \end{itemize}
 
-        Figure X and Figure Y illustrate the transformed datasets using the BoW and TF-IDF techniques, respectively. The TF-IDF representation was selected for further analysis due to its ability to capture more meaningful patterns in the data by accounting for word relevance.
+        Figure~\ref{fig: } and Figure ~\ref{fig: } illustrate the transformed datasets using the BoW and TF-IDF techniques, respectively. The TF-IDF representation was selected for further analysis due to its ability to capture more meaningful patterns in the data by accounting for word relevance.
 
 
         The use of the TF-IDF representation ensures that subsequent analyses focus on the most distinctive features of each session, enhancing the effectiveness of machine learning models in identifying patterns and predicting intents.
