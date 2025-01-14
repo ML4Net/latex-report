@@ -14,15 +14,15 @@
 
     % Main Content
 
-    \subsection*{Introduction}
+    \subsection{Introduction}
     
         This section of the project focuses on applying unsupervised learning techniques to analyze SSH attack data. Specifically, clustering methods were utilized to uncover patterns and relationships within the dataset. An emphasis was placed on identifying distinct attack behaviors and intents.
 
-    \subsection*{Data Preparation}
+    \subsection{Data Preparation}
     
         The dataset chosen was the one generated through the TF-IDF vectorization technique. This was made because it was essential to start with a dataset that represented in the best way the frequency and the importance of words, making each word as a dimension of our vector.
 
-    \subsection*{Clustering Methods}
+    \subsection{Clustering Methods}
     
         Two clustering techniques were applied:
         
@@ -34,15 +34,15 @@
             
         \end{itemize}
 
-    \subsection*{Hyperparameter Tuning}
+    \subsection{Hyperparameter Tuning}
     
         Hyperparameter tuning was conducted to optimize the performance of both clustering methods. For K-Means, parameters such as the initialization method (\texttt{k-means++} and \texttt{random}), the number of initializations, and the maximum number of iterations were fine-tuned using a grid search approach. Similarly, GMM parameters including the initialization method (\texttt{kmeans}), covariance type (\texttt{full} and \texttt{spherical}), and tolerance were optimized. These steps ensured the models were tailored to the dataset, resulting in better clustering outcomes.
 
-    \subsection*{Clusters Visualization}
+    \subsection{Clusters Visualization}
     
         To visualize the clustering results, t-SNE dimensionality reduction was applied. Its functionalities makes it an excellent choice for visualizing clusters in datasets where direct interpretation is difficult due to high dimensionality. By projecting the data into a two-dimensional space, t-SNE enables us to identify patterns and groupings that may not be evident in the original feature space. The two-dimensional plots provided a clear representation of the clusters formed by both K-Means and GMM, highlighting their separability and internal consistency.
 
-        \subsubsection*{K-Means Visualization}
+        \subsubsection{K-Means Visualization \\}
 
             \begin{figure}[H]
                 \centering
@@ -51,7 +51,7 @@
                 \label{fig:tsne_kmeans}
             \end{figure}
 
-        \subsubsection*{GMM Visualization}
+        \subsubsection{GMM Visualization \\}
 
             \begin{figure}[H]
                 \centering
@@ -60,9 +60,9 @@
                 \label{fig:tsne_gmm}
             \end{figure}
 
-    \subsection*{Clusters Analysis}
+    \subsection{Clusters Analysis}
 
-        \subsubsection*{Word Cloud Representation}
+        \subsubsection{Word Cloud Representation \\}
 
             Word clouds were generated for each cluster to highlight the most significant terms. This provided an intuitive understanding of the key features within each cluster, offering insights into the behavioral patterns of the attacks.
 
@@ -73,7 +73,7 @@
                 \label{fig:word_clouds}
             \end{figure}
 
-        \subsubsection*{Community Detection}
+        \subsubsection{Community Detection \\}
 
             Graph-based community detection was performed within selected clusters to identify subgroups. The analysis revealed meaningful relationships and substructures within the data, as demonstrated in the visualizations below:
 
@@ -91,6 +91,6 @@
                 \label{fig:gmm_graph}
             \end{figure}
 
-    \subsection*{Conclusion}
+    \subsection{Conclusion}
     
         This analysis provided valuable insights into the patterns of SSH attacks through clustering. The K-Means and GMM algorithms both effectively identified meaningful clusters, as supported by validation metrics and visualizations. Hyperparameter tuning further enhanced the performance of both models. The results demonstrate the potential of unsupervised learning in uncovering hidden patterns in complex datasets, providing a foundation for future applications such as anomaly detection and improved cybersecurity strategies.
