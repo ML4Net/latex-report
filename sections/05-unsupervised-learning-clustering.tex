@@ -15,22 +15,22 @@
     % Main Content
 
     \subsection{Introduction}
+    Unsupervised learning, a powerful branch of machine learning, was applied in this project to gain insights from SSH attack data. The primary focus was on leveraging clustering methods to group similar attack sessions based on their intrinsic patterns and characteristics. By analyzing these groups, the study aimed to uncover hidden relationships and categorize different attack intents and behaviors without relying on predefined labels. 
     
-        This section of the project focuses on applying unsupervised learning techniques to analyze SSH attack data. Specifically, clustering methods were utilized to uncover patterns and relationships within the dataset. An emphasis was placed on identifying distinct attack behaviors and intents.
-
     \subsection{Data Preparation}
     
         The dataset chosen was the one generated through the TF-IDF vectorization technique. This was made because it was essential to start with a dataset that represented in the best way the frequency and the importance of words, making each word as a dimension of our vector.
 
     \subsection{Clustering Methods}
     
-        Two clustering techniques were applied:
+        Clustering techniques were employed to uncover natural groupings within the dataset, providing insights into SSH attack patterns. The following methods were used:
+
         
         \begin{itemize}
         
-            \item \textbf{K-Means Clustering}: Using the Elbow Method and silhouette scores, the optimal number of clusters was determined.
+            \item \textbf{K-Means Clustering}: The algorithm iteratively assigns each data point to the nearest cluster centroid and updates the centroids until convergence. The Elbow Method was applied to determine the optimal number of clusters by examining the total within-cluster sum of squares (inertia). Silhouette scores were also calculated to evaluate the cohesion and separation of clusters, ensuring the clustering results were meaningful and well-separated.
             
-            \item \textbf{Gaussian Mixture Model (GMM)}: Similar to K-Means, the optimal number of clusters was selected using silhouette scores and log-likelihood values.
+            \item \textbf{Gaussian Mixture Model (GMM)}: Unlike K-Means, GMM considers the probability of each data point belonging to a cluster, providing a more flexible and nuanced clustering approach. The optimal number of clusters was determined using a combination of log-likelihood scores, which measure how well the model fits the data, and silhouette analysis to validate cluster quality. This dual approach ensured the GMM provided reliable and interpretable clustering results.
             
         \end{itemize}
 
@@ -64,17 +64,20 @@
 
         \subsubsection{K-Means Visualization \\}
         
-            % text
+        
 
         \subsubsection{GMM Visualization \\}
 
-            % text
+        
 
     \subsection{Clusters Analysis}
 
         \subsubsection{Word Cloud Representation \\}
 
-            Word clouds were generated for each cluster to highlight the most significant terms. This provided an intuitive understanding of the key features within each cluster, offering insights into the behavioral patterns of the attacks.
+        Word clouds were generated for each cluster to highlight the most significant terms. These visualizations provided an intuitive understanding of the key features within each cluster by emphasizing frequently occurring terms. The approach helped in identifying the distinguishing characteristics of each cluster, offering insights into the behavioral patterns and intents associated with different attack sessions.
+
+        The word clouds revealed dominant keywords for specific clusters, such as commands, parameters, or phrases frequently used in SSH attacks. This information serves as a valuable reference for understanding the nature of the clustered attack sessions, aiding in further analysis and interpretation of the underlying data.
+
 
             \begin{figure}[H]
                 \centering
@@ -85,20 +88,22 @@
 
         \subsubsection{Community Detection \\}
 
-            Graph-based community detection was performed within selected clusters to identify subgroups. The analysis revealed meaningful relationships and substructures within the data, as demonstrated in the visualizations below:
-            
+            Graph-based community detection was performed within selected clusters to identify subgroups. This approach involves constructing a graph where nodes represent features or sessions, and edges indicate relationships or co-occurrences within the data. The Louvain method was applied to detect communities, maximizing modularity to ensure well-defined groups.
+
+            The analysis revealed meaningful relationships and substructures within the clusters, helping to further refine the understanding of the dataset's internal patterns. These subgroups highlight finer-grained distinctions within the clusters, such as frequently occurring command sequences or behavioral traits that are common in certain attack types. Visualizations of these detected communities provide insights into the interconnectedness of the data and potential hierarchical structures in SSH attack patterns.      
+        
             \begin{figure}[H]
                 \centering
                 \begin{subfigure}[c]{0.47\textwidth}
                     \centering
-                    \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_graph_visualization_of_cluster_0_with_communities.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section3/k-means_graph_visualization_of_cluster_0_with_communities.png}
                     \caption{Community Detection in Cluster 0 (K-Means).}
                     \label{fig:kmeans_graph}
                 \end{subfigure}
                 \hfill
                 \begin{subfigure}[c]{0.47\textwidth}
                     \centering
-                    \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_graph_visualization_of_cluster_0_with_communities.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section3/gmm_graph_visualization_of_cluster_0_with_communities.png}
                     \caption{Community Detection in Cluster 0 (GMM).}
                     \label{fig:gmm_graph}
                 \end{subfigure}
