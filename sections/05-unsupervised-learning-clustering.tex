@@ -15,7 +15,8 @@
     % Main Content
 
     \subsection{Introduction}
-    Unsupervised learning, a powerful branch of machine learning, was applied in this project to gain insights from SSH attack data. The primary focus was on leveraging clustering methods to group similar attack sessions based on their intrinsic patterns and characteristics. By analyzing these groups, the study aimed to uncover hidden relationships and categorize different attack intents and behaviors without relying on predefined labels. 
+    
+        Unsupervised learning, a powerful branch of machine learning, was applied in this project to gain insights from SSH attack data. The primary focus was on leveraging clustering methods to group similar attack sessions based on their intrinsic patterns and characteristics. By analyzing these groups, the study aimed to uncover hidden relationships and categorize different attack intents and behaviors without relying on predefined labels. 
     
     \subsection{Data Preparation}
     
@@ -24,7 +25,6 @@
     \subsection{Clustering Methods}
     
         Clustering techniques were employed to uncover natural groupings within the dataset, providing insights into SSH attack patterns. The following methods were used:
-
         
         \begin{itemize}
         
@@ -36,46 +36,6 @@
         
     \subsection{Clustering Evaluation Techniques}
     
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}[c]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_clustering_error.png}
-                \caption{K-means Elbow Method}
-                \label{fig:tsne_kmeans}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_silohuette_score.png}
-                \caption{K-means Silhouette Score}
-                \label{fig:tsne_gmm}
-            \end{subfigure}
-            \vspace{-0.1cm}
-            \caption{}
-            \label{fig:}
-        \end{figure}
-        
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}[c]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_total_log-likelihood_score.png}
-                \caption{GMM Log-Likelihood Score}
-                \label{fig:tsne_kmeans}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_silohuette_score.png}
-                \caption{GMM Silhouette Score}
-                \label{fig:tsne_gmm}
-            \end{subfigure}
-            \vspace{-0.1cm}
-            \caption{}
-            \label{fig:}
-        \end{figure}
-    
         \subsubsection{K-Means Clustering \\}
         
             The results of the Elbow Method and Silhouette Score indicate that the optimal number of clusters for K-Means is 10. The Elbow Method graph shows a steep decline in clustering error between 4 and 10 clusters, after which the reduction becomes marginal. This suggests that adding more clusters beyond 10 provides minimal improvement in error reduction.
@@ -85,14 +45,55 @@
         
         \subsubsection{Gaussian Mixture Model (GMM) \\}
 
-        The analysis of the Gaussian Mixture Model (GMM) clustering results reveals that the optimal number of clusters lies around 10.
+            The analysis of the Gaussian Mixture Model (GMM) clustering results reveals that the optimal number of clusters lies around 10.
 
-        The Silhouette Score graph shows a gradual increase in cluster quality as the number of clusters increases. The scores exhibit a clear improvement up to 10 clusters, after which the growth slows down, suggesting a point of stability in cluster structure.
-        
-        The Log-Likelihood Score graph reflects the model's fit to the data. The score consistently improves as the number of clusters increases, with a significant improvement from 4 to 10 clusters. Beyond this point, the increase in log-likelihood becomes less pronounced, showing diminishing returns in terms of model fit.
-        
-        Together, these results highlight that 10 clusters provide a robust partitioning of the dataset, balancing model complexity and clustering quality.        
+            The Silhouette Score graph shows a gradual increase in cluster quality as the number of clusters increases. The scores exhibit a clear improvement up to 10 clusters, after which the growth slows down, suggesting a point of stability in cluster structure.
+
+            The Log-Likelihood Score graph reflects the model's fit to the data. The score consistently improves as the number of clusters increases, with a significant improvement from 4 to 10 clusters. Beyond this point, the increase in log-likelihood becomes less pronounced, showing diminishing returns in terms of model fit.
+
+            Together, these results highlight that 10 clusters provide a robust partitioning of the dataset, balancing model complexity and clustering quality. 
             
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_clustering_error.png}
+                % \caption{K-means Elbow Method}
+                \label{fig:tsne_kmeans}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_silohuette_score.png}
+                % \caption{K-means Silhouette Score}
+                \label{fig:tsne_gmm}
+            \end{subfigure}
+            \vspace{-0.5cm}
+            \caption{(a) K-means Elbow Method and (b) K-means Silhouette Score}
+            \label{fig:}
+        \end{figure}
+        
+        \vspace{-1em}
+        
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_total_log-likelihood_score.png}
+                % \caption{GMM Log-Likelihood Score}
+                \label{fig:tsne_kmeans}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_silohuette_score.png}
+                % \caption{GMM Silhouette Score}
+                \label{fig:tsne_gmm}
+            \end{subfigure}
+            \vspace{-0.5cm}
+            \caption{(a) GMM Log-Likelihood Score and (b) GMM Silhouette Score}
+            \label{fig:}
+        \end{figure}
 
     \subsection{Hyperparameter Tuning}
     
@@ -124,26 +125,25 @@
 
         \subsubsection{K-Means Visualization \\}
 
-        The t-SNE visualization provides a two-dimensional representation of the 10 clusters identified by the K-Means algorithm. This graph highlights the spatial distribution and separability of the clusters in the dataset.
+            The t-SNE visualization provides a two-dimensional representation of the 10 clusters identified by the K-Means algorithm. This graph highlights the spatial distribution and separability of the clusters in the dataset.
 
-        Distinct cluster groupings are visible, with some clusters (e.g., the orange and purple clusters) forming highly compact and dense regions. This indicates strong intra-cluster similarity and effective separation from other clusters. Conversely, a few clusters (e.g., the red and yellow clusters) are more dispersed, suggesting potential overlap or variability in their features.
+            Distinct cluster groupings are visible, with some clusters (e.g., the orange and purple clusters) forming highly compact and dense regions. This indicates strong intra-cluster similarity and effective separation from other clusters. Conversely, a few clusters (e.g., the red and yellow clusters) are more dispersed, suggesting potential overlap or variability in their features.
 
-        The visualization demonstrates that K-Means effectively partitions the dataset into meaningful groups, with well-defined boundaries for most clusters. However, the presence of dispersed clusters may reflect the complexity of certain patterns in the dataset, indicating that some attack behaviors share overlapping features. Overall, the t-SNE plot validates the clustering results by showing clear differentiation among the majority of the clusters.
+            The visualization demonstrates that K-Means effectively partitions the dataset into meaningful groups, with well-defined boundaries for most clusters. However, the presence of dispersed clusters may reflect the complexity of certain patterns in the dataset, indicating that some attack behaviors share overlapping features. Overall, the t-SNE plot validates the clustering results by showing clear differentiation among the majority of the clusters.
       
         \subsubsection{GMM Visualization \\}
 
-        The clusters exhibit distinct groupings, with some (e.g., the red and blue clusters) forming tightly packed regions that indicate strong intra-cluster similarity and minimal overlap. However, other clusters (e.g., the orange cluster) are more dispersed, reflecting the probabilistic nature of GMM, which allows for overlapping data points and accounts for uncertainties in cluster assignment.
+            The clusters exhibit distinct groupings, with some (e.g., the red and blue clusters) forming tightly packed regions that indicate strong intra-cluster similarity and minimal overlap. However, other clusters (e.g., the orange cluster) are more dispersed, reflecting the probabilistic nature of GMM, which allows for overlapping data points and accounts for uncertainties in cluster assignment.
 
-        Compared to the K-Means visualization, the GMM-based clusters appear more balanced in size and density. This suggests that GMM is effectively capturing the natural variability and overlapping characteristics within the dataset. Overall, the t-SNE plot validates the clustering results, showing that GMM provides a nuanced partitioning of the dataset while accommodating the complexities inherent in the data.
+            Compared to the K-Means visualization, the GMM-based clusters appear more balanced in size and density. This suggests that GMM is effectively capturing the natural variability and overlapping characteristics within the dataset. Overall, the t-SNE plot validates the clustering results, showing that GMM provides a nuanced partitioning of the dataset while accommodating the complexities inherent in the data.
 
     \subsection{Clusters Analysis}
 
         \subsubsection{Word Cloud Representation \\}
 
-        Word clouds were generated for each cluster to highlight the most significant terms. These visualizations provided an intuitive understanding of the key features within each cluster by emphasizing frequently occurring terms. The approach helped in identifying the distinguishing characteristics of each cluster, offering insights into the behavioral patterns and intents associated with different attack sessions.
+            Word clouds were generated for each cluster to highlight the most significant terms. These visualizations provided an intuitive understanding of the key features within each cluster by emphasizing frequently occurring terms. The approach helped in identifying the distinguishing characteristics of each cluster, offering insights into the behavioral patterns and intents associated with different attack sessions.
 
-        The word clouds revealed dominant keywords for specific clusters, such as commands, parameters, or phrases frequently used in SSH attacks. This information serves as a valuable reference for understanding the nature of the clustered attack sessions, aiding in further analysis and interpretation of the underlying data.
-
+            The word clouds revealed dominant keywords for specific clusters, such as commands, parameters, or phrases frequently used in SSH attacks. This information serves as a valuable reference for understanding the nature of the clustered attack sessions, aiding in further analysis and interpretation of the underlying data.
 
             \begin{figure}[H]
                 \centering
@@ -153,33 +153,33 @@
             \end{figure}
             
             \subsubsection{Community Detection \\}
-            Graph-based community detection was performed within selected clusters to identify subgroups. This approach involves constructing a graph where nodes represent features or sessions, and edges indicate relationships or co-occurrences within the data. The greedy\_modularity\_communities method was applied to detect communities, maximizing modularity to ensure well-defined groups.
             
-            The analysis revealed meaningful relationships and substructures within the clusters, helping to further refine the understanding of the dataset's internal patterns. These subgroups highlight finer-grained distinctions within the clusters, such as frequently occurring command sequences or behavioral traits common to specific attack types. Visualizations of these detected communities provide insights into the interconnectedness of the data and potential hierarchical structures in SSH attack patterns.
-            
-            \begin{figure}[H]
-                \centering
-                \begin{subfigure}[c]{0.47\textwidth}
+                Graph-based community detection was performed within selected clusters to identify subgroups. This approach involves constructing a graph where nodes represent features or sessions, and edges indicate relationships or co-occurrences within the data. The greedy\_modularity\_communities method was applied to detect communities, maximizing modularity to ensure well-defined groups.
+
+                The analysis revealed meaningful relationships and substructures within the clusters, helping to further refine the understanding of the dataset's internal patterns. These subgroups highlight finer-grained distinctions within the clusters, such as frequently occurring command sequences or behavioral traits common to specific attack types. Visualizations of these detected communities provide insights into the interconnectedness of the data and potential hierarchical structures in SSH attack patterns.
+
+                \begin{figure}[H]
                     \centering
-                    \includegraphics[width=0.8\textwidth]{../figures/plots/section3/k-means_graph_visualization_of_cluster_0_with_communities.png}
-                    \caption{Community Detection in Cluster 0 (K-Means).}
-                    \label{fig:kmeans_graph}
-                \end{subfigure}
-                \hfill
-                \begin{subfigure}[c]{0.47\textwidth}
-                    \centering
-                    \includegraphics[width=0.8\textwidth]{../figures/plots/section3/gmm_graph_visualization_of_cluster_0_with_communities.png}
-                    \caption{Community Detection in Cluster 0 (GMM).}
-                    \label{fig:gmm_graph}
-                \end{subfigure}
-                \vspace{-0.1cm}
-                \caption{Community Detection Results for Cluster 0 using K-Means and GMM.}
-            \end{figure}
+                    \begin{subfigure}[c]{0.47\textwidth}
+                        \centering
+                        \includegraphics[width=0.8\textwidth]{../figures/plots/section3/k-means_graph_visualization_of_cluster_0_with_communities.png}
+                        \caption{Community Detection in Cluster 0 (K-Means).}
+                        \label{fig:kmeans_graph}
+                    \end{subfigure}
+                    \hfill
+                    \begin{subfigure}[c]{0.47\textwidth}
+                        \centering
+                        \includegraphics[width=0.8\textwidth]{../figures/plots/section3/gmm_graph_visualization_of_cluster_0_with_communities.png}
+                        \caption{Community Detection in Cluster 0 (GMM).}
+                        \label{fig:gmm_graph}
+                    \end{subfigure}
+                    \vspace{-0.1cm}
+                    \caption{Community Detection Results for Cluster 0 using K-Means and GMM.}
+                \end{figure}
             
-            These visualizations demonstrate that distinct subgroups exist within Cluster 0. For K-Means, the graph reveals tight communities (e.g., green or pink) that suggest strong intra-community similarities, whereas more dispersed connections (e.g., cyan or orange) indicate weaker relationships. In contrast, the GMM graph shows balanced community sizes, reflecting GMM's probabilistic approach, which accounts for overlapping data points. 
-            
-            Overall, these detected communities provide finer-grained categorizations of attack patterns, enabling a deeper understanding of SSH attack behaviors beyond standard clustering methods.
-            
+                These visualizations demonstrate that distinct subgroups exist within Cluster 0. For K-Means, the graph reveals tight communities (e.g., green or pink) that suggest strong intra-community similarities, whereas more dispersed connections (e.g., cyan or orange) indicate weaker relationships. In contrast, the GMM graph shows balanced community sizes, reflecting GMM's probabilistic approach, which accounts for overlapping data points. 
+
+                Overall, these detected communities provide finer-grained categorizations of attack patterns, enabling a deeper understanding of SSH attack behaviors beyond standard clustering methods.
 
     \subsection{Conclusion}
     
