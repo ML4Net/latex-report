@@ -260,7 +260,7 @@
 
         \begin{itemize}
             \item \textbf{Bag of Words (BoW)}: This technique represents each session as a vector where each dimension corresponds to a specific word, and the value represents the frequency of that word in the session. While simple and interpretable, BoW does not capture the importance or uniqueness of words across the dataset.
-            \item \textbf{Term Frequency-Inverse Document Frequency (TF-IDF)}: This method extends BoW by weighting the word frequencies based on their inverse document frequency, thereby emphasizing words that are important within a session but less frequent across all sessions. This approach helps reduce the impact of common but non-informative words.
+            \item \textbf{Term Frequency-Inverse Document Frequency (TF-IDF)}: This method extends BoW by weighting the word frequencies based on their inverse document frequency, thereby emphasizing words that are important within a session but less frequent across all sessions. This approach helps us, through the "min\_df" parameter to remove from the initial dataset, the words that have a very low frequency. In our case, we set the "min\_df" parameter to 0.01, which means that words that appear in less than 1\% of the sessions are removed. In this way the features are reduced from 300.000 to 90.
         \end{itemize}
 
         Figure~\ref{fig:bow} and Figure ~\ref{fig:tf-idf} illustrate the transformed datasets using the BoW and TF-IDF techniques, respectively. The TF-IDF representation was selected for further analysis due to its ability to capture more meaningful patterns in the data by accounting for word relevance.
