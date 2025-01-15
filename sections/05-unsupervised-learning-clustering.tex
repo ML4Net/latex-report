@@ -33,6 +33,56 @@
             \item \textbf{Gaussian Mixture Model (GMM)}: Unlike K-Means, GMM considers the probability of each data point belonging to a cluster, providing a more flexible and nuanced clustering approach. The optimal number of clusters was determined using a combination of log-likelihood scores, which measure how well the model fits the data, and silhouette analysis to validate cluster quality. This dual approach ensured the GMM provided reliable and interpretable clustering results.
             
         \end{itemize}
+        
+    \subsection{Clustering Evaluation Techniques}
+    
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_clustering_error.png}
+                \caption{}
+                \label{fig:tsne_kmeans}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_silohuette_score.png}
+                \caption{}
+                \label{fig:tsne_gmm}
+            \end{subfigure}
+            \vspace{-0.1cm}
+            \caption{}
+            \label{fig:}
+        \end{figure}
+        
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_total_log-likelihood_score.png}
+                \caption{}
+                \label{fig:tsne_kmeans}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_silohuette_score.png}
+                \caption{}
+                \label{fig:tsne_gmm}
+            \end{subfigure}
+            \vspace{-0.1cm}
+            \caption{}
+            \label{fig:}
+        \end{figure}
+    
+        \subsubsection{K-Means Clustering \\}
+        
+            % text
+        
+        \subsubsection{Gaussian Mixture Model (GMM) \\}
+        
+            % text
 
     \subsection{Hyperparameter Tuning}
     
@@ -47,14 +97,14 @@
             \begin{subfigure}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/tsne_kmeans_clusters.png}
-                \caption{t-SNE Visualization of K-Means Clusters.}
+                \caption{t-SNE Visualization of K-Means Clusters}
                 \label{fig:tsne_kmeans}
             \end{subfigure}
             \hfill
             \begin{subfigure}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/tsne_gmm_clusters.png}
-                \caption{t-SNE Visualization of GMM Clusters.}
+                \caption{t-SNE Visualization of GMM Clusters}
                 \label{fig:tsne_gmm}
             \end{subfigure}
             \vspace{-0.1cm}
@@ -82,7 +132,7 @@
             \begin{figure}[H]
                 \centering
                 \includegraphics[width=0.9\textwidth]{../figures/plots/section3/circular_wordclouds.png}
-                \caption{Word Clouds for Each Cluster.}
+                \caption{Word Clouds for Each Cluster}
                 \label{fig:word_clouds}
             \end{figure}
 
@@ -97,14 +147,14 @@
                 \begin{subfigure}[c]{0.47\textwidth}
                     \centering
                     \includegraphics[width=0.8\textwidth]{../figures/plots/section3/k-means_graph_visualization_of_cluster_0_with_communities.png}
-                    \caption{Community Detection in Cluster 0 (K-Means).}
+                    \caption{Community Detection in Cluster 0 (K-Means)}
                     \label{fig:kmeans_graph}
                 \end{subfigure}
                 \hfill
                 \begin{subfigure}[c]{0.47\textwidth}
                     \centering
                     \includegraphics[width=0.8\textwidth]{../figures/plots/section3/gmm_graph_visualization_of_cluster_0_with_communities.png}
-                    \caption{Community Detection in Cluster 0 (GMM).}
+                    \caption{Community Detection in Cluster 0 (GMM)}
                     \label{fig:gmm_graph}
                 \end{subfigure}
                 \vspace{-0.1cm}

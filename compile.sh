@@ -6,8 +6,8 @@ PDF_FILE="main.pdf"
 APPENDIX_PDF_FILE="appendix-main.pdf"
 
 # Set custom PDF name
-CUSTOM_PDF_NAME="SSH-Shell-Attacks-Botticella-Innocenti-Mignone-Romano.pdf"
-CUSTOM_APPENDIX_PDF_NAME="SSH-Shell-Attacks-Appendix.pdf"
+CUSTOM_PDF_NAME="SSH-Shell-Attacks-report.pdf"
+CUSTOM_APPENDIX_PDF_NAME="SSH-Shell-Attacks-appendix.pdf"
 
 # Define color codes
 RED='\033[0;31m'
