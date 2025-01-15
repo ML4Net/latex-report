@@ -72,7 +72,7 @@
             
             This process allowed the identification of specific actions and parameters, facilitating a detailed analysis of the attack strategies.
             
-            \item \textbf{Cleaning individual commands}: Each command or keyword extracted from the \texttt{full\_session} column was processed to remove unnecessary or undesired elements. Regular expressions were used to strip unwanted symbols, qualifiers, and variable assignments. 
+            \item \textbf{Cleaning individual commands}: Each command or keyword extracted from the \texttt{full\_session} column was processed to remove unnecessary or undesired elements. Regular expressions were used to strip unwanted symbols, and variable assignments. 
             
             \vspace{0.2em}
             
@@ -125,11 +125,11 @@
 
         \begin{itemize}
         
-            \item \textbf{Word Cloud Visualization}: A word cloud (Figure~\ref{fig:common-words-comparison}a) was generated to represent the most common words in the dataset. Commands like \texttt{tmp}, \texttt{grep}, \texttt{var}, and \texttt{cat} dominate the word cloud, highlighting their frequent usage in attack sessions.
+            \item \textbf{Word Cloud Visualization}: A word cloud (Figure~\ref{fig:common-words-comparison}a) was generated to represent the most common words in the dataset. Commands like \texttt{grep}, \texttt{cat}, \texttt{echo}, and \texttt{rm} dominate the word cloud, highlighting their frequent usage in attack sessions.
             
             \vspace{0.2em}
 
-            \item \textbf{Top 20 Most Common Words Bar Plot}: A bar plot (Figure~\ref{fig:common-words-comparison}b) showcases the top 20 most frequent words, ordered by their frequency. This plot provides more quantitative detail, revealing the high occurrence of commands such as \texttt{tmp} (over 2 million occurrences) and \texttt{var} (nearly 2 million occurrences). Other significant commands include \texttt{grep}, \texttt{cat}, \texttt{echo}, and \texttt{cp}, each surpassing 1 million occurrences. These commands are commonly associated with file manipulation, string searching, and process information, which are typical in malicious activities.
+            \item \textbf{Top 20 Most Common Words Bar Plot}: A bar plot (Figure~\ref{fig:common-words-comparison}b) showcases the top 20 most frequent words, ordered by their frequency. This plot provides more quantitative detail, revealing the high occurrence of commands such as \texttt{grep} (over 1.2 million occurrences) and \texttt{cat} (nearly 1 million occurrences). Other significant commands include \texttt{echo}, \texttt{rm}, \texttt{uname}, and \texttt{name}. These commands are commonly associated with file manipulation, string searching, and process information, which are typical in malicious activities.
             
         \end{itemize}
 
