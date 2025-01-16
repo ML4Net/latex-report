@@ -21,15 +21,15 @@
 
     \subsection{Data Preprocessing}
     
-        % TODO: answer the last section 2 question
+        To effectively apply supervised learning models, it is crucial to represent the textual data in a numerical format. Raw text cannot be directly processed by most machine learning algorithms, so as we said in the previous section, we transformed the dataset into a structured numerical form.
+    
+        Unlike BoW, which merely counts word occurrences without differentiating their relevance, TF-IDF downweights frequently occurring words that may not carry significant information (e.g., common command-line syntax) and upweights rare but potentially more meaningful terms. This property helps improve the model's ability to differentiate between different types of attacks and intents.
     
         To prepare the data for supervised learning:
 
         \begin{enumerate}
-        
-            \item \textbf{Dataset loading}: To perform the supervised learning process, we decided to start from a TF-IDF representation of the dataset, thanks to which it was possible to assign a weight to each word of the SSH session attack.
-            
-            \item \textbf{Encoding Intents:} The `Set\_Fingerprint` column was encoded into multi-label binary format using the MultiLabelBinarizer. Each intent was represented as a binary vector, allowing for simultaneous prediction of multiple labels.
+    
+            \item \textbf{Encoding Intents:}After loading the TF-IDF dataset, the `Set\_Fingerprint` column was encoded into multi-label binary format using the MultiLabelBinarizer. Each intent was represented as a binary vector, allowing for simultaneous prediction of multiple labels.
             
             \item \textbf{Splitting the Data:} The dataset was divided into training (70\%), validation (20\%), and testing (10\%) subsets. Stratified splitting was employed to ensure that all intents were well-represented in each subset.
         
