@@ -113,7 +113,7 @@
                 
                     \vspace{0.3em}
 
-                    Comparing the base and optimized models revealed significant improvements in precision and recall for minority intents. The optimized model maintained high performance for major intents while addressing issues of overfitting. Figure~\ref{fig:rf_cm_opt} presents the confusion matrix for the optimized Random Forest model.
+                    Comparing the base and optimized models revealed significant improvements in precision and recall for minority intents. The optimized model maintained high performance for major intents while addressing issues of overfitting. Figure~\ref{fig:rf_cm_train} and~\ref{fig:rf_cm_test} present the confusion matrix for the optimized Random Forest model.
                 
             \end{itemize}
 
@@ -141,7 +141,7 @@
                 
                     \vspace{0.3em}
 
-                    The optimized SVM model outperformed the base model, particularly for minority intents. Figure~\ref{fig:svm_cm_opt} displays the confusion matrix for the optimized model, highlighting the improvements in precision and recall for challenging classifications.
+                    The optimized SVM model outperformed the base model, particularly for minority intents. Figure~\ref{fig:svm_cm_train} and~\ref{fig:svm_cm_test} display the confusion matrix for the optimized model, highlighting the improvements in precision and recall for challenging classifications.
 
             \end{itemize}
 
@@ -167,7 +167,7 @@
                     \centering
                     \includegraphics[width=0.75\textwidth]{../figures/plots/section2/Random_Forest_confusion_matrices.png}
                     \caption{Random Forest Confusion Matrices}
-                    \label{fig:}
+                    \label{fig:rf_cm_base}
                 \end{minipage}%
             \end{minipage}
 
@@ -180,7 +180,7 @@
                     \centering
                     \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_evaluation_metrics_1.png}
                     \caption{Random Forest Evaluation Metrics}
-                    \label{fig:}
+                    \label{fig:rf_em_base}
                 \end{minipage}%
                 \hfill%
                 % Middle-right (Train)
@@ -188,7 +188,7 @@
                     \centering
                     \includegraphics[width=0.7\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_random_forest.png}
                     \caption{Random Forest Weighted F1 Scores}
-                    \label{fig:}
+                    \label{fig:rf_f1_tuning}
                 \end{minipage}
             \end{minipage}
             
@@ -201,7 +201,7 @@
                     \centering
                     \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random Forest_classification_report_for_Train_set.png}
                     \caption{Random Forest Classification Report Train Set}
-                    \label{fig:}
+                    \label{fig:rf_cm_train}
                 \end{minipage}%
                 \hfill%
                 % Bottom-right (Test)
@@ -209,7 +209,7 @@
                     \centering
                     \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random Forest_classification_report_for_Test_set.png}
                     \caption{Random Forest Classification Report Test Set}
-                    \label{fig:}
+                    \label{fig:rf_cm_test}
                 \end{minipage}  
             
             \end{minipage}
@@ -231,7 +231,7 @@
                     \centering
                     \includegraphics[width=0.75\textwidth]{../figures/plots/section2/SVM_confusion_matrices.png}
                     \caption{SVM Confusion Matrices}
-                    \label{fig:}
+                    \label{fig:svm_cm_base}
                 \end{minipage}%
             \end{minipage}
 
@@ -244,7 +244,7 @@
                     \centering
                     \includegraphics[width=0.8\textwidth]{../figures/plots/section2/SVM_evaluation_metrics_1.png}
                     \caption{SVM Evaluation Metrics}
-                    \label{fig:}
+                    \label{fig:svm_em_base}
                 \end{minipage}%
                 \hfill%
                 % Middle-right (Train)
@@ -252,7 +252,7 @@
                     \centering
                     \includegraphics[width=0.7\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_svm.png}
                     \caption{SVM Weighted F1 Scores}
-                    \label{fig:}
+                    \label{fig:svm_f1_tuning}
                 \end{minipage}
             \end{minipage}
             
@@ -265,7 +265,7 @@
                     \centering
                     \includegraphics[width=0.9\textwidth]{../figures/plots/section2/SVM_classification_report_for_Train_set.png}
                     \caption{SVM Classification Report Train Set}
-                    \label{fig:}
+                    \label{fig:svm_cm_train}
                 \end{minipage}%
                 \hfill%
                 % Bottom-right (Test)
@@ -273,7 +273,7 @@
                     \centering
                     \includegraphics[width=0.9\textwidth]{../figures/plots/section2/SVM_classification_report_for_Test_set.png}
                     \caption{SVM Classification Report Test Set}
-                    \label{fig:}
+                    \label{fig:svm_cm_test}
                 \end{minipage}  
             
             \end{minipage}
