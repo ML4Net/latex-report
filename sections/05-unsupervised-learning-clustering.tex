@@ -54,49 +54,44 @@
 
             The Log-Likelihood Score graph indicates a rapid increase from 3 to 5 clusters, after which the improvements become more gradual. Beyond 12 clusters, the score stabilizes, indicating diminishing returns in model fitting. This suggests that while increasing the number of clusters provides better representation of the data, the most significant improvements occur within the first few increments.
 
-            Considering both metrics, an optimal cluster configuration is likely between 6 and 8 clusters, balancing cluster separation, model likelihood, and computational efficiency.
-
-
-        \begin{figure}[H]
+            Considering both metrics, an optimal cluster configuration is likely between 6 and 8 clusters, balancing cluster separation, model likelihood, and computational efficiency..
+            
+        % \vspace{-0.3cm}
+        
+        \begin{figure}[h]
             \centering
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_clustering_error.png}
-                % \caption{K-means Elbow Method}
+                \caption{K-means Elbow Method}
                 \label{fig:tsne_kmeans}
-            \end{subfigure}
+            \end{minipage}
             \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_silohuette_score.png}
-                % \caption{K-means Silhouette Score}
+                \caption{K-means Silhouette Score}
                 \label{fig:tsne_gmm}
-            \end{subfigure}
-            \vspace{-0.5cm}
-            \caption{(a) K-means Elbow Method and (b) K-means Silhouette Score}
-            \label{fig:}
+            \end{minipage}
         \end{figure}
         
-        \vspace{-1em}
+        % \vspace{-0.5cm}
         
-        \begin{figure}[H]
+        \begin{figure}[h]
             \centering
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_total_log-likelihood_score.png}
-                % \caption{GMM Log-Likelihood Score}
+                \caption{GMM Log-Likelihood Score}
                 \label{fig:tsne_kmeans}
-            \end{subfigure}
+            \end{minipage}
             \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_silohuette_score.png}
-                % \caption{GMM Silhouette Score}
+                \caption{GMM Silhouette Score}
                 \label{fig:tsne_gmm}
-            \end{subfigure}
-            \vspace{-0.5cm}
-            \caption{(a) GMM Log-Likelihood Score and (b) GMM Silhouette Score}
-            \label{fig:}
+            \end{minipage}
         \end{figure}
 
     \subsection{Hyperparameter Tuning}
@@ -107,24 +102,21 @@
     
         To visualize the clustering results, t-SNE dimensionality reduction was applied. Its functionalities makes it an excellent choice for visualizing clusters in datasets where direct interpretation is difficult due to high dimensionality. By projecting the data into a two-dimensional space, t-SNE enables us to identify patterns and groupings that may not be evident in the original feature space. The two-dimensional plots provided a clear representation of the clusters formed by both K-Means and GMM, highlighting their separability and internal consistency.
         
-        \begin{figure}[H]
+        \begin{figure}[h]
             \centering
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/tsne_kmeans_clusters.png}
                 \caption{t-SNE Visualization of K-Means Clusters}
                 \label{fig:tsne_kmeans}
-            \end{subfigure}
+            \end{minipage}
             \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/tsne_gmm_clusters.png}
                 \caption{t-SNE Visualization of GMM Clusters}
                 \label{fig:tsne_gmm}
-            \end{subfigure}
-            \vspace{-0.1cm}
-            \caption{}
-            \label{fig:}
+            \end{minipage}
         \end{figure}
 
         \subsubsection{K-Means Visualization \\}
@@ -162,23 +154,21 @@
 
                 The analysis revealed meaningful relationships and substructures within the clusters, helping to further refine the understanding of the dataset's internal patterns. These subgroups highlight finer-grained distinctions within the clusters, such as frequently occurring command sequences or behavioral traits common to specific attack types. Visualizations of these detected communities provide insights into the interconnectedness of the data and potential hierarchical structures in SSH attack patterns.
 
-                \begin{figure}[H]
+                \begin{figure}[h]
                     \centering
-                    \begin{subfigure}[c]{0.47\textwidth}
+                    \begin{minipage}[c]{0.47\textwidth}
                         \centering
                         \includegraphics[width=0.8\textwidth]{../figures/plots/section3/k-means_graph_visualization_of_cluster_0_with_communities.png}
                         \caption{Community Detection in Cluster 0 (K-Means).}
                         \label{fig:kmeans_graph}
-                    \end{subfigure}
+                    \end{minipage}
                     \hfill
-                    \begin{subfigure}[c]{0.47\textwidth}
+                    \begin{minipage}[c]{0.47\textwidth}
                         \centering
                         \includegraphics[width=0.8\textwidth]{../figures/plots/section3/gmm_graph_visualization_of_cluster_0_with_communities.png}
                         \caption{Community Detection in Cluster 0 (GMM).}
                         \label{fig:gmm_graph}
-                    \end{subfigure}
-                    \vspace{-0.1cm}
-                    \caption{Community Detection Results for Cluster 0 using K-Means and GMM.}
+                    \end{minipage}
                 \end{figure}
             
                 These visualizations demonstrate that distinct subgroups exist within Cluster 0. For K-Means, the graph reveals tight communities (e.g., green or pink) that suggest strong intra-community similarities, whereas more dispersed connections (e.g., cyan or orange) indicate weaker relationships. In contrast, the GMM graph shows balanced community sizes, reflecting GMM's probabilistic approach, which accounts for overlapping data points. 

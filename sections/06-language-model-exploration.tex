@@ -65,12 +65,22 @@
         \subsubsection{Training and Validation Loss \\}
 
             The training loss decreased steadily, indicating effective learning. However, the validation loss started increasing after epoch 2, suggesting potential overfitting. (See Figure~\ref{fig:loss}).
-
+            
             \begin{figure}[h]
                 \centering
-                \includegraphics[width=0.7\textwidth]{../figures/plots/section4/loss_curves.png}
-                \caption{Training and Validation Loss}
-                \label{fig:loss}
+                \begin{minipage}[c]{0.47\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section4/loss_curves.png}
+                    \caption{Training and Validation Loss}
+                    \label{fig:loss}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[c]{0.47\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section4/roc_curves.png}
+                    \caption{ROC Curves for Each Class}
+                    \label{fig:roc}
+                \end{minipage}
             \end{figure}
 
         \subsubsection{ROC Curves \\}
@@ -86,13 +96,6 @@
             \end{itemize}
             
             The variability in AUC values indicates that the model performs well on some intents but struggles with others. (See Figure~\ref{fig:roc}).
-
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=0.9\textwidth]{../figures/plots/section4/roc_curves.png}
-                \caption{ROC Curves for Each Class}
-                \label{fig:roc}
-            \end{figure}
 
         \subsubsection{Test Metrics \\}
         

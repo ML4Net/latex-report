@@ -87,14 +87,6 @@
             
             [enable, system, shell, sh, cat, /proc/mounts, /bin/busybox, SAEMW, cd, /dev/shm, cat, .s, cp, /bin/echo, .s, /bin/busybox, SAEMW, tftp, wget , /bin/busybox, SAEMW, dd, bs, count, if, cat, .s, while, read, i, do, echo, i, done, .s, /bin/busybox, SAEMW, rm, .s, exit]
         \end{lstlisting}
-        
-        % \begin{figure}[h!]
-        %     \centering
-        %     \includegraphics[width=0.9\textwidth]{figures/others/dataset_processed.png}
-        %     \vspace{-1em}
-        %     \caption{Processed Dataset}
-        %     \label{fig:dataset_example}
-        % \end{figure}
 
         These preprocessing steps ensured that the dataset was well-structured, clean, standardized and ready for advanced analysis and machine learning tasks. By addressing issues such as encoding, formatting, and missing data, the preprocessing phase established a robust foundation for the study.
 
@@ -102,12 +94,23 @@
     
         The temporal analysis examines when the attacks were performed and the intent distribution over time.
         
-        \begin{figure}[H]
+        \begin{figure}[h]
             \centering
-            \includegraphics[width=0.70\textwidth]{../figures/plots/section1/combined_temporal_series_of_ssh_attacks_by_type.png}
-            \caption{Temporal Series of SSH Attacks}
-            \label{fig:temporal-analysis}
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/combined_temporal_series_of_ssh_attacks_by_type.png}
+                \caption{Temporal Series of SSH Attacks}
+                \label{fig:temporal-analysis}
+            \end{minipage}
+            \hfill
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/ssh_attacks_by_day_of_the_week_and_attack_class.png}
+                \caption{Attacks by the day of the week}
+                \label{fig:attacks-day-of-the-week}
+            \end{minipage}
         \end{figure}
+
         
         Our dataset spans from June 2019 to March 2020, revealing a notable concentration of attacks between mid-October 2019 and January 2020.
 
@@ -120,8 +123,6 @@
         The analysis of common words within the attack sessions provides insights into frequently utilized commands and keywords. These elements are pivotal for understanding attacker behavior and informing model training for detecting attack intents. 
 
         To visualize and analyze the most frequent words, two approaches were used: 
-        
-        % TODO: add image references
 
         \begin{itemize}
         
@@ -134,51 +135,29 @@
         \end{itemize}
 
         The combination of these visualizations supports the identification of commonly used commands and their potential roles in attack sessions. 
-
+        
         \begin{figure}[h]
             \centering
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section1/word_cloud_of_most_common_words.png}
-                % \caption{Word Cloud of Most Common Words}
+                \includegraphics[width=0.95\textwidth]{../figures/plots/section1/word_cloud_of_most_common_words.png}
+                \caption{Word Cloud of Most Common Words}
                 \label{fig:word-cloud}
-            \end{subfigure}
+            \end{minipage}
             \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section1/top_10_most_common_words.png}
-                % \caption{Top 20 Most Common Words}
+                \includegraphics[width=0.95\textwidth]{../figures/plots/section1/top_10_most_common_words.png}
+                \caption{Top 20 Most Common Words}
                 \label{fig:common-words}
-            \end{subfigure}
-            % \caption{Visualization of Most Common Words}
-            \vspace{-0.6cm}
-            \caption{(a) Word Cloud of Most Common Words and (b) Top 20 Most Common Words}
-            \label{fig:common-words-comparison}
+            \end{minipage}
         \end{figure}
+        
+    \vspace{-0.3cm}
 
     \subsection{Intent Analysis}
     
         This section presents an analysis of different intents identified in attack sessions and their relationships. Our analysis reveals distinct patterns in both the frequency of individual intents and their co-occurrence relationships, providing valuable insights into attacker behavior patterns.
-        
-        \begin{figure}[h]
-            \centering
-            \begin{subfigure}[c]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
-                % \caption{Occurrences of each Intent}
-                \label{fig:occurrences-of-each-intent}
-            \end{subfigure}
-            \hfill
-            \begin{subfigure}[c]{0.47\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
-                % \caption{Co-Occurrence Heatmap of Intents}
-                \label{fig:co-occurrence-heatmap-of-intents}
-            \end{subfigure}
-            \vspace{-0.5cm}
-            \caption{(a) Occurrences of each Intent and (b) Co-Occurrence Heatmap of Intents}
-            \label{fig:occurrences-and-co-occurrences-intents}
-        \end{figure}
 
         Figure \ref{fig:occurrences-and-co-occurrences-intents}a illustrates the frequency distribution of different intents in our dataset. The analysis reveals that Discovery and Persistence are the most prevalent intents, with approximately 200,000 occurrences each. This suggests that attackers primarily focus on reconnaissance activities and establishing long-term presence in the targeted systems. Execution intent appears as the third most common, with roughly 100,000 occurrences, indicating a significant number of attempts to run malicious code. Defense Evasion shows notably fewer occurrences (around 20,000), while Harmless, Other, and Impact intents are relatively rare in the dataset.
 
@@ -201,6 +180,25 @@
             \item Harmless, Impact, and Other intents show minimal co-occurrence with other categories (with values mostly under 20 co-occurrences). This isolation pattern is partially explained by their low frequency in the dataset: Harmless with 2,206 occurrences, Impact with only 27 occurrences, and Other with 327 occurrences. These numbers represent a small fraction of the total recorded intents, naturally limiting their potential for co-occurrence with other intent types.
             
         \end{itemize}
+        
+        \vspace{-0.2cm}
+        
+        \begin{figure}[h]
+            \centering
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/occurrences_of_each_intent.png}
+                \caption{Occurrences of each Intent}
+                \label{fig:occurrences-of-each-intent}
+            \end{minipage}
+            \hfill
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section1/co-occurrence_heatmap_of_intents_in_set_fingerprint_column.png}
+                \caption{Co-Occurrence Heatmap of Intents}
+                \label{fig:co-occurrence-heatmap-of-intents}
+            \end{minipage}
+        \end{figure}
 
         These findings highlight common attack patterns where adversaries typically begin with discovery operations, followed by persistence establishment and execution of malicious code. This understanding can inform the development of detection strategies and defensive measures, particularly focusing on the most common intent combinations.
         
@@ -218,27 +216,24 @@
             
         \end{itemize}
         
-        \vspace{-0.5em}
-        
         \begin{figure}[h]
             \centering
-            \begin{subfigure}[b]{0.45\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section1/ecdf_for_characters_and_for_words.png}
-                % \caption{ECDF for Characters and Words in Sessions}
+                \caption{ECDF for Characters and Words in Sessions}
                 \label{fig:ecdf_sessions}
-            \end{subfigure}
+            \end{minipage}
             \hfill
-            \begin{subfigure}[b]{0.52\textwidth}
+            \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section1/distribution_of_number_of_words_per_session_limited.png}
-                % \caption{Distribution of the Number of Words per Session}
+                \caption{Distribution of the Number of Words per Session}
                 \label{fig:word_distribution}
-            \end{subfigure}
-            \vspace{-0.5cm}
-            \caption{(a) ECDF for Characters and Words in Sessions and (b) Distribution of the Number of Words per Session}
-            \label{fig:ecfd-and-distribution-number-words}
+            \end{minipage}
         \end{figure}
+        
+        \vspace{-0.3cm}
 
         Figure~\ref{fig:ecfd-and-distribution-number-words}b illustrates the density distribution of the number of words per session. Key observations include:
         
