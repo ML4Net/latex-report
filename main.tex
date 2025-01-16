@@ -50,6 +50,10 @@
     pdfpagemode=UseOutlines,     % Open the PDF with bookmarks visible
 }
 
+\newcommand{\cooltext}[1]{%
+  \texttt{\colorbox{gray!15}{\textcolor{black}{#1}}}%
+}
+
 % Remove ACM-specific references and permissions
 \setcopyright{none} % Disable copyright
 \makeatletter

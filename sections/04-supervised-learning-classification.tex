@@ -15,7 +15,7 @@
 
     \subsection{Introduction}
     
-        The supervised learning experiment in this project aimed to classify attack sessions into various intent categories derived from the `Set\_Fingerprint` column of the dataset. This section explores the use of Random Forest and Support Vector Machines (SVM) as the primary models. The analysis focuses on how these models handle multi-label classification and evaluates their performance using metrics such as weighted F1-scores and confusion matrices.
+        The supervised learning experiment in this project aimed to classify attack sessions into various intent categories derived from the \cooltext{Set\_Fingerprint} column of the dataset. This section explores the use of Random Forest and Support Vector Machines (SVM) as the primary models. The analysis focuses on how these models handle multi-label classification and evaluates their performance using metrics such as weighted F1-scores and confusion matrices.
 
         This section outlines the model training and evaluation processes, and a detailed discussion of the results obtained. Each model's strengths and weaknesses are analyzed, providing insights into their application to multi-label classification problems.
 
@@ -29,7 +29,7 @@
 
         \begin{enumerate}
     
-            \item \textbf{Encoding Intents:}After loading the TF-IDF dataset, the `Set\_Fingerprint` column was encoded into multi-label binary format using the MultiLabelBinarizer. Each intent was represented as a binary vector, allowing for simultaneous prediction of multiple labels.
+            \item \textbf{Encoding Intents:}After loading the TF-IDF dataset, the \cooltext{Set\_Fingerprint} column was encoded into multi-label binary format using the MultiLabelBinarizer. Each intent was represented as a binary vector, allowing for simultaneous prediction of multiple labels.
             
             \item \textbf{Splitting the Data:} The dataset was divided into training (70\%), validation (20\%), and testing (10\%) subsets. Stratified splitting was employed to ensure that all intents were well-represented in each subset.
         
@@ -65,7 +65,7 @@
         
         \begin{itemize}
         
-            \item \textbf{Accuracy, Precision, Recall}
+            \item \textbf{Accuracy, Precision, Recall}: basic evaluation metrics.
             
             \item \textbf{Confusion Matrices:} Provided insight into true positives, false positives, false negatives, and true negatives for each intent.
             
