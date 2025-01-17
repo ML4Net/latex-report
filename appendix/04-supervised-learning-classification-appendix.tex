@@ -45,12 +45,12 @@
 
             Grid search was performed to optimize the Logistic Regression model's hyperparameters. The search focused on varying the regularization parameter \( C \) over a range of values \([0.1, 1, 10, 100]\) to identify the configuration that maximized weighted F1-scores.
 
-                    \begin{lstlisting}[caption={Parameter grid for Logistic Regression}, label={lst:logistic_param_grid}]
+                \begin{lstlisting}[caption={Parameter grid for Logistic Regression}, label={lst:logistic_param_grid}]
                         # Define parameter grid for Logistic Regression
                         param_grid = {'C': [0.1, 1, 10, 100]}
                         grid_search = GridSearchCV(LogisticRegression(max_iter=1000, random_state=42), param_grid, cv=5)
                         grid_search.fit(X_train_tfidf, y_train_binary)
-                    \end{lstlisting}
+                \end{lstlisting}
 
             The optimized model exhibited improved performance compared to the baseline, particularly for intents with smaller sample sizes. Figure~\ref{fig:logistic_tuning} illustrates the weighted F1-scores for different values of \( C \).
 
