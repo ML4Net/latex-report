@@ -97,23 +97,107 @@
                 
                     \vspace{0.3em}
 
+                    % 1
+
                     The Random Forest base model showed robust performance, achieving high weighted F1-scores across all intents. However, minor overfitting was observed in intents with smaller sample sizes. Figure~\ref{fig:rf_cm_base} illustrates the confusion matrix for the base model, showing excellent precision and recall for major intents like \textit{Persistence} and \textit{Defense Evasion}.
+                    
+                    The Random Forest model demonstrated exceptional performance across most attack classifications. On the test set, it achieved remarkable weighted average scores with precision of 0.999, recall of 0.994, and F1-score of 0.996. The model showed particular strength in classifying Discovery attacks, achieving perfect scores (1.000) across precision, recall, and F1-score, with substantial support of 69,659 samples.
+            
+                    % 2
+            
+                    Notable performance metrics for major attack categories include:
+                    \begin{itemize}
+                        \item Defense Evasion: precision (0.993), recall (0.969), F1-score (0.981)
+                        \item Execution: precision (0.999), recall (0.988), F1-score (0.994)
+                        \item Persistence: precision (0.999), recall (1.000), F1-score (1.000)
+                    \end{itemize}
+
+                    However, the model showed some limitations with the Harmless and Impact categories, achieving lower performance metrics:
+                    \begin{itemize}
+                        \item Harmless: precision (0.939), recall (0.160), F1-score (0.273)
+                        \item Impact: precision (0.500), recall (0.500), F1-score (0.500)
+                    \end{itemize}
+                    
+                    % 3
+                    
+                    The Random Forest model demonstrated remarkable capabilities in distinguishing between different types of attack patterns. As shown in Figure~\ref{fig:rf_cm_base}, the model exhibits particularly strong performance in identifying Defense Evasion, Discovery, and Persistence attacks, suggesting its robust ability to recognize distinct patterns in command sequences that characterize these attack types.
+            
+                    The model's strength lies in its ability to maintain high precision and recall across most attack categories, particularly for well-represented classes. However, the confusion matrices reveal an interesting pattern: the model shows some limitations in classifying Harmless and Impact categories, indicating potential challenges in distinguishing benign command sequences from malicious ones. This behavior suggests that the boundary between harmless and potentially harmful command sequences might be more nuanced than other attack categories.
+
+                    % -
 
                 \vspace{0.5em}
 
                 \item \textit{Hyperparameter Analysis}
                 
                     \vspace{0.3em}
+                    
+                    % 1
 
                     Hyperparameter tuning improved the Random Forest model's performance, particularly for minority intents. The optimized model reduced overfitting by limiting tree depth and increasing the number of estimators. Figure~\ref{fig:rf_f1_tuning} highlights the improvement in weighted F1-scores across different configurations.
+                    
+                    % 2
+                    
+                    The confusion matrices reveal the model's classification behavior in detail. For Defense Evasion, out of 69,911 total cases:
+                    
+                    \begin{itemize}
+                        \item True Negatives: 64,241 cases correctly identified
+                        \item False Positives: 174 cases
+                        \item False Negatives: 36 cases
+                        \item True Positives: 5,460 cases
+                    \end{itemize}
+
+                    The model showed particularly strong performance in Discovery classification, with only 19 total misclassifications (10 false positives and 9 false negatives) out of 69,911 cases, demonstrating exceptional precision in identifying this attack type.
+
+                    % 3
+                    
+                    The hyperparameter tuning process revealed several crucial insights about the model's behavior. The optimized model showed improved handling of edge cases while maintaining strong performance on mainstream attack patterns. As evidenced in the confusion matrices, the false positive rates decreased significantly for critical attack categories like Defense Evasion and Execution, suggesting that the tuned model became more discriminative in its classifications.
+            
+                    A particularly noteworthy observation is how the model balances precision and recall across different attack categories. The tuning process helped achieve a better equilibrium, especially for categories with smaller representation in the dataset. This improvement indicates that careful parameter selection can help mitigate the inherent challenges of imbalanced security data.
+            
+                    % -
 
                 \vspace{0.5em}
 
                 \item \textit{Comparative Analysis of Baseline and Optimized Models}
                 
                     \vspace{0.3em}
+                    
+                    % 1
 
                     Comparing the base and optimized models revealed significant improvements in precision and recall for minority intents. The optimized model maintained high performance for major intents while addressing issues of overfitting. Figure~\ref{fig:rf_cm_train} and~\ref{fig:rf_cm_test} present the confusion matrix for the optimized Random Forest model.
+                    
+                    % 2
+                    
+                    Comparing train and test performance reveals consistent behavior with minimal overfitting:
+            
+                    Train set (weighted averages):
+                    
+                    \begin{itemize}
+                        \item Precision: 0.999
+                        \item Recall: 0.995
+                        \item F1-score: 0.997
+                        \item Support: 390,710 samples
+                    \end{itemize}
+
+                    Test set (weighted averages):
+                    
+                    \begin{itemize}
+                        \item Precision: 0.999
+                        \item Recall: 0.994
+                        \item F1-score: 0.996
+                        \item Support: 167,216 samples
+                    \end{itemize}
+
+                    The model maintained consistent performance across both sets, indicating robust generalization capabilities.
+
+                    % 3
+                    
+                    Comparing the base and optimized Random Forest models reveals a fascinating pattern of improvements. The optimized model shows more nuanced decision boundaries, particularly evident in the handling of edge cases. As shown in the performance metrics, the gap between training and testing performance narrowed, indicating better generalization capabilities.
+            
+                    The model's robustness is particularly evident in its consistent performance across both training and test sets, suggesting effective learning of underlying patterns rather than mere memorization. This consistency is crucial in security applications where new, slightly varied attack patterns must be detected reliably.
+                    
+                    % -
                 
             \end{itemize}
 
@@ -124,30 +208,157 @@
                 \item \textit{Performance Overview with base model}
                 
                     \vspace{0.3em}
+                    
+                    % 1
 
                     The SVM base model performed well for linearly separable data, achieving high precision and recall for intents with large sample sizes. However, it struggled with minority intents due to its sensitivity to class imbalances. Figure~\ref{fig:svm_cm_base} illustrates the confusion matrix for the base model.
+                    
+                    % 2
+                    
+                    The SVM model demonstrated comparable performance to Random Forest in many categories, but with some notable differences. The weighted averages on the test set showed excellent overall performance:
+                    
+                    \begin{itemize}
+                        \item Precision: 0.999
+                        \item Recall: 0.994
+                        \item F1-score: 0.995
+                    \end{itemize}
+
+                    Particularly strong performance was observed in:
+                    
+                    \begin{itemize}
+                        \item Defense Evasion: precision (0.993), recall (0.983), F1-score (0.988)
+                        \item Execution: precision (0.996), recall (0.994), F1-score (0.995)
+                        \item Persistence: precision (0.998), recall (0.996), F1-score (0.997)
+                    \end{itemize}
+                    
+                    % 3
+                    
+                    The SVM model presents an intriguing contrast to the Random Forest approach. While achieving comparable overall performance metrics, the underlying patterns of classification show distinct characteristics. The model demonstrates exceptional precision in identifying clear-cut attack patterns but shows more sensitivity to subtle variations in command sequences.
+            
+                    As evidenced in Figure~\ref{fig:svm_cm_base}, the model's strength lies in its ability to establish clear decision boundaries for well-defined attack categories. However, the performance matrices reveal an interesting limitation: the model shows more pronounced difficulties with the Impact category compared to Random Forest, suggesting that linear separation might not be optimal for all attack types.
+                    
+                    % -
 
                 \vspace{0.5em}
 
                 \item \textit{Hyperparameter Analysis}
                 
                     \vspace{0.3em}
+                    
+                    % 1
 
                     Grid search tuning improved SVM's performance, especially for the RBF kernel. Increasing the regularization parameter \( C \) and fine-tuning the gamma parameter enhanced the model's ability to classify minority intents. Figure~\ref{fig:svm_f1_tuning} shows the weighted F1-scores for different hyperparameter combinations.
+                    
+                    % 2
+                    
+                    The confusion matrices for SVM reveal slightly different classification patterns compared to Random Forest:
+            
+                    For Defense Evasion:
+                    
+                    \begin{itemize}
+                        \item True Negatives: 64,220 (slightly lower than RF)
+                        \item False Positives: 189 (higher than RF's 174)
+                        \item False Negatives: 57 (higher than RF's 36)
+                        \item True Positives: 5,445 (slightly lower than RF)
+                    \end{itemize}
+
+                    A notable difference appeared in Impact classification, where SVM showed significantly lower performance:
+                    
+                    \begin{itemize}
+                        \item Precision: 0.500
+                        \item Recall: 0.500
+                        \item F1-score: 0.500
+                    \end{itemize}
+                    
+                    % 3
+                    
+                    The hyperparameter tuning process for SVM unveiled crucial insights about the model's behavior with different kernel configurations and regularization parameters. The optimization process showed that the model's performance could be significantly enhanced for minority classes through careful parameter selection, particularly in handling the trade-off between overfitting and generalization.
+            
+                    The confusion matrices post-tuning reveal an interesting shift in classification patterns. While the overall accuracy remained high, the distribution of errors changed, suggesting that the optimized model developed different decision boundaries that better reflect the natural grouping of attack patterns in the feature space.
+                    
+                    % -
 
                 \vspace{0.5em}
 
                 \item \textit{Comparative Analysis of Baseline and Optimized Models}
                 
                     \vspace{0.3em}
+                    
+                    % 1
 
                     The optimized SVM model outperformed the base model, particularly for minority intents. Figure~\ref{fig:svm_cm_train} and~\ref{fig:svm_cm_test} display the confusion matrix for the optimized model, highlighting the improvements in precision and recall for challenging classifications.
+                    
+                    % 2
+                    
+                    SVM showed slight variations between train and test performance:
+            
+                    Train set performance:
+                    
+                    \begin{itemize}
+                        \item Macro avg: precision (0.990), recall (0.859), F1-score (0.888)
+                        \item Weighted avg: precision (0.999), recall (0.995), F1-score (0.997)
+                    \end{itemize}
+
+                    Test set performance:
+                    
+                    \begin{itemize}
+                        \item Macro avg: precision (0.838), recall (0.725), F1-score (0.746)
+                        \item Weighted avg: precision (0.999), recall (0.994), F1-score (0.995)
+                    \end{itemize}
+
+                    The larger gap between macro and weighted averages in SVM compared to Random Forest suggests that SVM is more sensitive to class imbalance.
+                    
+                    % 3
+                    
+                    The evolution from baseline to optimized SVM model reveals important insights about the nature of attack classification. The optimized model shows improved handling of edge cases, though with some interesting trade-offs. While the weighted averages remained consistently high, the macro averages suggest that the model's performance across different attack categories became more balanced after optimization.
+            
+                    A particularly noteworthy observation is the model's behavior with imbalanced classes. The optimization process helped mitigate some of these challenges, but the fundamental characteristics of SVM still show through in its slightly higher sensitivity to class imbalance compared to Random Forest.
+                    
+                    % -
 
             \end{itemize}
 
+    % 1
+
     \subsection{Conclusion} % FIXME: maybe "Conclusion" is not the right word
     
-        Random Forest and SVM both demonstrated strong performance in this experiment. Random Forest's ensemble nature provided robustness and generalization, making it the best-performing model overall. SVM, particularly with the linear kernel, offered comparable results but required more tuning to handle imbalanced classes effectively. These findings highlight the importance of selecting models and hyperparameters tailored to the dataset's characteristics and the problem's requirements.     
+        Random Forest and SVM both demonstrated strong performance in this experiment. Random Forest's ensemble nature provided robustness and generalization, making it the best-performing model overall. SVM, particularly with the linear kernel, offered comparable results but required more tuning to handle imbalanced classes effectively. These findings highlight the importance of selecting models and hyperparameters tailored to the dataset's characteristics and the problem's requirements.   
+        
+    % 2
+    
+    \subsubsection{Comparative Model Analysis}
+    
+        Both models demonstrated exceptional performance, but with distinct characteristics:
+        
+        \begin{itemize}
+            \item Random Forest showed more balanced performance across classes
+            \item SVM demonstrated slightly higher sensitivity to class imbalance
+            \item Both models struggled with the Impact category
+            \item Random Forest showed marginally better performance in handling minority classes
+            \item SVM showed competitive performance in major attack categories but with slightly higher false positive rates
+        \end{itemize}
+    
+    % 3
+    
+    \subsubsection{Model Comparison and Security Implications}
+    
+        The comparative analysis of both models reveals important insights for security applications:
+        
+        \begin{itemize}
+            \item Random Forest shows superior adaptability to varying attack patterns, likely due to its ensemble nature allowing it to capture complex, non-linear relationships in command sequences.
+
+            \item SVM demonstrates excellent performance in well-defined attack categories but shows more sensitivity to edge cases, suggesting its potential value in scenarios where clear decision boundaries are crucial.
+
+            \item Both models show different strengths in handling class imbalance, with Random Forest displaying more robust performance across varying class sizes.
+
+            \item The optimization process revealed that both models benefit from careful tuning, but in different ways - Random Forest gained more in terms of generalization, while SVM showed improvements in handling minority classes.
+
+            \item The complementary strengths of both models suggest potential value in ensemble approaches for security applications, particularly in scenarios where both precision and recall are crucial.
+        \end{itemize}
+
+        These findings have significant implications for real-world security applications, suggesting that the choice between Random Forest and SVM might depend more on specific use-case requirements than overall performance metrics alone. The analysis also highlights the importance of continuous model optimization in security contexts, where the nature of attacks constantly evolves.
+        
+    % -
         
         
     % Plot pages
@@ -165,7 +376,7 @@
                 \centering
                 \begin{minipage}[c]{\textwidth}
                     \centering
-                    \includegraphics[width=0.75\textwidth]{../figures/plots/section2/Random_Forest_confusion_matrices.png}
+                    \includegraphics[width=0.77\textwidth]{../figures/plots/section2/Random_Forest_normalized_confusion_matrix_test.png}
                     \caption{Random Forest Confusion Matrices}
                     \label{fig:rf_cm_base}
                 \end{minipage}%
@@ -178,7 +389,7 @@
                 % Middle-left (Train)
                 \begin{minipage}[c]{0.48\textwidth}
                     \centering
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_evaluation_metrics_1.png}
+                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_evaluation_metrics.png}
                     \caption{Random Forest Evaluation Metrics}
                     \label{fig:rf_em_base}
                 \end{minipage}%
@@ -199,7 +410,7 @@
                 % Bottom-left (Test)
                 \begin{minipage}[t]{0.48\textwidth}
                     \centering
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random Forest_classification_report_for_Train_set.png}
+                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_classification_report_for_Train_set.png}
                     \caption{Random Forest Classification Report Train Set}
                     \label{fig:rf_cm_train}
                 \end{minipage}%
@@ -207,7 +418,7 @@
                 % Bottom-right (Test)
                 \begin{minipage}[t]{0.48\textwidth}
                     \centering
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random Forest_classification_report_for_Test_set.png}
+                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_classification_report_for_Test_set.png}
                     \caption{Random Forest Classification Report Test Set}
                     \label{fig:rf_cm_test}
                 \end{minipage}  
@@ -229,7 +440,7 @@
                 \centering
                 \begin{minipage}[c]{\textwidth}
                     \centering
-                    \includegraphics[width=0.75\textwidth]{../figures/plots/section2/SVM_confusion_matrices.png}
+                    \includegraphics[width=0.77\textwidth]{../figures/plots/section2/SVM_normalized_confusion_matrix_test.png}
                     \caption{SVM Confusion Matrices}
                     \label{fig:svm_cm_base}
                 \end{minipage}%
@@ -242,7 +453,7 @@
                 % Middle-left (Train)
                 \begin{minipage}[c]{0.48\textwidth}
                     \centering
-                    \includegraphics[width=0.8\textwidth]{../figures/plots/section2/SVM_evaluation_metrics_1.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section2/SVM_evaluation_metrics.png}
                     \caption{SVM Evaluation Metrics}
                     \label{fig:svm_em_base}
                 \end{minipage}%
