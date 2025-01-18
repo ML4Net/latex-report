@@ -28,9 +28,9 @@
         
         \begin{itemize}
         
-            \item \textbf{K-Means Clustering}: The algorithm iteratively assigns each data point to the nearest cluster centroid and updates the centroids until convergence. The Elbow Method was applied to determine the optimal number of clusters by examining the total within-cluster sum of squares (inertia). Silhouette scores were also calculated to evaluate the cohesion and separation of clusters, ensuring the clustering results were meaningful and well-separated.
+            \item \textbf{K-Means Clustering}: The Elbow Method was applied to determine the optimal number of clusters by examining the total within-cluster sum of squares (inertia). Silhouette scores were also calculated to evaluate the cohesion and separation of clusters.
             
-            \item \textbf{Gaussian Mixture Model (GMM)}: Unlike K-Means, GMM considers the probability of each data point belonging to a cluster, providing a more flexible and nuanced clustering approach. The optimal number of clusters was determined using a combination of log-likelihood scores, which measure how well the model fits the data, and silhouette analysis to validate cluster quality. This dual approach ensured the GMM provided reliable and interpretable clustering results.
+            \item \textbf{Gaussian Mixture Model (GMM)}: Unlike K-Means, GMM considers the probability of each data point belonging to a cluster, providing a more flexible and nuanced clustering approach. The optimal number of clusters was determined using a combination of log-likelihood scores, which measure how well the model fits the data, and silhouette analysis to validate cluster quality.
             
         \end{itemize}
         
@@ -38,17 +38,11 @@
     
         \subsubsection{K-Means Clustering \\}
             
-            The evaluation of the K-Means clustering results is based on the Elbow Method and the Silhouette Score, which provide insights into the optimal number of clusters for the dataset. The Elbow Method graph shows a steep decline in clustering error between 3 and 6 clusters, followed by a more gradual decrease as the number of clusters increases. The point of inflection, or "elbow," appears around 6 clusters, suggesting that adding more clusters beyond this point results in diminishing improvements in minimizing intra-cluster variance. The Silhouette Score graph exhibits a rapid increase up to 5 clusters, reaching a stable high value of approximately 0.95. A drop is observed around 8 clusters, after which the score gradually increases again, peaking beyond 12 clusters. This pattern indicates that a smaller number of clusters (around 5-6) achieves a strong balance of cohesion and separation, while additional clusters beyond 12 continue to refine the structure with marginal improvements. Considering both metrics, the optimal number of clusters for K-Means is likely between 5 and 6, ensuring a trade-off between clustering accuracy and computational efficiency.
+            The Elbow Method graph (Figure~\ref{fig:kmeans_elbowmethod}) shows a steep decline in clustering error between 3 and 6 clusters, followed by a more gradual decrease as the number of clusters increases. The point of inflection, or "elbow," appears around 6 clusters, suggesting that adding more clusters beyond this point results in diminishing improvements in minimizing intra-cluster variance. The Silhouette Score graph exhibits a rapid increase up to 5 clusters, reaching a stable high value of approximately 0.95. A drop is observed around 8 clusters, after which the score gradually increases again, peaking beyond 12 clusters. Considering both metrics, the optimal number of clusters for K-Means is likely between 5 and 6, ensuring a trade-off between clustering accuracy and computational efficiency.
         
         \subsubsection{Gaussian Mixture Model (GMM) \\}
 
-            The evaluation of the GMM clustering results is based on the Silhouette Score and the Log-Likelihood Score, both of which provide insights into the quality of the clustering structure.
-
-            The Silhouette Score graph shows a sharp increase up to 5 clusters, reaching a stable high value around 0.95. A slight drop is observed at 8 clusters, followed by a steady increase, with the highest scores occurring beyond 12 clusters. This suggests that increasing the number of clusters generally improves separation and cohesion, though the optimal balance appears to be around 6 clusters, where the highest stable performance is first achieved.
-
-            The Log-Likelihood Score graph indicates a rapid increase from 3 to 5 clusters, after which the improvements become more gradual. Beyond 12 clusters, the score stabilizes, indicating diminishing returns in model fitting. This suggests that while increasing the number of clusters provides better representation of the data, the most significant improvements occur within the first few increments.
-
-            Considering both metrics, an optimal cluster configuration is likely between 6 and 8 clusters, balancing cluster separation, model likelihood, and computational efficiency..
+            The Silhouette Score graph shows a sharp increase up to 5 clusters, reaching a stable high value around 0.95. A slight drop is observed at 8 clusters, followed by a steady increase, with the highest scores occurring beyond 12 clusters. This suggests that increasing the number of clusters generally improves separation and cohesion, though the optimal balance appears to be around 6 clusters, where the highest stable performance is first achieved. The Log-Likelihood Score graph indicates a rapid increase from 3 to 5 clusters, after which the improvements become more gradual. Beyond 12 clusters, the score stabilizes, indicating diminishing returns in model fitting. Considering both metrics, an optimal cluster configuration is likely between 6 and 8 clusters, balancing cluster separation, model likelihood, and computational efficiency.
 
         % \vspace{-0.3cm}
         
@@ -58,14 +52,14 @@
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_clustering_error.png}
                 \caption{K-means Elbow Method}
-                \label{fig:tsne_kmeans}
+                \label{fig:kmeans_elbowmethod}
             \end{minipage}
             \hfill
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/k-means_silohuette_score.png}
                 \caption{K-means Silhouette Score}
-                \label{fig:tsne_gmm}
+                \label{fig:kmeans_silhouette_score}
             \end{minipage}
         \end{figure}
         
@@ -77,35 +71,45 @@
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_total_log-likelihood_score.png}
                 \caption{GMM Log-Likelihood Score}
-                \label{fig:tsne_kmeans}
+                \label{fig:gmm_log_likelihood}
             \end{minipage}
             \hfill
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/gmm_silohuette_score.png}
                 \caption{GMM Silhouette Score}
-                \label{fig:tsne_gmm}
+                \label{fig:gmm_silhouette_score}
             \end{minipage}
         \end{figure}
 
     \subsection{Hyperparameter Tuning}
     
     To optimize both the K-Means and Gaussian Mixture Model (GMM) clustering approaches, hyperparameter tuning was performed using grid search with cross-validation. For K-Means clustering, the optimal parameters identified were:
-    \begin{itemize}
-        \item \textbf{Initialization method}: k-means++
-        \item \textbf{Number of initializations (n\_init)}: 10
-        \item \textbf{Maximum iterations (max\_iter)}: 50
-    \end{itemize}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Initialization method} & \textbf{Number of initializations (n\_init)} & \textbf{Maximum iterations (max\_iter)} \\
+            \hline
+            k-means++ & 10 & 50 \\
+            \hline
+        \end{tabular}
+    \end{table}
+
     The final clustering results achieved a silhouette score of 0.9490 and an inertia value of 1708.96. The high silhouette score indicates well-defined and well-separated clusters, while the minimized inertia suggests an efficient clustering structure. For the Gaussian Mixture Model (GMM), the best hyperparameters found were:
-    \begin{itemize}
-        \item \textbf{Covariance Type}: full
-        \item \textbf{Initialization method}: k-means
-        \item \textbf{Maximum iterations (max\_iter)}: 50
-        \item \textbf{Tolerance (tol)}: 0.001
-    \end{itemize}
-    The model's performance was evaluated using a silhouette score of 0.9398 and a log-likelihood score of 508.71. The silhouette score confirms strong cluster separation, while the high log-likelihood indicates that the GMM model effectively captures the underlying distribution of the data.
-    
-    Both clustering techniques provided effective segmentation of the dataset. K-Means exhibited a slightly higher silhouette score, suggesting better-defined cluster boundaries, while GMM’s higher log-likelihood highlights its ability to model complex, overlapping clusters.
+        
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                \textbf{Covariance Type} & \textbf{Initialization method} & \textbf{Maximum iterations (max\_iter)} & \textbf{Tolerance (tol)} \\
+                \hline
+                full & k-means & 50 & 0.001 \\
+                \hline
+            \end{tabular}
+        \end{table}
+
+    The model's performance was evaluated using a silhouette score of 0.9398 and a log-likelihood score of 508.71. Both clustering techniques provided effective segmentation of the dataset. K-Means exhibited a slightly higher silhouette score, suggesting better-defined cluster boundaries, while GMM’s higher log-likelihood highlights its ability to model complex, overlapping clusters.
     \subsection{Clusters Visualization}
     
         To better understand the structure of the clusters, t-SNE dimensionality reduction was applied. While t-SNE is effective for visualizing high-dimensional data, its interpretation must align with clustering validation metrics. 
@@ -170,7 +174,7 @@
                 \end{itemize}
                 
                 Overall, while community detection adds another layer of granularity, the results indicate that SSH attack behaviors exhibit significant overlap, making strict segmentation challenging. Additional analysis of the single communities in the appendix. 
-                
+                Instead, the overlap in dominant terms suggests that the clustering process may have captured broader system interaction behaviors rather than distinct categories of SSH attack tactics.
                 \begin{figure}[h]
                     \centering
                     \begin{minipage}[c]{0.47\textwidth}
