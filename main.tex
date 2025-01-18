@@ -17,6 +17,7 @@
 \usepackage{listings}     % For code snippets
 \usepackage{subcaption}   % For subfigures and subtables
 \usepackage{hyperref}     % For links and references
+\usepackage{enumitem}     % For customizing list formatting and styles
 
 % Custom settings for listings
 \lstset{
@@ -53,6 +54,10 @@
 \newcommand{\cooltext}[1]{%
   \texttt{\colorbox{gray!15}{\textcolor{black}{#1}}}%
 }
+
+% Configure bullet points with customized size
+\setlist[itemize,1]{label={\Large\textbullet}} % First level: larger bullet point
+\setlist[itemize,2]{label={\Large\textbullet}} % Second level: larger bullet point
 
 % Remove ACM-specific references and permissions
 \setcopyright{none} % Disable copyright
