@@ -35,7 +35,7 @@
         
         \end{enumerate}
 
-        These steps ensured the dataset was clean, balanced, and ready for supervised learning.
+        These steps ensured the dataset was clean and ready for supervised learning.
 
     \subsection{Model Training}
     
@@ -126,18 +126,26 @@
                     
                     % 1
 
-                    Hyperparameter tuning improved the Random Forest model's performance, particularly for minority intents. Figure~\ref{fig:rf_f1_tuning} highlights the improvement in weighted F1-scores across different configurations.
-                    
+                    Hyperparameter tuning for the Random Forest model enabled an in-depth evaluation of performance across different configurations. Figure~\ref{fig:rf_f1_tuning} presents a heatmap showcasing the impact of \texttt{max\_depth} and \texttt{n\_estimators} on the weighted F1-score. The results indicate consistently high performance, with weighted F1-scores exceeding 0.995 across all configurations.
+
                     % 2
                     
-                    The confusion matrices reveal the model's classification behavior in detail. For Defense Evasion, out of 69,911 total cases:
-                    
+                    \noindent\textbf{Test Set Results:}
                     \begin{itemize}
-                        \item True Negatives: 64,241 cases | True Positives: 5,460 cases
-                        \item False Positives: 174 cases | False Negatives: 36 cases 
+                        \item Macro F1-Score: 0.8175
+                        \item Weighted F1-Score: 0.9952
+                        \item Precision (macro): 0.9186 \quad Recall (macro): 0.7955
                     \end{itemize}
 
-                    The model showed particularly strong performance in Discovery classification, with only 19 total misclassifications (10 false positives and 9 false negatives) out of 69,911 cases, demonstrating exceptional precision in identifying this attack type.                     The optimized model showed improved handling of edge cases while maintaining strong performance on mainstream attack patterns. A particularly noteworthy observation is how the model balances precision and recall across different attack categories. The tuning process helped achieve a better equilibrium, especially for categories with smaller representation in the dataset.
+                    \noindent\textbf{Class-Specific Observations:}
+
+                    \begin{itemize}
+                        \item The Discovery class achieved perfect scores (precision, recall, F1-score) on the test set.
+                        \item The Defense Evasion class performed well, with a precision of 0.993 and a recall of 0.969.
+                        \item The Impact class, with limited representation, showed lower performance, with an F1-score of 0.500.
+                    \end{itemize}
+
+                    Overall, hyperparameter tuning enhanced the model's ability to classify dominant categories while highlighting challenges in handling underrepresented classes.
             
                     % -
 
@@ -146,11 +154,13 @@
                 \item \textit{Comparative Analysis of Baseline and Optimized Models}
                 
                     \vspace{0.3em}
-                    
-                    Figure~\ref{fig:rf_cm_train} and~\ref{fig:rf_cm_test} present the confusion matrix for the optimized Random Forest model. Comparing the base and optimized Random Forest models reveals a fascinating pattern of improvements. The optimized model shows more nuanced decision boundaries, particularly evident in the handling of edge cases. As shown in the performance metrics, the gap between training and testing performance narrowed, indicating better generalization capabilities.
-            
-                    The model's robustness is particularly evident in its consistent performance across both training and test sets, suggesting effective learning of underlying patterns rather than mere memorization. This consistency is crucial in security applications where new, slightly varied attack patterns must be detected reliably.
-                    
+
+                        The metrics comparison (see Appendix) evaluates the baseline and optimized Random Forest models using precision, recall, and F1 score, revealing a slight performance improvement of 1.36\%.
+
+                        The optimized model demonstrates better generalization, as shown by the reduced gap between training and testing performance. This indicates that the tuned hyperparameters effectively mitigated overfitting, enabling the model to capture meaningful patterns rather than memorizing the training data—a critical requirement for detecting new or varied attack patterns in security applications.
+
+                        Furthermore, the probability density distributions show greater separation in the optimized model, with predictions concentrated near extreme values (0 or 1), indicating higher confidence. This enhanced separation reduces critical errors, such as false negatives or positives, improving the reliability of defense systems.
+
                     % -
                 
             \end{itemize}
