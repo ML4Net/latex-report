@@ -139,19 +139,19 @@
 
         \subsubsection{Word Cloud Representation \\}
 
-            Word clouds were generated to highlight dominant terms in each cluster. The clusters display considerable overlap in command usage.
+        Word clouds were generated to highlight the dominant terms in each cluster. However, upon closer inspection, the clusters display a significant degree of overlap in command usage, which raises concerns about the distinctiveness of the attack groupings.
+        \begin{itemize}
 
-            \begin{itemize}
-                \item Clusters 1, 7, and 9 prominently feature terms such as \texttt{grep}, \texttt{var}, and \texttt{tmp}, suggesting an emphasis on system navigation and information retrieval. However, similar terms appear in multiple clusters, making it difficult to distinguish attack types based solely on these keywords.
-                \item Clusters 0 and 3 highlight \texttt{unix}, \texttt{tmp}, and \texttt{x19}, which may indicate system configuration activity. However, these terms do not clearly define unique attack patterns.
-                \item Clusters 5 and 8 contain terms like \texttt{chmod}, \texttt{wget}, and \texttt{rm}, suggesting file modification and deletion activities. While these behaviors align with attack patterns, their occurrence in multiple clusters weakens their ability to define distinct groups.
-                \item Cluster 4 prominently features \texttt{ssh}, \texttt{authorizedkeys}, and \texttt{passwd}, aligning well with authentication-related attacks.
-                \item Cluster 2, associated with \texttt{busybox} and \texttt{mounts}, appears indicative of IoT-related attack scenarios, a distinction that adds value to the clustering results.
-                \item Cluster 6 is characterized by \texttt{shell}, \texttt{system}, and \texttt{name}, but these are general system commands that appear in multiple clusters, reducing their discriminative power.
-            \end{itemize}
+            \item Many clusters contain commonly used system commands such as \texttt{grep}, \texttt{tmp}, and \texttt{var}, which are present in multiple clusters. This suggests that the clustering process may have grouped sessions based on general command usage rather than clear behavioral differences in attack methodologies. While some clusters, such as Cluster 4 with \texttt{ssh}, \texttt{authorizedkeys}, and \texttt{passwd}, appear indicative of authentication-related activity, most clusters contain highly generic commands that do not necessarily indicate distinct attack types.
             
-            While word clouds help in summarizing cluster features, the significant overlap in dominant terms suggests that the clustering results may not provide fine-grained distinctions between different attack types.
+            \item Clusters 5 and 8, which feature \texttt{chmod}, \texttt{wget}, and \texttt{rm}, could suggest interactions with file systems and downloading behaviors. However, these commands are widely used across many attack types, reducing their effectiveness in defining specific attack categories.
             
+            \item Cluster 2, which includes \texttt{busybox} and \texttt{mounts}, is one of the few clusters that might point toward IoT-related attack scenarios, as these commands are frequently used in embedded system environments. However, without additional contextual information, this distinction remains speculative.
+            
+            \item Cluster 6 contains \texttt{shell}, \texttt{system}, and \texttt{name}, but these terms are too generic to draw meaningful conclusions about a particular type of attack.
+            
+        \end{itemize}
+        Overall, while word clouds provide a useful summary of frequent commands, they do not strongly support the hypothesis that the clusters correspond to clearly defined attack patterns.
             
             \begin{figure}[H]
                 \centering
@@ -169,7 +169,7 @@
                     \item The GMM-based community detection aligns with K-Means results, with some additional flexibility in capturing transitional attack patterns. However, the persistence of a dominant cluster in both methods suggests that neither approach fully separates attacks into meaningful, non-overlapping categories.
                 \end{itemize}
                 
-                Overall, while community detection adds another layer of granularity, the results indicate that SSH attack behaviors exhibit significant overlap, making strict segmentation challenging.
+                Overall, while community detection adds another layer of granularity, the results indicate that SSH attack behaviors exhibit significant overlap, making strict segmentation challenging. Additional analysis of the single communities in the appendix. 
                 
                 \begin{figure}[h]
                     \centering
