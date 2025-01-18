@@ -15,6 +15,9 @@
 \usepackage{titlesec}     % For custom formatting
 \usepackage{xcolor}       % For colors
 \usepackage{listings}     % For code snippets
+\usepackage{subcaption}   % For subfigures and subtables
+\usepackage{hyperref}     % For links and references
+\usepackage{enumitem}     % For customizing list formatting and styles
 
 % Custom settings for listings
 \lstset{
@@ -23,14 +26,38 @@
     keywordstyle=\color{blue},          % Style applied to keywords (e.g., "def", "import")
     commentstyle=\color{gray},          % Style applied to comments (e.g., lines starting with "#")
     stringstyle=\color{red},            % Style applied to strings (e.g., text within quotes)
+    % backgroundcolor=\color{gray!10},  % Background color for the code block (light gray in this case)
+    % numbers=left,                     % Displays line numbers on the left side of the code block
+    % numberstyle=\tiny,                % Font size/style for line numbers
+    % stepnumber=1,                     % Line number increment (e.g., every 1 line gets a number)
+    % numbersep=5pt,                    % Distance between the line numbers and the code
     linewidth=0.95\linewidth,           % Code block occupies 80% of text width
-    xleftmargin=-30pt,                  % Moves the listing 20pt closer to the left margin
-    xrightmargin=5pt,                   % Optional: Adds extra padding on the right
+    xleftmargin=-20pt,                  % Moves the listing 20pt closer to the left margin
+    xrightmargin=10pt,                   % Optional: Adds extra padding on the right
     breaklines=true,                    % Automatically breaks long lines to fit within the page width
     captionpos=b,                       % Places the caption below the code block
     abovecaptionskip=5pt,               % Adjusts the space above the caption to 5pt
     belowcaptionskip=8pt,               % Adjusts the space below the caption to 8pt
 }
+
+% Custom settings for hyperref
+% FIXME: update and fix
+\hypersetup{
+    colorlinks=false,            % Disable colored links (use borders instead)
+    linkbordercolor=1 0 0,       % Red border around internal links
+    citebordercolor=0 1 0,       % Green border around citations
+    urlbordercolor=0 1 1,        % Cyan border around URLs
+    filebordercolor=0 .5 .5,     % Teal border around file links
+    pdfpagemode=UseOutlines,     % Open the PDF with bookmarks visible
+}
+
+\newcommand{\cooltext}[1]{%
+  \texttt{\colorbox{gray!15}{\textcolor{black}{#1}}}%
+}
+
+% Configure bullet points with customized size
+\setlist[itemize,1]{label={\Large\textbullet}} % First level: larger bullet point
+\setlist[itemize,2]{label={\Large\textbullet}, leftmargin=2em} % Second level: larger bullet point and indented by 2em
 
 % Remove ACM-specific references and permissions
 \setcopyright{none} % Disable copyright
@@ -97,8 +124,8 @@
 \vspace{-0.3cm}
 
 % Table of Contents
-% \setcounter{tocdepth}{1}
-% \tableofcontents
+\setcounter{tocdepth}{1}
+\tableofcontents
 
 \appendix
 
