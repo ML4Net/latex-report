@@ -90,11 +90,25 @@
 
     \subsection{Hyperparameter Tuning}
     
-        Hyperparameter tuning was conducted with Grid Search method, to optimize the performance of both clustering methods. For K-Means, parameters such as the initialization method (\texttt{k-means++} and \texttt{random}), the number of initializations, and the maximum number of iterations were fine-tuned using a grid search approach. Similarly, GMM parameters including the initialization method (\texttt{kmeans}), covariance type (\texttt{full} and \texttt{spherical}), and tolerance were optimized. These steps ensured the models were tailored to the dataset, resulting in better clustering outcomes.
-
+    To optimize both the K-Means and Gaussian Mixture Model (GMM) clustering approaches, hyperparameter tuning was performed using grid search with cross-validation. For K-Means clustering, the optimal parameters identified were:
+    \begin{itemize}
+        \item \textbf{Initialization method}: k-means++
+        \item \textbf{Number of initializations (n\_init)}: 10
+        \item \textbf{Maximum iterations (max\_iter)}: 50
+    \end{itemize}
+    The final clustering results achieved a silhouette score of 0.9490 and an inertia value of 1708.96. The high silhouette score indicates well-defined and well-separated clusters, while the minimized inertia suggests an efficient clustering structure. For the Gaussian Mixture Model (GMM), the best hyperparameters found were:
+    \begin{itemize}
+        \item \textbf{Covariance Type}: full
+        \item \textbf{Initialization method}: k-means
+        \item \textbf{Maximum iterations (max\_iter)}: 50
+        \item \textbf{Tolerance (tol)}: 0.001
+    \end{itemize}
+    The model's performance was evaluated using a silhouette score of 0.9398 and a log-likelihood score of 508.71. The silhouette score confirms strong cluster separation, while the high log-likelihood indicates that the GMM model effectively captures the underlying distribution of the data.
+    
+    Both clustering techniques provided effective segmentation of the dataset. K-Means exhibited a slightly higher silhouette score, suggesting better-defined cluster boundaries, while GMM’s higher log-likelihood highlights its ability to model complex, overlapping clusters.
     \subsection{Clusters Visualization}
     
-        To visualize the clustering results, t-SNE dimensionality reduction was applied. Its functionalities makes it an excellent choice for visualizing clusters in datasets where direct interpretation is difficult due to high dimensionality. By projecting the data into a two-dimensional space, t-SNE enables us to identify patterns and groupings that may not be evident in the original feature space. The two-dimensional plots provided a clear representation of the clusters formed by both K-Means and GMM, highlighting their separability and internal consistency.
+        To better understand the structure of the clusters, t-SNE dimensionality reduction was applied. While t-SNE is effective for visualizing high-dimensional data, its interpretation must align with clustering validation metrics. 
         
         \begin{figure}[h]
             \centering
@@ -115,26 +129,30 @@
 
         \subsubsection{K-Means Visualization \\}
 
-            The t-SNE visualization provides a two-dimensional representation of the 10 clusters identified by the K-Means algorithm. This graph highlights the spatial distribution and separability of the clusters in the dataset.
+        The t-SNE visualization of K-Means clustering reveals that a significant portion of the dataset is assigned to a dominant red cluster. While this cluster appears dense, it raises concerns about the method’s ability to differentiate between distinct attack types. The blue and purple clusters are more compact and well-separated, suggesting a few meaningful subgroups. However, several smaller clusters are sparsely distributed, potentially indicating outliers rather than well-formed attack patterns. This visualization suggests that a majority of attacks are grouped together, limiting the effectiveness of this approach.
 
-            Distinct cluster groupings are visible, with some clusters (e.g., the orange and purple clusters) forming highly compact and dense regions. This indicates strong intra-cluster similarity and effective separation from other clusters. Conversely, a few clusters (e.g., the red and yellow clusters) are more dispersed, suggesting potential overlap or variability in their features.
-
-            The visualization demonstrates that K-Means effectively partitions the dataset into meaningful groups, with well-defined boundaries for most clusters. However, the presence of dispersed clusters may reflect the complexity of certain patterns in the dataset, indicating that some attack behaviors share overlapping features. Overall, the t-SNE plot validates the clustering results by showing clear differentiation among the majority of the clusters.
-      
         \subsubsection{GMM Visualization \\}
-
-            The clusters exhibit distinct groupings, with some (e.g., the red and blue clusters) forming tightly packed regions that indicate strong intra-cluster similarity and minimal overlap. However, other clusters (e.g., the orange cluster) are more dispersed, reflecting the probabilistic nature of GMM, which allows for overlapping data points and accounts for uncertainties in cluster assignment.
-
-            Compared to the K-Means visualization, the GMM-based clusters appear more balanced in size and density. This suggests that GMM is effectively capturing the natural variability and overlapping characteristics within the dataset. Overall, the t-SNE plot validates the clustering results, showing that GMM provides a nuanced partitioning of the dataset while accommodating the complexities inherent in the data.
+        
+        The t-SNE visualization of GMM clustering reveals a different structure. Unlike K-Means, which forces strict cluster assignments, GMM probabilistically associates data points with multiple clusters. The resulting visualization displays smoother transitions between clusters, particularly in peripheral areas. However, a large central cluster remains dominant, similar to K-Means. This suggests that while GMM captures more complex attack distributions, it does not necessarily provide significantly better differentiation between attacks. The presence of overlapping points implies that GMM is better suited for identifying gradual variations in attack behaviors rather than strict categorization.
 
     \subsection{Clusters Analysis}
 
         \subsubsection{Word Cloud Representation \\}
 
-            Word clouds were generated for each cluster to highlight the most significant terms. These visualizations provided an intuitive understanding of the key features within each cluster by emphasizing frequently occurring terms. The approach helped in identifying the distinguishing characteristics of each cluster, offering insights into the behavioral patterns and intents associated with different attack sessions.
+            Word clouds were generated to highlight dominant terms in each cluster. The clusters display considerable overlap in command usage.
 
-            The word clouds revealed dominant keywords for specific clusters, such as commands, parameters, or phrases frequently used in SSH attacks. This information serves as a valuable reference for understanding the nature of the clustered attack sessions, aiding in further analysis and interpretation of the underlying data.
-
+            \begin{itemize}
+                \item Clusters 1, 7, and 9 prominently feature terms such as \texttt{grep}, \texttt{var}, and \texttt{tmp}, suggesting an emphasis on system navigation and information retrieval. However, similar terms appear in multiple clusters, making it difficult to distinguish attack types based solely on these keywords.
+                \item Clusters 0 and 3 highlight \texttt{unix}, \texttt{tmp}, and \texttt{x19}, which may indicate system configuration activity. However, these terms do not clearly define unique attack patterns.
+                \item Clusters 5 and 8 contain terms like \texttt{chmod}, \texttt{wget}, and \texttt{rm}, suggesting file modification and deletion activities. While these behaviors align with attack patterns, their occurrence in multiple clusters weakens their ability to define distinct groups.
+                \item Cluster 4 prominently features \texttt{ssh}, \texttt{authorizedkeys}, and \texttt{passwd}, aligning well with authentication-related attacks.
+                \item Cluster 2, associated with \texttt{busybox} and \texttt{mounts}, appears indicative of IoT-related attack scenarios, a distinction that adds value to the clustering results.
+                \item Cluster 6 is characterized by \texttt{shell}, \texttt{system}, and \texttt{name}, but these are general system commands that appear in multiple clusters, reducing their discriminative power.
+            \end{itemize}
+            
+            While word clouds help in summarizing cluster features, the significant overlap in dominant terms suggests that the clustering results may not provide fine-grained distinctions between different attack types.
+            
+            
             \begin{figure}[H]
                 \centering
                 \includegraphics[width=0.9\textwidth]{../figures/plots/section3/circular_wordclouds.png}
@@ -144,10 +162,15 @@
             
             \subsubsection{Community Detection \\}
             
-                Graph-based community detection was performed within selected clusters to identify subgroups. This approach involves constructing a graph where nodes represent features or sessions, and edges indicate relationships or co-occurrences within the data. The greedy\_modularity\_communities method was applied to detect communities, maximizing modularity to ensure well-defined groups.
+                Graph-based community detection was applied to further segment clusters into subgroups. The results indicate that specific communities focus on distinct attack behaviors:
 
-                The analysis revealed meaningful relationships and substructures within the clusters, helping to further refine the understanding of the dataset's internal patterns. These subgroups highlight finer-grained distinctions within the clusters, such as frequently occurring command sequences or behavioral traits common to specific attack types. Visualizations of these detected communities provide insights into the interconnectedness of the data and potential hierarchical structures in SSH attack patterns.
-
+                \begin{itemize}
+                    \item The K-Means-based community detection identified well-defined subgroups, but many commands appear across multiple communities, indicating overlapping behaviors.
+                    \item The GMM-based community detection aligns with K-Means results, with some additional flexibility in capturing transitional attack patterns. However, the persistence of a dominant cluster in both methods suggests that neither approach fully separates attacks into meaningful, non-overlapping categories.
+                \end{itemize}
+                
+                Overall, while community detection adds another layer of granularity, the results indicate that SSH attack behaviors exhibit significant overlap, making strict segmentation challenging.
+                
                 \begin{figure}[h]
                     \centering
                     \begin{minipage}[c]{0.47\textwidth}
@@ -165,10 +188,9 @@
                     \end{minipage}
                 \end{figure}
             
-                These visualizations demonstrate that distinct subgroups exist within Cluster 0. For K-Means, the graph reveals tight communities (e.g., green or pink) that suggest strong intra-community similarities, whereas more dispersed connections (e.g., cyan or orange) indicate weaker relationships. In contrast, the GMM graph shows balanced community sizes, reflecting GMM's probabilistic approach, which accounts for overlapping data points. 
-
-                Overall, these detected communities provide finer-grained categorizations of attack patterns, enabling a deeper understanding of SSH attack behaviors beyond standard clustering methods.
 
     \subsection{Conclusion}
-    
-        This analysis provided valuable insights into the patterns of SSH attacks through clustering. The K-Means and GMM algorithms both effectively identified meaningful clusters, as supported by validation metrics and visualizations. Hyperparameter tuning further enhanced the performance of both models. The results demonstrate the potential of unsupervised learning in uncovering hidden patterns in complex datasets, providing a foundation for future applications such as anomaly detection and improved cybersecurity strategies.
+        
+
+        This analysis provided insights into SSH attack patterns through clustering, using both K-Means and GMM. While validation metrics and hyperparameter tuning optimized the models, the visualized results indicate significant overlap between clusters, suggesting challenges in achieving well-separated attack groupings. The presence of dominant clusters encompassing much of the dataset hints at either insufficient feature discrimination or limitations in the chosen clustering techniques. Despite these challenges, the study demonstrates the potential of unsupervised learning in revealing underlying structures in SSH attack data, forming a basis for further refinement in cybersecurity threat detection.
+        

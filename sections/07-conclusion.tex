@@ -15,9 +15,11 @@
 
         \textbf{Supervised Learning - Classification:} We implemented and evaluated several machine learning models, including Logistic Regression, Random Forest, and Support Vector Machine (SVM). Hyperparameter tuning improved the performance of these models, and the result analysis highlighted the strengths and weaknesses of each approach.
 
-        \textbf{Unsupervised Learning - Clustering:} Clustering techniques, such as K-Means and Gaussian Mixture Models (GMM), were used to group similar attack sessions. The elbow method and silhouette analysis helped determine the optimal number of clusters. Cluster visualization using t-SNE provided a clear representation of the clusters, and cluster analysis revealed common patterns and behaviors within each group.
+        \textbf{Unsupervised Learning - Clustering:} Clustering techniques, such as K-Means and Gaussian Mixture Models (GMM), were used to group similar attack sessions. The elbow method and silhouette analysis helped determine the optimal number of clusters. Cluster visualization using t-SNE technique has not provided a clear distincion among the clusters. This could prove that the chosen unsupervised learning models are not suitable for this type of dataset. 
 
-        \textbf{Language Model Exploration:} We explored the use of advanced language models, such as BERT, for classifying attack session tactics. Fine-tuning the pretrained BERT model on our dataset improved classification performance. Learning curves indicated the optimal number of epochs for training, helping to avoid overfitting.
+        \textbf{Language Model Exploration:} We explored the use of advanced language models, such as BERT, for classifying attack session tactics. Fine-tuning the pretrained BERT model on our dataset improved classification performance. Learning curves indicated the optimal number of epochs for training, helping to avoid overfitting. 
+
+        By comparing different types of machine learning techniques and their results, we can understand that, for the applied dataset, a classification methodology based on semantics and LLM can yield more significant results compared to analyzing the same data using basic machine learning technique(unsupervised learning \/ basic classification).
 
     \subsection{Challenges Faced}
     
