@@ -20,16 +20,6 @@
         
     \subsection{Model Performance Metrics}
 
-        \subsubsection{3D ROC Analysis}
-
-            The 3D ROC curve (Figure \ref{fig:3d_roc}) illustrates:
-
-            \begin{itemize}
-                \item Superior performance for Execution class (green line)
-                \item Strong performance for Discovery class (orange line)
-                \item Slightly lower but still good performance for Defense Evasion (blue line)
-            \end{itemize}
-
         \subsubsection{Class-wise F1 Scores}
         
             The model demonstrates varying performance across classes (Figure \ref{fig:f1_scores}):
@@ -77,43 +67,37 @@
             \centering
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
-                \includegraphics[width=0.6\textwidth]{../figures/plots/section4/3d_roc_curve.png}
-                \caption{3D ROC curves showing the performance trade-off between true positive rate and false positive rate across different classification thresholds for Defense Evasion, Discovery, and Execution classes.}
-                \label{fig:3d_roc}
-            \end{minipage}
-            \hfill
-            \begin{minipage}[c]{0.47\textwidth}
-                \centering
                 \vspace{0.1cm}
                 \includegraphics[width=\textwidth]{../figures/plots/section4/f1_scores.png}
                 \caption{F1 scores across different classes showing the model's classification performance for each category.}
                 \label{fig:f1_scores}
             \end{minipage}
-        \end{figure}
-        
-        \begin{figure}[h]
-            \centering
+            \hfill
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section4/performance_metrics.png}
                 \caption{Detailed breakdown of Precision, Recall, and F1 scores for each class.}
                 \label{fig:performance_metrics}
             \end{minipage}
-            \hfill
+        \end{figure}
+        
+        \begin{figure}[h]
+            \centering
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section4/precision_recall_curves.png}
                 \caption{Precision-Recall curves for each class showing the trade-off between precision and recall at different classification thresholds.}
                 \label{fig:pr_curves}
             \end{minipage}
+            \hfill
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=0.7\textwidth]{../figures/plots/section4/probability_histograms.png}
+                \caption{Distribution of prediction probabilities for each class showing the model's confidence in its predictions.}
+                \label{fig:pred_prob} 
+            \end{minipage}
         \end{figure}
         
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.7\textwidth]{../figures/plots/section4/probability_histograms.png}
-            \caption{Distribution of prediction probabilities for each class showing the model's confidence in its predictions.}
-            \label{fig:pred_prob}    
-        \end{figure}
         
     \subsection{Recommendations for Model Improvement}
 
