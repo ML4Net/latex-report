@@ -31,7 +31,7 @@
     
             \item \textbf{Encoding Intents:}After loading the TF-IDF dataset, the \cooltext{Set\_Fingerprint} column was encoded into multi-label binary format using the MultiLabelBinarizer. Each intent was represented as a binary vector, allowing for simultaneous prediction of multiple labels.
             
-            \item \textbf{Splitting the Data:} The dataset was divided into training (70\%), validation (20\%), and testing (10\%) subsets. Stratified splitting was employed to ensure that all intents were well-represented in each subset.
+            \item \textbf{Splitting the Data:} The dataset was divided into training (70\%) and testing (30\%) subsets. No stratified splitting was used, as some classes had only a single label, and it was important to preserve their representation in the subsets.
         
         \end{enumerate}
 
