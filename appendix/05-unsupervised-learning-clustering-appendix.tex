@@ -7,6 +7,38 @@
     
     % TODO: add subsections
     % TODO: add images
+
+    For K-Means, the community detection process segmented Cluster 0 into distinct subgroups, each associated with different types of attack-related commands. The identified communities are:
+
+        \begin{itemize}
+        \item \textbf{Community 0:} Contains key system administration commands such as \texttt{var}, \texttt{wget}, and \texttt{x19}, indicating potential reconnaissance or system modification behavior.
+        \item \textbf{Community 1:} Includes numeric sequences and encoded strings, suggesting automated attack scripts or encoded payloads.
+        \item \textbf{Community 2:} Features authentication and privilege escalation commands like \texttt{admin}, \texttt{authorizedkeys}, and \texttt{bash}, often linked to unauthorized access attempts.
+        \item \textbf{Community 3:} Focuses on system information gathering with commands like \texttt{cpuinfo}, \texttt{chmod}, and \texttt{cat}, which could indicate enumeration activities.
+        \item \textbf{Community 4:} Contains commands such as \texttt{dota}, \texttt{done}, and \texttt{echo}, possibly linked to custom scripts or malware execution.
+        \item \textbf{Community 5:} Features command-line utilities like \texttt{grep}, \texttt{enable}, and \texttt{head}, potentially associated with reconnaissance.
+        \item \textbf{Community 6:} Includes directory and file operations such as \texttt{ls}, \texttt{mkdir}, and \texttt{mem}, suggesting file system exploration.
+        \item \textbf{Community 7:} Focuses on credential-related commands like \texttt{passwd}, \texttt{password}, and \texttt{mounts}, linked to credential theft or privilege escalation.
+        \item \textbf{Community 8:} Contains data transfer and file manipulation commands like \texttt{rsync}, \texttt{rm}, and \texttt{root}, indicating data exfiltration or malware deployment.
+        \item \textbf{Community 9:} Features execution-related commands such as \texttt{ssh}, \texttt{system}, and \texttt{tar}, likely related to persistence or remote command execution.
+        \item \textbf{Community 10:} Includes Unix-specific commands like \texttt{uname}, \texttt{tmp}, and \texttt{tftp}, which may indicate environment probing or lateral movement techniques.
+        \end{itemize}
+
+        For the Gaussian Mixture Model (GMM), community detection identified similar subgroups, but with a more flexible clustering approach, allowing overlap between different command sets. The detected communities are:
+
+        \begin{itemize}
+        \item \textbf{Community 0:} Shows a focus on system administration commands like \texttt{wget}, \texttt{x19}, and \texttt{var}, which are frequently seen in exploit scripts.
+        \item \textbf{Community 1:} Contains encoded strings and random character sequences, which might indicate obfuscated payloads.
+        \item \textbf{Community 2:} Includes \texttt{admin}, \texttt{bash}, and \texttt{authorizedkeys}, aligning with privilege escalation or credential manipulation.
+        \item \textbf{Community 3:} Displays enumeration commands like \texttt{cpuinfo}, \texttt{chmod}, and \texttt{cat}, highlighting system profiling.
+        \item \textbf{Community 4:} Consists of custom script keywords and execution utilities such as \texttt{dota}, \texttt{done}, and \texttt{echo}.
+        \item \textbf{Community 5:} Groups command-line search utilities like \texttt{grep}, \texttt{enable}, and \texttt{head}, useful for filtering and reconnaissance.
+        \item \textbf{Community 6:} Represents file system operations with \texttt{ls}, \texttt{mkdir}, and \texttt{mem}, suggesting persistence mechanisms.
+        \item \textbf{Community 7:} Includes credential-related commands like \texttt{passwd}, \texttt{password}, and \texttt{mounts}, linked to unauthorized access.
+        \item \textbf{Community 8:} Contains commands such as \texttt{rsync}, \texttt{rm}, and \texttt{root}, commonly used in data exfiltration scenarios.
+        \item \textbf{Community 9:} Features execution and session management commands such as \texttt{ssh}, \texttt{system}, and \texttt{tar}, indicating persistence techniques.
+        \item \textbf{Community 10:} Includes Unix environment commands like \texttt{uname}, \texttt{tmp}, and \texttt{tftp}, which might be used for reconnaissance or system information gathering.
+        \end{itemize}
     
     \begin{lstlisting}[caption={Cluster 0 - K-Means Community Analysis}, label={lst:cluster-0-k-means-community-analysis}]
             Cluster 0 - K-Means Community Analysis:
