@@ -38,13 +38,7 @@
     
         \subsubsection{K-Means Clustering \\}
             
-            The evaluation of the K-Means clustering results is based on the Elbow Method and the Silhouette Score, which provide insights into the optimal number of clusters for the dataset.
-
-            The Elbow Method graph shows a steep decline in clustering error between 3 and 6 clusters, followed by a more gradual decrease as the number of clusters increases. The point of inflection, or "elbow," appears around 6 clusters, suggesting that adding more clusters beyond this point results in diminishing improvements in minimizing intra-cluster variance.
-
-            The Silhouette Score graph exhibits a rapid increase up to 5 clusters, reaching a stable high value of approximately 0.95. A drop is observed around 8 clusters, after which the score gradually increases again, peaking beyond 12 clusters. This pattern indicates that a smaller number of clusters (around 5-6) achieves a strong balance of cohesion and separation, while additional clusters beyond 12 continue to refine the structure with marginal improvements.
-
-            Considering both metrics, the optimal number of clusters for K-Means is likely between 5 and 6, ensuring a trade-off between clustering accuracy and computational efficiency.
+            The evaluation of the K-Means clustering results is based on the Elbow Method and the Silhouette Score, which provide insights into the optimal number of clusters for the dataset. The Elbow Method graph shows a steep decline in clustering error between 3 and 6 clusters, followed by a more gradual decrease as the number of clusters increases. The point of inflection, or "elbow," appears around 6 clusters, suggesting that adding more clusters beyond this point results in diminishing improvements in minimizing intra-cluster variance. The Silhouette Score graph exhibits a rapid increase up to 5 clusters, reaching a stable high value of approximately 0.95. A drop is observed around 8 clusters, after which the score gradually increases again, peaking beyond 12 clusters. This pattern indicates that a smaller number of clusters (around 5-6) achieves a strong balance of cohesion and separation, while additional clusters beyond 12 continue to refine the structure with marginal improvements. Considering both metrics, the optimal number of clusters for K-Means is likely between 5 and 6, ensuring a trade-off between clustering accuracy and computational efficiency.
         
         \subsubsection{Gaussian Mixture Model (GMM) \\}
 
@@ -55,7 +49,7 @@
             The Log-Likelihood Score graph indicates a rapid increase from 3 to 5 clusters, after which the improvements become more gradual. Beyond 12 clusters, the score stabilizes, indicating diminishing returns in model fitting. This suggests that while increasing the number of clusters provides better representation of the data, the most significant improvements occur within the first few increments.
 
             Considering both metrics, an optimal cluster configuration is likely between 6 and 8 clusters, balancing cluster separation, model likelihood, and computational efficiency..
-            
+
         % \vspace{-0.3cm}
         
         \begin{figure}[h]
@@ -96,7 +90,7 @@
 
     \subsection{Hyperparameter Tuning}
     
-        Hyperparameter tuning was conducted to optimize the performance of both clustering methods. For K-Means, parameters such as the initialization method (\texttt{k-means++} and \texttt{random}), the number of initializations, and the maximum number of iterations were fine-tuned using a grid search approach. Similarly, GMM parameters including the initialization method (\texttt{kmeans}), covariance type (\texttt{full} and \texttt{spherical}), and tolerance were optimized. These steps ensured the models were tailored to the dataset, resulting in better clustering outcomes.
+        Hyperparameter tuning was conducted with Grid Search method, to optimize the performance of both clustering methods. For K-Means, parameters such as the initialization method (\texttt{k-means++} and \texttt{random}), the number of initializations, and the maximum number of iterations were fine-tuned using a grid search approach. Similarly, GMM parameters including the initialization method (\texttt{kmeans}), covariance type (\texttt{full} and \texttt{spherical}), and tolerance were optimized. These steps ensured the models were tailored to the dataset, resulting in better clustering outcomes.
 
     \subsection{Clusters Visualization}
     
