@@ -53,7 +53,7 @@
         
             \item The model was trained using the AdamW optimizer with a learning rate of $4 \times 10^{-5}$, betas of (0.9, 0.98), and an epsilon of $1 \times 10^{-6}$.
 
-            \item A linear learning rate scheduler was used with no warmup steps and a total of \cooltext{num\_training\_steps} steps.
+            \item A linear learning rate scheduler was used with no warmup steps and a total of (8739 batches * 10) steps.
 
             \item The \cooltext{BCEWithLogitsLoss} loss function was applied for multi-label classification.
 
@@ -67,7 +67,7 @@
         
             \item Metrics included precision, recall, F1-score, and ROC-AUC for each intent class.
 
-            \item ROC curves were generated for each class to visualize the trade-off between true positive rate and false positive rate.
+            \item ROC curves were generated for each class to visualize the trade-off between TP rate and FP rate.
 
             \item Training and validation loss curves were plotted to monitor the model's learning progress over epochs.
             
@@ -81,6 +81,8 @@
             The training and validation loss curves shown in Figure~\ref{fig:loss} indicate a consistent decrease in both losses over the epochs, suggesting that the model is learning effectively. The training loss and validation loss both trend downwards, with no significant signs of overfitting, as the validation loss does not increase while the training loss decreases. This convergence implies that the model generalizes well to the validation data.
             
             However, it is important to note that while the losses show a consistent decrease, we do not know for how much longer this trend could continue. The optimal number of epochs remains unclear, as we stopped training after 4 epochs due to resource constraints. Further experimentation with additional epochs could provide deeper insights into the model's learning dynamics and potentially improve performance. 
+            
+            \vspace{-0.1cm}
             
             \begin{figure}[h]
                 \centering
@@ -98,6 +100,8 @@
                     \label{fig:roc}
                 \end{minipage}
             \end{figure}
+            
+            \vspace{-0.2cm}
 
         \subsubsection{ROC Curves \\}
 
@@ -106,7 +110,9 @@
         \subsubsection{Test Metrics \\}
         
             The model achieved the following high weighted metrics on the test set:
+            
             \vspace{-0.2cm}
+            
             \begin{table}[h]
                 \centering
                 \begin{tabular}{|c|c|c|c|}
@@ -117,6 +123,7 @@
                     \hline
                 \end{tabular}
             \end{table}
+            
             \vspace{-0.2cm}
             
             These weighted metrics indicate superior performance, capturing most positive cases accurately while accounting for class imbalance. 

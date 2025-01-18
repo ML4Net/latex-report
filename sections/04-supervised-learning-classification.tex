@@ -25,7 +25,7 @@
     
         Unlike BoW, which merely counts word occurrences without differentiating their relevance, TF-IDF downweights frequently occurring words that may not carry significant information (e.g., common command-line syntax) and upweights rare but potentially more meaningful terms. This property helps improve the model's ability to differentiate between different types of attacks and intents.
     
-        To prepare the data for supervised learning:
+        \noindent To prepare the data for supervised learning:
 
         \begin{enumerate}
     
@@ -35,7 +35,7 @@
         
         \end{enumerate}
 
-        These steps ensured the dataset was clean and ready for supervised learning.
+        \noindent These steps ensured the dataset was clean and ready for supervised learning.
 
     \subsection{Model Training}
     
@@ -87,34 +87,12 @@
         
             For SVM, the grid search varied the regularization parameter \( C \) (0.1, 1, 10, 100) and the kernel type (linear and RBF). Additional tuning for the RBF kernel included the gamma parameter (scale and auto).
 
-            \subsection{Results and Observations}
+    \subsection{Results and Observations}
             
-            \subsubsection*{Performance Overview with Base Models\\}
+        \subsubsection*{Performance Overview with Base Models\\}
+            
             Both the Random Forest and SVM models exhibited high classification performance across most attack categories. On the test set, both models achieved similar overall metrics: a weighted precision of 0.999, recall of 0.994, and F1-score of 0.996 for Random Forest and 0.995 for SVM. The confusion matrices (Figures~\ref{fig:rf_cm_base} and~\ref{fig:svm_cm_base}) reveal that both models performed well for major attack types such as Defense Evasion, Execution, and Persistence, but struggled with the Impact category. These results suggest that the dataset structure allowed both models to classify well-represented categories effectively while facing difficulties with underrepresented ones.
             
-            \subsubsection*{Hyperparameter Analysis\\}
-            Hyperparameter tuning led to minimal improvements for both models. The best configuration for Random Forest included a max depth of 50, min samples per leaf of 1, min samples per split of 5, and 50 estimators, resulting in a cross-validation score of 0.9955 (Figure~\ref{fig:rf_f1_tuning}). Similarly, SVM achieved its optimal performance with \( C = 100 \), an RBF kernel, and gamma set to 'scale', leading to a cross-validation score of 0.9954 (Figure~\ref{fig:svm_f1_tuning}). 
-            
-            Post-tuning, both models exhibited slightly improved confidence in predictions, but the challenges in classifying minority classes remained largely unchanged.
-            
-            \subsubsection*{Comparative Analysis of Baseline and Optimized Models\\}
-            The optimized models provided only marginal improvements over their respective baselines. Random Forest experienced a 1.50\% increase in weighted F1-score, while SVM improved from 0.9821 to 0.9966, reflecting a 1.48\% gain. Probability density distributions (see Appendix) indicate that both models produced more confident predictions, reducing false positives and false negatives. However, the Impact category continued to pose classification difficulties, highlighting the persistent issue of class imbalance.
-
-            \subsection{Conclusion}
-            Both Random Forest and SVM demonstrated strong performance in this supervised learning task, with highly comparable results. Random Forest offered slightly better overall generalization across attack categories, while SVM required more fine-tuning to achieve similar performance. 
-            
-            \subsubsection{Comparative Model Analysis\\}
-            Key insights from the comparative analysis are as follows:
-            \begin{itemize}
-                \item Both models exhibited nearly identical classification performance between the base version and the tuned one.
-                \item Both models offers similar performances, but Random Forest showed a better generalization.
-                \item Both models struggled with the Impact category due to dataset imbalance.
-            \end{itemize}
-            
-            These findings indicate that the choice between Random Forest and SVM should be guided by specific security application needs rather than raw performance metrics, as their results are largely equivalent. Future work should focus on handling class imbalance and incorporating alternative methods to improve rare attack classification.
-            
-        
-        
     % Plot pages
         
         \clearpage
@@ -244,3 +222,33 @@
             \end{minipage}
             
         \end{figure}
+        
+        \clearpage
+        
+    % Continue with the text
+            
+        \subsubsection*{Hyperparameter Analysis\\}
+        
+            Hyperparameter tuning led to minimal improvements for both models. The best configuration for Random Forest included a max depth of 50, min samples per leaf of 1, min samples per split of 5, and 50 estimators, resulting in a cross-validation score of 0.9955 (Figure~\ref{fig:rf_f1_tuning}). Similarly, SVM achieved its optimal performance with \( C = 100 \), an RBF kernel, and gamma set to 'scale', leading to a cross-validation score of 0.9954 (Figure~\ref{fig:svm_f1_tuning}). 
+            
+            Post-tuning, both models exhibited slightly improved confidence in predictions, but the challenges in classifying minority classes remained largely unchanged.
+            
+        \subsubsection*{Comparative Analysis of Baseline and Optimized Models\\}
+        
+            The optimized models provided only marginal improvements over their respective baselines. Random Forest experienced a 1.50\% increase in weighted F1-score, while SVM improved from 0.9821 to 0.9966, reflecting a 1.48\% gain. Probability density distributions (see Appendix) indicate that both models produced more confident predictions, reducing false positives and false negatives. However, the Impact category continued to pose classification difficulties, highlighting the persistent issue of class imbalance.
+
+    \subsection{Conclusion}
+    
+        Both Random Forest and SVM demonstrated strong performance in this supervised learning task, with highly comparable results. Random Forest offered slightly better overall generalization across attack categories, while SVM required more fine-tuning to achieve similar performance. 
+            
+        \subsubsection{Comparative Model Analysis\\}
+        
+            Key insights from the comparative analysis are as follows:
+            
+            \begin{itemize}
+                \item Both models exhibited nearly identical classification performance between base and tuned versions.
+                \item Both models offers similar performances, but Random Forest showed a better generalization.
+                \item Both models struggled with the Impact category due to dataset imbalance.
+            \end{itemize}
+            
+        These findings indicate that the choice between Random Forest and SVM should be guided by specific security application needs rather than raw performance metrics, as their results are largely equivalent. Future work should focus on handling class imbalance and incorporating alternative methods to improve rare attack classification.
