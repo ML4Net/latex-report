@@ -9,19 +9,22 @@
     
         
     During our analysis, we experimented with different preprocessing techniques on the same dataset, leading to variations in cluster formations. Some preprocessing methods resulted in clearer separations, while others introduced more overlap between clusters. Given the interesting differences observed, we have included these visualizations in the appendix. We think that these visualizations could provide another perspective on the clustering results and help in understanding the impact of preprocessing on the clustering outcomes.
-
-        \begin{figure}[H]
+        
+        \begin{figure}[h]
             \centering
-            \includegraphics[width=0.7\textwidth]{../figures/plots/section3/tsne_kmeans_clusters_1.png}
-            \caption{t-SNE Visualization of K-Means Clusters}
-            \label{fig:tsne_kmeans}
-        \end{figure}
-
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.7\textwidth]{../figures/plots/section3/tsne_gmm_clusters_1.png}
-            \caption{t-SNE Visualization of GMM Clusters}
-            \label{fig:tsne_gmm}
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/tsne_kmeans_clusters_1.png}
+                \caption{t-SNE Visualization of K-Means Clusters}
+                \label{fig:tsne_kmeans}
+            \end{minipage}
+            \hfill
+            \begin{minipage}[c]{0.47\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{../figures/plots/section3/tsne_gmm_clusters_1.png}
+                \caption{t-SNE Visualization of GMM Clusters}
+                \label{fig:tsne_gmm}
+            \end{minipage}
         \end{figure}
         
     \subsection{Intent distribution} % TODO: update
@@ -33,7 +36,7 @@
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/Intent_Distribution_kmeans.png}
-                % \vspace{0cm}
+                \vspace{-0.6cm}
                 \caption{K-Means Intent Distribution}
                 \label{fig:}
             \end{minipage}
@@ -41,11 +44,9 @@
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{../figures/plots/section3/Intent_Distribution_gmm.png}
-                % \vspace{0cm}
+                \vspace{-0.6cm}
                 \caption{GMM Intent Distribution}
                 \label{fig:}
             \end{minipage}
         \end{figure}
-    
-    \clearpage
     

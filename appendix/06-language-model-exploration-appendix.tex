@@ -52,9 +52,11 @@
                 \item Defense Evasion, Discovery, Execution, and Persistence maintain near-perfect precision until very high recall values
             \end{itemize}
 
-        \subsubsection{Prediction Probability Distribution}
+        \subsubsection{Prediction Probability Distribution \\}
 
-            The prediction probability histograms (Figure \ref{fig:pred_prob}) reveal:
+            % The prediction probability histograms (Figure \ref{fig:pred_prob}) reveal:
+            
+            \vspace{-0.2cm}
 
             \begin{itemize}
                 \item Most classes exhibit a strong binary separation in prediction probabilities
@@ -63,11 +65,13 @@
                 \item Harmless and Impact classes show predominantly low-probability predictions, indicating potential class imbalance issues
             \end{itemize}
             
+        \vspace{-0.5cm}
+            
         \begin{figure}[h]
             \centering
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
-                \vspace{0.1cm}
+                \vspace{0.25cm}
                 \includegraphics[width=\textwidth]{../figures/plots/section4/f1_scores.png}
                 \caption{F1 scores across different classes showing the model's classification performance for each category.}
                 \label{fig:f1_scores}
@@ -81,11 +85,15 @@
             \end{minipage}
         \end{figure}
         
+        \vspace{-0.5cm}
+        
         \begin{figure}[h]
             \centering
             \begin{minipage}[c]{0.47\textwidth}
                 \centering
+                \vspace{0.7cm}
                 \includegraphics[width=\textwidth]{../figures/plots/section4/precision_recall_curves.png}
+                \vspace{0.15cm}
                 \caption{Precision-Recall curves for each class showing the trade-off between precision and recall at different classification thresholds.}
                 \label{fig:pr_curves}
             \end{minipage}
@@ -98,6 +106,7 @@
             \end{minipage}
         \end{figure}
         
+        \vspace{-0.3cm}
         
     \subsection{Recommendations for Model Improvement}
 
