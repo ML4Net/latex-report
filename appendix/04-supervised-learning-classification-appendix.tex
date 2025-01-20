@@ -71,11 +71,13 @@
 
             The optimized Logistic Regression model demonstrated a moderate improvement in precision and recall compared to the baseline. However, its overall performance remained slightly inferior to more complex models like Random Forest and SVM. The comparative analysis underscores the importance of selecting models suited to the dataset's characteristics and problem requirements.
             
+            \vspace{-0.1cm}
+            
             \begin{figure}[h]
                 \centering
                 \begin{minipage}[c]{0.47\textwidth}
                     \centering
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_logistic_regression.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section2/weighted_f1_score_for_each_combination_of_parameters_logistic_regression.png}
                     \vspace{-0.15cm}
                     \caption{Weighted F1-Scores for Hyperparameter Tuning}
                     \label{fig:logistic_tuning}
@@ -84,7 +86,7 @@
                 \begin{minipage}[c]{0.47\textwidth}
                     \centering
                     \vspace{0.5cm}
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Logistic_Regression_Metric_comparison.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section2/Logistic_Regression_Metric_comparison.png}
                     \caption{LR Model Comparison}
                     \label{fig:logistic_cm}
                 \end{minipage}
@@ -94,13 +96,13 @@
     
         \subsubsection{Comparative Analysis of Baseline and Optimized Models \\}
         
-            text % TODO: write
+            Here we compare the baseline and optimized Random Forest and Support Vector Machine (SVM) models using metrics such as accuracy, precision, recall, F1-score, and AUC-ROC to evaluate improvements from hyperparameter optimization.
         
             \begin{figure}[h]
                 \centering
                 \begin{minipage}[c]{0.47\textwidth}
                     \centering
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_Metric_comparison.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section2/Random_Forest_Metric_comparison.png}
                     % \vspace{-0.15cm}
                     \caption{RF Model Comparison}
                     \label{fig:logistic_tuning}
@@ -108,30 +110,37 @@
                 \hfill
                 \begin{minipage}[c]{0.47\textwidth}
                     \centering
-                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Logistic_Regression_Metric_comparison.png}
+                    \includegraphics[width=0.8\textwidth]{../figures/plots/section2/Logistic_Regression_Metric_comparison.png}
                     % \vspace{0.5cm}
                     \caption{SVM Model Comparison}
                     \label{fig:logistic_cm}
                 \end{minipage}
             \end{figure}
-        
-        \subsubsection{text \\} % TODO: update
-        
-            text % TODO: write
             
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{../figures/plots/section2/Random_Forest_Probability_distribution.png}
-                \caption{Random Forest Probability Distribution}
-                \label{fig:rf-probability-distribution}
-            \end{figure}
+        \vspace{-0.1cm}
+        
+        \subsubsection{Probability Distributions of Predictions \\}
+        
+            Analyzing the probability distributions of predictions provides insights into the confidence levels of each model. Figures \ref{fig:rf-probability-distribution} and \ref{fig:svm-probability-distribution} depict the probability distributions for the Random Forest and SVM models, respectively. These visualizations help identify cases where the models are uncertain, which is critical for understanding their behavior.
             
-            \begin{figure}[H]
+            The Random Forest model shows a bimodal distribution, with probabilities clustering near 0 and 1. This indicates high confidence for most predictions, with fewer uncertain cases. However, a small subset of predictions near 0.5 suggests some ambiguity in classification.
+            
+            The SVM model, on the other hand, displays a more spread-out probability distribution, reflecting its sensitivity to margin violations and reliance on support vectors. This behavior could lead to better generalization but might introduce uncertainty in certain predictions.
+            
+            \begin{figure}[h]
                 \centering
-                \includegraphics[width=0.7\textwidth]{../figures/plots/section2/SVM_Probability_distribution.png}
-                \caption{SVM Probability Distribution}
-                \label{fig:svm-probability-distribution}
+                \begin{minipage}[c]{0.47\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/Random_Forest_Probability_distribution.png}
+                    \caption{Random Forest Probability Distribution}
+                    \label{fig:rf-probability-distribution}
+                \end{minipage}
+                \hfill
+                \begin{minipage}[c]{0.47\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{../figures/plots/section2/SVM_Probability_distribution.png}
+                    \caption{SVM Probability Distribution}
+                    \label{fig:svm-probability-distribution}
+                \end{minipage}
             \end{figure}
-                
-        \clearpage % TODO: check
         
