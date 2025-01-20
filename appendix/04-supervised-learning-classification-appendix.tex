@@ -65,9 +65,11 @@
 
             The optimized model exhibited improved performance compared to the baseline, particularly for intents with smaller sample sizes. Figure~\ref{fig:logistic_tuning} illustrates the weighted F1-scores for different values of \( C \).
             
-            % TODO: is it possible to add text here
-            
-            \clearpage % TODO: check
+            % Plots have been moved ahead
+
+        \subsubsection{Comparative Analysis of Baseline and Optimized Models \\}
+
+            The optimized Logistic Regression model demonstrated a moderate improvement in precision and recall compared to the baseline. However, its overall performance remained slightly inferior to more complex models like Random Forest and SVM. The comparative analysis underscores the importance of selecting models suited to the dataset's characteristics and problem requirements.
             
             \begin{figure}[h]
                 \centering
@@ -87,10 +89,6 @@
                     \label{fig:logistic_cm}
                 \end{minipage}
             \end{figure}
-
-        \subsubsection{Comparative Analysis of Baseline and Optimized Models \\}
-
-            The optimized Logistic Regression model demonstrated a moderate improvement in precision and recall compared to the baseline. However, its overall performance remained slightly inferior to more complex models like Random Forest and SVM. The comparative analysis underscores the importance of selecting models suited to the dataset's characteristics and problem requirements.
     
     \subsection{Random Forest and SVM}
     
@@ -99,41 +97,41 @@
             text % TODO: write
         
             \begin{figure}[h]
+                \centering
+                \begin{minipage}[c]{0.47\textwidth}
                     \centering
-                    \begin{minipage}[c]{0.47\textwidth}
-                        \centering
-                        \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_Metric_comparison.png}
-                        % \vspace{-0.15cm}
-                        \caption{RF Model Comparison}
-                        \label{fig:logistic_tuning}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}[c]{0.47\textwidth}
-                        \centering
-                        \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Logistic_Regression_Metric_comparison.png}
-                        % \vspace{0.5cm}
-                        \caption{SVM Model Comparison}
-                        \label{fig:logistic_cm}
-                    \end{minipage}
-                \end{figure}
-
-                \begin{minipage}{\textwidth}
-                    \centering
-                    \begin{minipage}[c]{\textwidth}
-                        \centering
-                        \includegraphics[width=0.77\textwidth]{../figures/plots/section2/Random_Forest_Probability_distribution.png}
-                        \label{fig:rf_cm_base}
-                    \end{minipage}%
+                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Random_Forest_Metric_comparison.png}
+                    % \vspace{-0.15cm}
+                    \caption{RF Model Comparison}
+                    \label{fig:logistic_tuning}
                 \end{minipage}
-
-                \begin{minipage}{\textwidth}
+                \hfill
+                \begin{minipage}[c]{0.47\textwidth}
                     \centering
-                    \begin{minipage}[c]{\textwidth}
-                        \centering
-                        \includegraphics[width=0.77\textwidth]{../figures/plots/section2/SVM_Probability_distribution.png}
-                        \label{fig:rf_cm_base}
-                    \end{minipage}%
+                    \includegraphics[width=0.9\textwidth]{../figures/plots/section2/Logistic_Regression_Metric_comparison.png}
+                    % \vspace{0.5cm}
+                    \caption{SVM Model Comparison}
+                    \label{fig:logistic_cm}
                 \end{minipage}
+            \end{figure}
+        
+        \subsubsection{text \\} % TODO: update
+        
+            text % TODO: write
+            
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.7\textwidth]{../figures/plots/section2/Random_Forest_Probability_distribution.png}
+                \caption{Random Forest Probability Distribution}
+                \label{fig:rf-probability-distribution}
+            \end{figure}
+            
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.7\textwidth]{../figures/plots/section2/SVM_Probability_distribution.png}
+                \caption{SVM Probability Distribution}
+                \label{fig:svm-probability-distribution}
+            \end{figure}
                 
         \clearpage % TODO: check
         
